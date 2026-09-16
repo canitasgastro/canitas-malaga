@@ -17,7 +17,7 @@
 
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="site-header">
-  <div class="header-inner">
+  <div class="header-pill">
     <a href="#top" class="logo" aria-label="Cañitas Maite — Inicio">
       <svg class="logo-mark" viewBox="0 0 656.46 231.7" aria-hidden="true">
         <g fill="currentColor">
@@ -38,36 +38,41 @@
       </svg>
     </a>
 
+    <nav class="pill-nav" aria-label="Espacios">
+      <a href="#ene">Eñe</a>
+      <a href="#canitas-maite">Cañitas Maite</a>
+      <a href="#fresco">Al Fresco</a>
+    </nav>
+
     <div class="header-actions">
-      <a class="btn btn-primary btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
+      <a class="btn btn-primary-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
       <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-menu" aria-label="Abrir menú">
         <span class="menu-icon" aria-hidden="true">
           <span></span><span></span><span></span>
         </span>
       </button>
     </div>
-  </div>
 
-  <nav class="site-menu" id="site-menu" aria-label="Menú principal" data-open="false">
-    <ul>
-      <li><a href="#contacto" data-close-menu>Cómo llegar</a></li>
-      <li><a href="https://www.instagram.com/canitas_malaga/" target="_blank" rel="noopener">Instagram</a></li>
-      <li><a href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver la carta</a></li>
-      <li><a href="#proyecto" data-close-menu>El proyecto</a></li>
-      <li><a href="#contacto" data-close-menu>Contacto</a></li>
-    </ul>
-  </nav>
+    <nav class="site-menu" id="site-menu" aria-label="Menú principal" data-open="false">
+      <ul>
+        <li><a href="#ene" data-close-menu>Eñe Lobby Bar</a></li>
+        <li><a href="#canitas-maite" data-close-menu>Cañitas Maite</a></li>
+        <li><a href="#fresco" data-close-menu>Cañitas al Fresco</a></li>
+        <li><a href="#contacto" data-close-menu>Cómo llegar</a></li>
+        <li><a href="https://www.instagram.com/canitas_malaga/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver la carta</a></li>
+        <li><a href="#proyecto" data-close-menu>El proyecto</a></li>
+        <li><a href="#contacto" data-close-menu>Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <main id="contenido">
 
   <!-- ============ CHOOSER — las tres opciones, al primer vistazo ============ -->
   <section class="chooser" id="top">
-    <div class="chooser-intro">
-      <p class="eyebrow">ME Málaga by Meliá · Calle Victoria, 6</p>
-      <h1 class="chooser-title">Tres plantas,<br class="br-desktop"> una misma casa</h1>
-      <p class="chooser-sub">Elige dónde te apetece estar hoy.</p>
-    </div>
+    <p class="chooser-caption">ME Málaga by Meliá · Calle Victoria, 6 — Tres plantas, una misma casa</p>
 
     <div class="chooser-grid" id="espacios" aria-label="Los tres espacios de Cañitas Maite">
 
@@ -75,14 +80,18 @@
         <img class="chooser-photo" data-parallax-layer src="assets/img/ene-hero.jpg" alt="Barra circular de Eñe Lobby Bar, con la firma ME Málaga en la pared de madera" loading="eager" fetchpriority="high">
         <span class="chooser-overlay" aria-hidden="true"></span>
         <span class="chooser-content">
-          <span class="chooser-floor">Planta baja</span>
-          <img class="chooser-logo" src="assets/logos/ene-cream.png" alt="Eñe Lobby Bar" width="220" height="156">
-          <span class="chooser-tag">Cocina de calle, elevada</span>
-          <span class="chooser-actions">
-            <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
-            <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+          <span class="chooser-reveal chooser-reveal-top">
+            <span class="chooser-floor">Planta baja</span>
+            <span class="chooser-tag">Cocina de calle, elevada</span>
           </span>
-          <a class="chooser-more" href="#ene">Descubre Eñe Lobby Bar ↓</a>
+          <img class="chooser-logo" src="assets/logos/ene-cream.png" alt="Eñe Lobby Bar" width="220" height="156">
+          <span class="chooser-reveal chooser-reveal-bottom">
+            <span class="chooser-actions">
+              <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
+              <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+            </span>
+            <a class="chooser-more" href="#ene">Descubre Eñe Lobby Bar ↓</a>
+          </span>
         </span>
       </article>
 
@@ -90,7 +99,10 @@
         <img class="chooser-photo" data-parallax-layer src="assets/img/maite-hero.jpg" alt="Mesa vestida en la terraza de Cañitas Maite, con olivos y chimenea de fondo" loading="eager" fetchpriority="high">
         <span class="chooser-overlay" aria-hidden="true"></span>
         <span class="chooser-content">
-          <span class="chooser-floor">Última planta</span>
+          <span class="chooser-reveal chooser-reveal-top">
+            <span class="chooser-floor">Última planta</span>
+            <span class="chooser-tag">El buque insignia, con vistas a la Alcazaba</span>
+          </span>
           <svg class="chooser-logo chooser-logo-svg" viewBox="0 0 656.46 231.7" aria-label="Cañitas Maite">
             <g fill="currentColor">
               <path d="M50.7,22.84c7.38,0,14.22,1.2,20.52,3.59,6.3,2.4,11.88,5.72,16.76,9.96l-3.56,4.71c-1.95-1.65-4.11-3.2-6.49-4.64-2.38-1.44-4.88-2.68-7.51-3.72-2.63-1.04-5.37-1.87-8.21-2.48-2.84-.61-5.7-.92-8.59-.92-6.19,0-11.68,1.12-16.48,3.37-4.79,2.25-8.82,5.32-12.09,9.22-3.27,3.9-5.75,8.46-7.44,13.68-1.7,5.22-2.54,10.81-2.54,16.79s.84,11.37,2.51,16.54c1.67,5.17,4.13,9.71,7.38,13.61,3.24,3.9,7.26,6.99,12.05,9.26,4.79,2.27,10.28,3.4,16.48,3.4,2.97,0,5.98-.3,9.03-.89,3.05-.59,6-1.46,8.84-2.61,2.84-1.14,5.52-2.54,8.05-4.2,2.52-1.65,4.76-3.54,6.71-5.66l3.63,4.64c-5,4.75-10.81,8.46-17.43,11.13-6.62,2.67-13.83,4.01-21.63,4.01-4.71,0-9.22-.58-13.55-1.75-4.33-1.17-8.37-2.83-12.12-4.99-3.75-2.16-7.17-4.74-10.24-7.73-3.08-2.99-5.7-6.31-7.89-9.96-2.18-3.65-3.88-7.56-5.09-11.74-1.21-4.18-1.81-8.53-1.81-13.07s.6-8.93,1.81-13.17c1.21-4.24,2.9-8.2,5.09-11.86,2.18-3.67,4.81-7.01,7.89-10.02,3.07-3.01,6.49-5.59,10.24-7.73,3.75-2.14,7.79-3.81,12.12-4.99,4.33-1.19,8.84-1.78,13.55-1.78Z"/>
@@ -108,12 +120,13 @@
               <path d="M656.46,231.7h-14.75l-5.24-12.33h-51.92l-5.11,12.33h-7.73l34.8-82.77-5.11-12.2h14.94l40.11,94.96ZM587.16,213.12h46.68l-23.57-55.18-23.12,55.18Z"/>
             </g>
           </svg>
-          <span class="chooser-tag">El buque insignia, con vistas a la Alcazaba</span>
-          <span class="chooser-actions">
-            <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
-            <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+          <span class="chooser-reveal chooser-reveal-bottom">
+            <span class="chooser-actions">
+              <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
+              <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+            </span>
+            <a class="chooser-more" href="#canitas-maite">Descubre Cañitas Maite ↓</a>
           </span>
-          <a class="chooser-more" href="#canitas-maite">Descubre Cañitas Maite ↓</a>
         </span>
       </article>
 
@@ -121,14 +134,18 @@
         <img class="chooser-photo" data-parallax-layer src="assets/img/fresco-hero.jpg" alt="Tarta de queso en primer plano con la piscina de Cañitas al Fresco y el skyline de Málaga desenfocados" loading="eager" fetchpriority="high">
         <span class="chooser-overlay" aria-hidden="true"></span>
         <span class="chooser-content">
-          <span class="chooser-floor">Azotea</span>
-          <img class="chooser-logo" src="assets/logos/fresco-cream.png" alt="Cañitas al Fresco" width="260" height="135">
-          <span class="chooser-tag">Rooftop bar &amp; pool, atardeceres largos</span>
-          <span class="chooser-actions">
-            <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
-            <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+          <span class="chooser-reveal chooser-reveal-top">
+            <span class="chooser-floor">Azotea</span>
+            <span class="chooser-tag">Rooftop bar &amp; pool, atardeceres largos</span>
           </span>
-          <a class="chooser-more" href="#fresco">Descubre Cañitas al Fresco ↓</a>
+          <img class="chooser-logo" src="assets/logos/fresco-cream.png" alt="Cañitas al Fresco" width="260" height="135">
+          <span class="chooser-reveal chooser-reveal-bottom">
+            <span class="chooser-actions">
+              <a class="btn btn-ghost-light btn-small" href="https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish" target="_blank" rel="noopener">Reservar mesa</a>
+              <a class="btn btn-text-light btn-small" href="https://hotelcanitasmaite.com/wp-content/uploads/2026/07/CARTARESTAURANTE_CANITASXME.pdf" target="_blank" rel="noopener">Ver carta</a>
+            </span>
+            <a class="chooser-more" href="#fresco">Descubre Cañitas al Fresco ↓</a>
+          </span>
         </span>
       </article>
 
@@ -220,13 +237,20 @@
       <div class="chefs">
         <div class="chefs-photo">
           <img src="assets/img/chefs.jpg" alt="Javier Sanz y Juan Sahuquillo, chefs de Cañitas Maite, en su casa de Casas-Ibáñez" loading="lazy">
+          <span class="chefs-photo-overlay" aria-hidden="true"></span>
+          <span class="chefs-photo-caption">
+            <span class="chefs-eyebrow">Casas-Ibáñez, Albacete · Estrella Michelin</span>
+            <span class="chefs-names">Javier Sanz <span class="amp">&amp;</span> Juan Sahuquillo</span>
+          </span>
         </div>
         <div class="chefs-bios">
           <div class="chef">
+            <span class="chef-index">01</span>
             <h3>Javier Sanz</h3>
             <p>Chef del grupo Cañitas Maite. Manchego, de Casas-Ibáñez. Su cocina lee el producto de La Mancha con técnica contemporánea, sin perder la memoria de la cocina de casa que dio origen al grupo.</p>
           </div>
           <div class="chef">
+            <span class="chef-index">02</span>
             <h3>Juan Sahuquillo</h3>
             <p>Chef del grupo Cañitas Maite. Manchego, de Casas-Ibáñez. Responsable de que cada plato —desde el picoteo de Eñe hasta la alta cocina de la última planta— hable el mismo idioma.</p>
           </div>
