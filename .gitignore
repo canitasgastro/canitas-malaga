@@ -2,3 +2,7 @@
 Thumbs.db
 node_modules/
 .vscode/
+
+# Material fuente sin optimizar (fotos/PDFs originales de la marca).
+# Las versiones optimizadas para la web viven en assets/img y assets/logos.
+/imagenes/
