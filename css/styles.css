@@ -335,7 +335,7 @@ img,svg{ display: block; max-width: 100%; }
   background: var(--ink);
   text-decoration: none;
 }
-.chooser-card + .chooser-card{ margin-left: -1px; }
+.chooser-card + .chooser-card{ margin-left: -2px; }
 
 .chooser-photo{
   position: absolute;
