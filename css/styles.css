@@ -672,33 +672,6 @@ img,svg{ display: block; max-width: 100%; }
   padding-top: 6px;
 }
 
-.stats{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  padding: 40px 0;
-  border-top: 1px solid rgba(255,255,255,0.16);
-  border-bottom: 1px solid rgba(255,255,255,0.16);
-  margin-bottom: 72px;
-}
-.stat{
-  padding-left: clamp(0px, 2vw, 24px);
-  border-left: 1px solid rgba(255,255,255,0.14);
-}
-.stat:first-child{ border-left: none; padding-left: 0; }
-.stat dt{
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 48px);
-  margin-bottom: 8px;
-}
-.stat dd{
-  margin: 0;
-  font-size: 13px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.75);
-  max-width: 24ch;
-}
-
 @media (max-width: 780px){
   .project-header{ grid-template-columns: 1fr; gap: 24px; }
 }
@@ -830,9 +803,6 @@ img,svg{ display: block; max-width: 100%; }
 }
 
 @media (max-width: 700px){
-  .stats{ grid-template-columns: 1fr; gap: 20px; }
-  .stat{ border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,0.14); padding-top: 20px; }
-  .stat:first-child{ border-top: none; padding-top: 0; }
   .chefs-photo{ aspect-ratio: 4 / 5; }
 }
 
