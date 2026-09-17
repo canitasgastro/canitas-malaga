@@ -242,6 +242,9 @@ img,svg{ display: block; max-width: 100%; }
 @media (max-width: 860px){
   .pill-nav{ display: none; }
 }
+@media (max-width: 560px){
+  .header-gift-btn{ display: none; }
+}
 @media (max-width: 480px){
   .site-header{ padding: 12px 16px 0; }
   .header-pill{ gap: 14px; padding: 7px 7px 7px 16px; }
@@ -552,6 +555,74 @@ img,svg{ display: block; max-width: 100%; }
     direction: ltr;
   }
   .detail-media{ max-width: 360px; margin: 0 auto; }
+}
+
+/* ==========================================================================
+   Tienda / bonos regalo
+   ========================================================================== */
+.shop{
+  background: var(--paper-tint);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.shop-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+.shop-copy p{
+  color: var(--ink-soft);
+  max-width: 46ch;
+  margin-bottom: 24px;
+}
+.shop-badge{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.shop-list{
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.shop-list li{
+  display: flex;
+  gap: 18px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.shop-list li:last-child{ border-bottom: none; padding-bottom: 0; }
+.shop-list-index{
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--line-strong);
+  flex: none;
+}
+.shop-list-title{
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+.shop-list small{
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px){
+  .shop-grid{ grid-template-columns: 1fr; }
 }
 
 /* ==========================================================================
