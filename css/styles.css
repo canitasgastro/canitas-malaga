@@ -339,9 +339,11 @@ img,svg{ display: block; max-width: 100%; }
 
 .chooser-photo{
   position: absolute;
-  inset: -10% -10%;
+  top: -10%;
+  left: -10%;
   width: 120%;
   height: 120%;
+  max-width: none;
   object-fit: cover;
   z-index: 0;
   will-change: transform;
