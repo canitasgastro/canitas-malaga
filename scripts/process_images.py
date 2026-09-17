@@ -31,7 +31,7 @@ photos = [
     (os.path.join(IMAGENES, "canitas malaga", "CAÑITASMALAGA_TERRAZA - 13 (1).jpg"), os.path.join(OUT_IMG, "maite-hero.jpg"), 1700),
     (os.path.join(IMAGENES, "canitas malaga", "ESPACIOS - 48 (1).jpg"), os.path.join(OUT_IMG, "fresco-hero.jpg"), 1700),
 
-    (os.path.join(IMAGENES, "enelobbybar", "ceviche-citrico.webp"), os.path.join(OUT_IMG, "ene-detail.jpg"), 1300),
+    (os.path.join(IMAGENES, "enelobbybar", "ESPACIOS - 37.jpg"), os.path.join(OUT_IMG, "ene-detail.jpg"), 1300),
     (os.path.join(IMAGENES, "canitas malaga", "CAÑITASMALAGA_CHULETA - 1.jpg"), os.path.join(OUT_IMG, "maite-detail.jpg"), 1300),
     (os.path.join(IMAGENES, "canitas malaga", "CROQUETA - 1.jpg"), os.path.join(OUT_IMG, "maite-croqueta.jpg"), 1300),
     (os.path.join(IMAGENES, "alfresco-pool", "DSC_5077.jpg"), os.path.join(OUT_IMG, "fresco-detail.jpg"), 1300),
