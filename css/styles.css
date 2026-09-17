@@ -718,6 +718,13 @@ img,svg{ display: block; max-width: 100%; }
   border-top: 1px solid rgba(255,255,255,0.16);
   padding-top: 24px;
 }
+.michelin-note a{
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .2s var(--ease);
+}
+.michelin-note a:hover{ color: var(--paper); }
 
 @media (max-width: 700px){
   .stats{ grid-template-columns: 1fr; gap: 20px; }
