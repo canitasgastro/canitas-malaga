@@ -83,4 +83,51 @@
       }
     });
   });
+
+  /* ---------- Photo galleries (e.g. "El hotel") ---------- */
+  document.querySelectorAll(".hotel-gallery").forEach(function (gallery) {
+    var track = gallery.querySelector(".hotel-gallery-track");
+    var dotsWrap = gallery.querySelector(".hotel-gallery-dots");
+    var prevBtn = gallery.querySelector('[data-dir="-1"]');
+    var nextBtn = gallery.querySelector('[data-dir="1"]');
+    var slides = Array.prototype.slice.call(track.children);
+    if (!slides.length) return;
+
+    var dots = slides.map(function (_, i) {
+      var dot = document.createElement("span");
+      if (i === 0) dot.classList.add("is-active");
+      dot.addEventListener("click", function () { goTo(i); });
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    function goTo(index) {
+      index = Math.max(0, Math.min(slides.length - 1, index));
+      track.scrollTo({ left: slides[index].offsetLeft, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    function currentIndex() {
+      var trackLeft = track.scrollLeft;
+      var closest = 0;
+      var closestDist = Infinity;
+      slides.forEach(function (slide, i) {
+        var dist = Math.abs(slide.offsetLeft - trackLeft);
+        if (dist < closestDist) { closestDist = dist; closest = i; }
+      });
+      return closest;
+    }
+    function syncDots() {
+      var idx = currentIndex();
+      dots.forEach(function (dot, i) { dot.classList.toggle("is-active", i === idx); });
+    }
+
+    if (prevBtn) prevBtn.addEventListener("click", function () { goTo(currentIndex() - 1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { goTo(currentIndex() + 1); });
+
+    var scrollTicking = false;
+    track.addEventListener("scroll", function () {
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(function () { syncDots(); scrollTicking = false; });
+    }, { passive: true });
+  });
 })();
