@@ -1,6 +1,6 @@
 # Cañitas Maite Málaga
 
-Web de Cañitas Maite en Málaga (ME Málaga by Meliá): tres espacios —Eñe Lobby Bar, Cañitas Maite y Cañitas al Fresco— bajo una misma firma culinaria.
+Web de Cañitas Maite en Málaga (ME Málaga by Meliá): dos espacios —Cañitas Maite y Cañitas al Fresco— bajo una misma firma culinaria.
 
 Sitio estático (HTML/CSS/JS, sin build ni dependencias).
 
