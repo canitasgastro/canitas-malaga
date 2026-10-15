@@ -8,7 +8,6 @@ Salidas:
   assets/img/<nombre>.jpg y <nombre>-800.jpg   fotos para la web (1600 px y 800 px)
   assets/img/og-*.jpg                          imágenes para compartir en redes (1200x630)
   assets/icons/                                favicon PNG, apple-touch-icon e iconos de la app
-  assets/menus/                                cartas en PDF (ES / EN)
   wordpress/01-mediateca/                      todo lo anterior a tamaño grande para subir a WordPress
 """
 import os
@@ -19,19 +18,16 @@ import pymupdf
 from PIL import Image, ImageOps
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from media import MENUS, OG, PHOTOS  # noqa: E402
+from media import OG, PHOTOS  # noqa: E402
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMAGENES = os.path.join(BASE, "imagenes")
 OUT_IMG = os.path.join(BASE, "assets", "img")
 OUT_ICONS = os.path.join(BASE, "assets", "icons")
-OUT_MENUS = os.path.join(BASE, "assets", "menus")
 OUT_LOGOS = os.path.join(BASE, "assets", "logos")
 OUT_WP = os.path.join(BASE, "wordpress", "01-mediateca")
-# Carpeta de trabajo con las cartas originales (disco externo).
-MENUS_SRC = os.environ.get("CANITAS_MENUS_SRC", "/Volumes/2TB SANDISK/TRABAJO/CAÑITAS MALAGA/MELIA MALAGA")
 
-for d in (OUT_IMG, OUT_ICONS, OUT_MENUS, OUT_WP):
+for d in (OUT_IMG, OUT_ICONS, OUT_WP):
     os.makedirs(d, exist_ok=True)
 
 
@@ -108,15 +104,3 @@ render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga.svg"), 1200).save(os.pat
 render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga-blanco.svg"), 1200).save(os.path.join(OUT_WP, "logo-canitas-malaga-blanco.png"))
 shutil.copy(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-crema.png"), OUT_WP)
 shutil.copy(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-color.png"), OUT_WP)
-
-print("Cartas en PDF")
-for dst, src in MENUS.items():
-    path = os.path.join(MENUS_SRC, src)
-    if os.path.exists(path):
-        shutil.copy(path, os.path.join(OUT_MENUS, dst))
-        os.chmod(os.path.join(OUT_MENUS, dst), 0o644)
-    else:
-        print("  FALTA (se mantiene la copia actual)", path)
-    if os.path.exists(os.path.join(OUT_MENUS, dst)):
-        shutil.copy(os.path.join(OUT_MENUS, dst), os.path.join(OUT_WP, dst))
-        print(f"  assets/menus/{dst}")

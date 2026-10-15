@@ -150,11 +150,3 @@ OG = {
     "og-canitas-malaga": dict(photo="canitas-malaga-sala-restaurante", logo="maite", focus=0.55),
     "og-canitas-al-fresco": dict(photo="canitas-al-fresco-rooftop-piscina-malaga", logo="fresco", focus=0.45),
 }
-
-# Las cartas en PDF (origen en el disco de trabajo; se copian a assets/menus).
-MENUS = {
-    "carta-canitas-malaga-es.pdf": "CARTARESTAURANTE_CAÑITASXME.pdf",
-    "menu-canitas-malaga-en.pdf": "ENG-CARTARESTAURANTE_CAÑITASXME.pdf",
-    "carta-canitas-al-fresco-malaga-es.pdf": "ALFRESCO-POOL/CARTAPOOL_CAÑITASMAITEXMELIA.pdf",
-    "menu-canitas-al-fresco-malaga-en.pdf": "ALFRESCO-POOL/ENG_CARTAPOOL_CAÑITASMAITEXMELIA.pdf",
-}

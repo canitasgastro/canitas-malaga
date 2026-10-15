@@ -3,7 +3,7 @@
 > **Estado (15/10/2026): la web ya está montada y publicada en https://canitasmalaga.com**
 >
 > - 36 páginas creadas con Elementor (plantilla Elementor Canvas, un contenedor a ancho completo y un widget HTML por página). Las inglesas cuelgan de la página «en» (`/en/...`), sin Polylang.
-> - Mediateca: 41 archivos (fotos, logos, cartas ES/EN) + 3 fuentes, con textos alternativos.
+> - Mediateca: fotos, logos e imágenes para redes + 3 fuentes, con textos alternativos.
 > - WPCode: «SEO, sitemap, llms.txt y fuentes» (hreflang, idioma `en-GB`, llms.txt, subida de .woff2), «Estilos (canitas.css)», «Script (canitas.js)» y «Adobe Fonts (Custard Regular)». Los fragmentos «Carga única…» están desactivados a propósito.
 > - Yoast SEO: título, descripción, imagen para redes y noindex de las legales cargados en cada página; organización Cañitas Málaga con logo e Instagram. Sitemap: `/sitemap_index.xml`, enviado a Search Console.
 > - Site Kit: Analytics (cuenta «Cañitas Maite», propiedad canitasmalaga.com 559057243) y Search Console verificados con marketingcanitasmaite@gmail.com. Modo de consentimiento activado + WP Consent API.
@@ -14,7 +14,7 @@
 Esta carpeta tiene todo lo necesario para subir la web de Cañitas Málaga página a página. Se regenera sola con `python3 scripts/build.py`, así que no la edites a mano: cualquier cambio de texto se hace en `scripts/` y se vuelve a generar.
 
 ```
-01-mediateca/                 Todas las fotos, logos, imágenes para redes y cartas en PDF (ES/EN)
+01-mediateca/                 Todas las fotos, logos e imágenes para redes
 02-estilos-y-script/          canitas.css, canitas.js y las fuentes (canitas-fuentes/)
 03-paginas/es/ y en/          Una página por archivo, lista para pegar en Elementor
 paginas-y-seo.csv             Slug, título SEO, meta descripción e imagen de cada página

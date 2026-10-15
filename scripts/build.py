@@ -93,10 +93,6 @@ ROUTES = {
 }
 LEGAL_KEYS = ("aviso", "privacidad", "cookies", "condiciones")
 
-PDF = {
-    "maite": {"es": "carta-canitas-malaga-es.pdf", "en": "menu-canitas-malaga-en.pdf"},
-    "fresco": {"es": "carta-canitas-al-fresco-malaga-es.pdf", "en": "menu-canitas-al-fresco-malaga-en.pdf"},
-}
 
 esc = html.escape
 
@@ -155,9 +151,6 @@ class Ctx:
             return WP_MEDIA + os.path.basename(rel)
         return self._root() + "assets/" + rel
 
-    def pdf(self, space, lang):
-        return self.asset("menus/" + PDF[space][lang])
-
     def abs_url(self, key, lang=None):
         lang = lang or self.lang
         base = SITE_URL if self.mode == "wp" else PREVIEW_URL
@@ -204,17 +197,23 @@ def logo_svg(cls, label=None):
     return f'<svg class="{cls}" viewBox="0 0 656.46 231.7" {aria}>{LOGO_PATHS}</svg>'
 
 
-def pdf_switch(c, space, light=False):
-    label = c.t("Carta en PDF", "Menu as PDF")
-    cls = "pdf-switch pdf-switch-light" if light else "pdf-switch"
+MENU_ANCHOR = {"maite": "canitas-malaga", "fresco": "canitas-al-fresco"}
+
+
+def menu_lang(c, space, light=False):
+    """Botones para ver la carta web en español o en inglés."""
+    cls = "menu-lang menu-lang-light" if light else "menu-lang"
+    anchor = MENU_ANCHOR[space]
+
+    def a(lang, label):
+        current = ' aria-current="true"' if lang == c.lang else ""
+        return f'<a href="{c.link("carta", lang, anchor)}" hreflang="{lang}" lang="{lang}"{current}>{label}</a>'
     return (
-        f'<div class="{cls}" role="group" aria-label="{label}">'
-        f'<span class="pdf-switch-label">PDF</span>'
-        f'<a href="{c.pdf(space, "es")}" target="_blank" rel="noopener" hreflang="es" lang="es">Español</a>'
-        f'<a href="{c.pdf(space, "en")}" target="_blank" rel="noopener" hreflang="en" lang="en">English</a>'
+        f'<div class="{cls}" role="group" aria-label="{c.t("Ver la carta en otro idioma", "See the menu in another language")}">'
+        f'<span class="menu-lang-label">{c.t("Carta", "Menu")}</span>'
+        f'{a("es", "Español")}{a("en", "English")}'
         f"</div>"
     )
-
 
 def header(c):
     t = c.t

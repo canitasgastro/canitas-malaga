@@ -8,7 +8,7 @@ intención de búsqueda distinta con contenido propio:
   restaurante-con-vistas      restaurante con vistas Málaga / restaurant with a view
   rooftop-malaga              rooftop / azotea Málaga / rooftop bar Málaga
 """
-from build import (EMAIL, MAPS, PHONE, hours_text, breadcrumb_ld, fresco_ld, page_hero, pdf_switch, restaurant_ld)
+from build import (EMAIL, MAPS, PHONE, hours_text, breadcrumb_ld, fresco_ld, page_hero, menu_lang, restaurant_ld)
 from pages import cta_band, gallery, strip_tags
 
 
@@ -101,7 +101,8 @@ def more_links(c, current):
 def book_actions(c, menu_anchor="canitas-malaga"):
     t = c.t
     return (f'<a class="btn btn-primary-light" href="{c.link("reservas")}">{t("Reservar mesa", "Book a table")}</a>'
-            f'<a class="btn btn-ghost-light" href="{c.link("carta", anchor=menu_anchor)}">{t("Ver la carta", "See the menu")}</a>')
+            f'<a class="btn btn-ghost-light" href="{c.link("carta", anchor=menu_anchor)}">{t("Ver la carta", "See the menu")}</a>'
+            f'<a class="btn btn-ghost-light" href="{c.link("carta", anchor="menus")}">{t("Ver menús", "Set menus")}</a>')
 
 
 def walk_list(c):
@@ -130,8 +131,8 @@ def centro(c):
          t("Tienes el Menú Classics por 39 € por persona (de lunes a jueves) y el Menú Hits por 69 € por persona (todos los días). A la carta, los platos van de 8 € a 65 € y están pensados para compartir.",
            "There is the Classics Menu at €39 per person (Monday to Thursday) and the Hits Menu at €69 per person (every day). À la carte, dishes range from €8 to €65 and are made for sharing.")),
         (t("¿Tenéis carta en inglés?", "Do you have an English menu?"),
-         t(f'Sí. Puedes consultarla en la web o descargarla en PDF desde <a href="{c.link("carta")}">la carta</a>.',
-           f'Yes. You can read it online or download it as a PDF from <a href="{c.link("carta")}">the menu page</a>.')),
+         t(f'Sí. Puedes consultarla en español o en inglés en <a href="{c.link("carta")}">la carta</a>.',
+           f'Yes. You can read it in English or Spanish on <a href="{c.link("carta")}">the menu page</a>.')),
     ]
     hero = page_hero(c, "Calle Victoria, 6 · Plaza de la Merced",
                      t("Restaurante en el centro de Málaga", "Restaurant in Málaga old town"),
@@ -357,13 +358,13 @@ def rooftop(c):
          t("En la azotea del hotel ME Málaga by Meliá, Calle Victoria 6, junto a la Plaza de la Merced, en el centro de Málaga.",
            "On the rooftop of ME Málaga by Meliá, Calle Victoria 6, next to Plaza de la Merced, in Málaga city centre.")),
         (t("¿La carta está en inglés?", "Is the menu in English?"),
-         t("Sí, tenemos la carta en español y en inglés, en la azotea y en PDF.", "Yes, the menu is available in English and Spanish, on the rooftop and as a PDF.")),
+         t("Sí, tenemos la carta en español y en inglés, en la azotea y en la web.", "Yes, the menu is available in English and Spanish, on the rooftop and online.")),
     ]
     hero = page_hero(c, t("Azotea · ME Málaga by Meliá", "Rooftop · ME Málaga by Meliá"), t("Rooftop en Málaga centro", "Rooftop bar in Málaga"),
                      t("Cañitas al Fresco es el rooftop del hotel ME Málaga by Meliá: cócteles, picoteo y atardeceres frente a la Alcazaba, en pleno centro. Sin reserva.",
                        "Cañitas al Fresco is the rooftop bar at ME Málaga by Meliá: cocktails, bites and sunsets facing the Alcazaba, right in the city centre. No booking needed."),
                      photo="canitas-al-fresco-rooftop-piscina-malaga",
-                     actions=f'<a class="btn btn-primary-light" href="{c.link("carta", anchor="canitas-al-fresco")}">{t("Ver la carta", "See the menu")}</a>' + pdf_switch(c, "fresco", light=True),
+                     actions=f'<a class="btn btn-primary-light" href="{c.link("carta", anchor="canitas-al-fresco")}">{t("Ver la carta", "See the menu")}</a>' + menu_lang(c, "fresco", light=True),
                      crumbs=[t("Rooftop en Málaga", "Rooftop bar in Málaga")])
     main = "\n\n".join([
         hero,

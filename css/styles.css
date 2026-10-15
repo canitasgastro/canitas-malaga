@@ -618,7 +618,7 @@ img{ height: auto; }
 }
 
 .detail-actions{ margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
-.detail-copy .pdf-switch{ margin-top: 18px; }
+.detail-copy .menu-lang{ margin-top: 18px; }
 .detail-more{
   display: inline-block;
   margin-top: 22px;
@@ -1372,7 +1372,7 @@ img{ height: auto; }
 }
 
 /* ---------- Selector de carta en PDF (ES / EN) ---------- */
-.pdf-switch{
+.menu-lang{
   display: inline-flex;
   align-items: stretch;
   border: 1px solid var(--line-strong);
@@ -1383,7 +1383,7 @@ img{ height: auto; }
   letter-spacing: 0.04em;
   background: var(--paper);
 }
-.pdf-switch-label{
+.menu-lang-label{
   display: inline-flex;
   align-items: center;
   padding: 0 12px;
@@ -1393,20 +1393,20 @@ img{ height: auto; }
   color: var(--muted);
   border-right: 1px solid var(--line);
 }
-.pdf-switch a{
+.menu-lang a{
   display: inline-flex;
   align-items: center;
   padding: 9px 14px;
   color: var(--ink);
   transition: background-color .2s var(--ease), color .2s var(--ease);
 }
-.pdf-switch a + a{ border-left: 1px solid var(--line); }
-.pdf-switch a:hover{ background: var(--ink); color: var(--paper); }
-.pdf-switch-light{ background: transparent; border-color: rgba(255,255,255,0.4); }
-.pdf-switch-light .pdf-switch-label{ color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.25); }
-.pdf-switch-light a{ color: var(--paper); }
-.pdf-switch-light a + a{ border-color: rgba(255,255,255,0.25); }
-.pdf-switch-light a:hover{ background: var(--paper); color: var(--ink); }
+.menu-lang a + a{ border-left: 1px solid var(--line); }
+.menu-lang a:hover{ background: var(--ink); color: var(--paper); }
+.menu-lang-light{ background: transparent; border-color: rgba(255,255,255,0.4); }
+.menu-lang-light .menu-lang-label{ color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.25); }
+.menu-lang-light a{ color: var(--paper); }
+.menu-lang-light a + a{ border-color: rgba(255,255,255,0.25); }
+.menu-lang-light a:hover{ background: var(--paper); color: var(--ink); }
 
 /* ---------- Menús para compartir ---------- */
 .set-menus{
@@ -1775,7 +1775,7 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 .site.brand-fresco .header-pill{ background: rgba(46,53,39,0.55); }
 .site.brand-fresco .site-header[data-scrolled="true"] .header-pill{ background: rgba(46,53,39,0.8); }
 .site.brand-fresco .site-menu{ background: var(--fresco-deep); }
-.brand-fresco .pdf-switch a:hover{ background: var(--fresco); }
+.brand-fresco .menu-lang a:hover{ background: var(--fresco); }
 .brand-fresco.space-card h3,
 .brand-fresco.info-card h2{ color: var(--fresco); }
 .info-card.brand-fresco{ background: var(--fresco-cream); }
@@ -1863,3 +1863,7 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 .site .chefs-photo img{ height: 100%; max-width: none; }
 .site .gallery-item img,
 .site .space-card img{ border: 1px solid var(--line); }
+
+/* Selector de idioma de la carta: idioma actual marcado */
+.menu-lang a[aria-current="true"]{ background: var(--ink); color: var(--paper); }
+.menu-lang-light a[aria-current="true"]{ background: var(--paper); color: var(--ink); }

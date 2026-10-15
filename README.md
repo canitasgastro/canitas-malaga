@@ -12,10 +12,10 @@ scripts/pages.py           Textos de las páginas (ES / EN)
 scripts/legal.py           Aviso legal, privacidad, cookies, condiciones de compra (datos de empresa en EMPRESA)
 scripts/menus_data.py      Las cartas en HTML (platos y precios)
 scripts/media.py           Catálogo de fotos: nombre SEO, foto original y texto alternativo ES / EN
-scripts/process_images.py  Genera fotos, imágenes para redes, iconos y copia las cartas en PDF
+scripts/process_images.py  Genera fotos, imágenes para redes e iconos
 css/styles.css             Estilos (índigo #28265a; Cañitas al Fresco en verde #647058 con Custard)
 js/main.js                 Menú, cabecera al hacer scroll, parallax, acordeón y galería
-assets/                    Fotos, fuentes, iconos, logos y cartas en PDF generados
+assets/                    Fotos, fuentes, iconos y logos generados
 wordpress/                 Exportación para WordPress (ver wordpress/LEEME.md)
 imagenes/                  Material original sin optimizar (no se versiona)
 ```
