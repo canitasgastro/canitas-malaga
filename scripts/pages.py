@@ -704,8 +704,8 @@ def grupos(c):
           f'<a class="btn btn-primary-light" href="{mailto(subject)}">{t("Solicitar propuesta", "Request a proposal")}</a>')}"""
     return dict(
         nav_title=t("Grupos y eventos", "Groups & events"),
-        title=t("Grupos y eventos en Málaga | Comedor privado en Cañitas Maite",
-                "Groups & Events in Málaga | Private Dining at Cañitas Maite"),
+        title=t("Restaurante para grupos en Málaga | Comedor privado",
+                "Group Dining in Málaga | Private Room at Cañitas Maite"),
         desc=t("Comidas de grupo, celebraciones y eventos de empresa en Cañitas Maite y en la azotea Cañitas al Fresco, en ME Málaga by Meliá. Comedor privado y menús cerrados.",
                "Group dining, celebrations and corporate events at Cañitas Maite and the Cañitas al Fresco rooftop at ME Málaga by Meliá. Private dining room and set menus."),
         main=main,
@@ -824,8 +824,8 @@ def proyecto(c):
         nav_title=t("El proyecto", "Our story"),
         title=t("El proyecto | Javier Sanz y Juan Sahuquillo, Cañitas Maite",
                 "Our Story | Javier Sanz & Juan Sahuquillo, Cañitas Maite"),
-        desc=t("De Casas-Ibáñez a Málaga: la historia de Cañitas Maite, la cocina con estrella Michelin de Javier Sanz y Juan Sahuquillo y su llegada al hotel ME Málaga by Meliá.",
-               "From Casas-Ibáñez to Málaga: the story of Cañitas Maite, the Michelin-starred cooking of Javier Sanz and Juan Sahuquillo, and their arrival at ME Málaga by Meliá."),
+        desc=t("De Casas-Ibáñez a Málaga: la historia de Cañitas Maite, la cocina de Javier Sanz y Juan Sahuquillo (estrella Michelin) y su llegada a ME Málaga.",
+               "From Casas-Ibáñez to Málaga: the story of Cañitas Maite, the Michelin-starred cooking of Javier Sanz and Juan Sahuquillo, and their move to ME Málaga."),
         main=main,
         schema=[breadcrumb_ld(c, t("El proyecto", "Our story"))],
     )
@@ -870,7 +870,7 @@ def contacto(c):
   </section>"""
     return dict(
         nav_title=t("Contacto", "Contact"),
-        title=t("Contacto y cómo llegar | Cañitas Maite Málaga, Calle Victoria 6",
+        title=t("Contacto y cómo llegar | Cañitas Maite, Calle Victoria 6",
                 "Contact & Directions | Cañitas Maite Málaga, Calle Victoria 6"),
         desc=t("Cañitas Maite y Cañitas al Fresco están en el hotel ME Málaga by Meliá, Calle Victoria 6, junto a la Plaza de la Merced. Teléfono, email, mapa y cómo llegar.",
                "Cañitas Maite and Cañitas al Fresco are at ME Málaga by Meliá, Calle Victoria 6, next to Plaza de la Merced. Phone, email, map and directions."),

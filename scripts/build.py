@@ -62,6 +62,12 @@ ROUTES = {
     "bonos": ("bonos-regalo/", "en/gift-vouchers/"),
     "proyecto": ("el-proyecto/", "en/our-story/"),
     "contacto": ("contacto/", "en/contact/"),
+    # Páginas de búsqueda local (fuera del menú, enlazadas desde el pie)
+    "centro": ("restaurante-centro-malaga/", "en/restaurant-malaga-old-town/"),
+    "donde": ("donde-comer-en-malaga/", "en/where-to-eat-in-malaga/"),
+    "cenar": ("donde-cenar-en-malaga/", "en/dinner-in-malaga/"),
+    "vistas": ("restaurante-con-vistas-malaga/", "en/restaurant-with-a-view-malaga/"),
+    "rooftop": ("rooftop-malaga/", "en/rooftop-bar-malaga/"),
     "aviso": ("aviso-legal/", "en/legal-notice/"),
     "privacidad": ("politica-de-privacidad/", "en/privacy-policy/"),
     "cookies": ("politica-de-cookies/", "en/cookie-policy/"),
@@ -195,10 +201,8 @@ def pdf_switch(c, space, light=False):
 def header(c):
     t = c.t
     nav = [
-        ("maite", "Cañitas Maite", "Cañitas Maite"),
+        ("maite", "Cañitas Málaga", "Cañitas Málaga"),
         ("fresco", "Al Fresco", "Al Fresco"),
-        ("carta", "Carta", "Menu"),
-        ("grupos", "Grupos", "Groups"),
     ]
     pill = "\n".join(
         f'      <a href="{c.link(k)}"{" aria-current=\"page\"" if k == c.key else ""}>{t(es, en)}</a>' for k, es, en in nav
@@ -309,6 +313,8 @@ def footer(c):
         ("condiciones", "Condiciones de compra", "Terms of purchase"),
     ]
     legal_links = "\n".join(f'        <a href="{c.link(k)}">{t(es, en)}</a>' for k, es, en in legal)
+    from landings import LABELS
+    seo_links = "\n".join(f'    <a href="{c.link(k)}">{t(es, en)}</a>' for k, es, en in LABELS)
     return f"""<footer class="site-footer">
   <div class="footer-top">
     <div class="footer-brand">
@@ -342,6 +348,11 @@ def footer(c):
       <a href="{c.link('reservas')}" class="footer-cta">{t('Reservar mesa', 'Book a table')} →</a>
     </div>
   </div>
+
+  <nav class="footer-seo" aria-label="{t('Comer en Málaga', 'Eating in Málaga')}">
+    <span class="footer-col-title">{t('Comer en Málaga', 'Eating in Málaga')}</span>
+{seo_links}
+  </nav>
 
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
@@ -543,11 +554,13 @@ def write(path, content):
 
 
 def main():
+    import landings
     import legal
     import pages
 
     builders = dict(pages.PAGES)
     builders.update(legal.PAGES)
+    builders.update(landings.PAGES)
 
     generated = []
     wp_rows = []
