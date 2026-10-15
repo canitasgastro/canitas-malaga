@@ -10,9 +10,9 @@ UPDATED = {"es": "15 de octubre de 2026", "en": "15 October 2026"}
 
 # Rellenar con los datos reales del titular de la web.
 EMPRESA = {
-    "razon_social": "",
-    "nif": "",
-    "domicilio": "",
+    "razon_social": "CAÑITAS GASTRO, S.L.",
+    "nif": "B24760928",
+    "domicilio": "Travesía Molino, nº 2, 02200 Casas-Ibáñez (Albacete)",
     "registro": "",
     "email_privacidad": "",
     "dpo": "",
