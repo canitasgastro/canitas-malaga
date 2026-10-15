@@ -43,7 +43,7 @@
   --fresco-dark: #4b5442;
   --fresco-deep: #3a4133;
   --fresco-cream: #f4f0e8;
-  --font-fresco: "custard", "Custard", "Archivo", sans-serif;
+  --font-fresco: "custard", "Archivo", sans-serif;
 
   --font-display: "Federo", "Archivo", sans-serif;
   --font-body: "Archivo", sans-serif;
@@ -1817,3 +1817,8 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 .footer-seo .footer-col-title{ margin: 0 6px 0 0; }
 .footer-seo a{ font-size: 13px; color: rgba(255,255,255,0.6); transition: color .2s var(--ease); }
 .footer-seo a:hover{ color: var(--paper); }
+
+.contact-hours{ margin: 0 0 28px; display: flex; flex-direction: column; gap: 8px; }
+.contact-hours div{ display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.contact-hours dt{ font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); min-width: 140px; }
+.contact-hours dd{ margin: 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.88); }

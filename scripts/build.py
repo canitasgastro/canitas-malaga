@@ -1,4 +1,4 @@
-"""Generador de la web de Cañitas Maite Málaga (ES / EN).
+"""Generador de la web de Cañitas Málaga (ES / EN).
 
   python3 scripts/build.py
 
@@ -34,7 +34,7 @@ PREVIEW_URL = "https://canitasgastro.github.io/canitas-malaga"
 WP_MEDIA = os.environ.get("CANITAS_WP_MEDIA", "/wp-content/uploads/2026/10/")
 # Proyecto web de Adobe Fonts con la tipografía Custard (Cañitas al Fresco).
 # Ejemplo: "abc1def". Mientras esté vacío se usa la tipografía de respaldo.
-ADOBE_FONTS_KIT = os.environ.get("CANITAS_ADOBE_KIT", "")
+ADOBE_FONTS_KIT = os.environ.get("CANITAS_ADOBE_KIT", "uuw0ivw")
 
 BOOKING = {
     "es": "https://www.covermanager.com/reservation/module_restaurant/canitas-maite-melia-me-malaga/spanish",
@@ -46,6 +46,24 @@ EMAIL = "canitasmalaga@melia.com"
 INSTAGRAM = "https://www.instagram.com/canitas_malaga/"
 MAPS = "https://www.google.com/maps/search/?api=1&query=Hotel%20ME%20M%C3%A1laga%20by%20Meli%C3%A1%2C%20Calle%20Victoria%206%2C%2029012%20M%C3%A1laga"
 GEO = (36.7230223, -4.4166819)
+# Horarios (fuente: Google Maps, octubre 2026). Todos los días.
+HOURS = {
+    "maite": [("13:00", "15:30"), ("20:00", "22:30")],
+    "fresco": [("11:00", "24:00")],
+}
+
+
+def hours_text(lang, key):
+    if key == "maite":
+        return ("Todos los días, de 13:00 a 15:30 y de 20:00 a 22:30" if lang == "es"
+                else "Every day, 1–3:30 pm and 8–10:30 pm")
+    return "Todos los días, de 11:00 a 24:00" if lang == "es" else "Every day, 11 am to midnight"
+
+
+def hours_ld(key):
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    return [{"@type": "OpeningHoursSpecification", "dayOfWeek": days, "opens": a, "closes": "23:59" if b == "24:00" else b}
+            for a, b in HOURS[key]]
 HOTEL_URL = {
     "es": "https://www.melia.com/es/hoteles/espana/malaga/me-malaga",
     "en": "https://www.melia.com/en/hotels/spain/malaga/me-malaga",
@@ -54,7 +72,7 @@ HOTEL_URL = {
 # Rutas de cada página en los dos idiomas.
 ROUTES = {
     "home": ("", "en/"),
-    "maite": ("canitas-maite/", "en/canitas-maite/"),
+    "maite": ("canitas-malaga/", "en/canitas-malaga/"),
     "fresco": ("canitas-al-fresco/", "en/canitas-al-fresco/"),
     "carta": ("carta/", "en/menu/"),
     "reservas": ("reservas/", "en/book-a-table/"),
@@ -76,7 +94,7 @@ ROUTES = {
 LEGAL_KEYS = ("aviso", "privacidad", "cookies", "condiciones")
 
 PDF = {
-    "maite": {"es": "carta-canitas-maite-malaga-es.pdf", "en": "menu-canitas-maite-malaga-en.pdf"},
+    "maite": {"es": "carta-canitas-malaga-es.pdf", "en": "menu-canitas-malaga-en.pdf"},
     "fresco": {"es": "carta-canitas-al-fresco-malaga-es.pdf", "en": "menu-canitas-al-fresco-malaga-en.pdf"},
 }
 
@@ -180,7 +198,7 @@ LOGO_PATHS = None
 def logo_svg(cls, label=None):
     global LOGO_PATHS
     if LOGO_PATHS is None:
-        svg = open(os.path.join(BASE, "assets", "logos", "logo-canitas-maite.svg"), encoding="utf-8").read()
+        svg = open(os.path.join(BASE, "assets", "logos", "logo-canitas-malaga.svg"), encoding="utf-8").read()
         LOGO_PATHS = svg[svg.index("<g"):svg.rindex("</g>") + 4].replace("#28265a", "currentColor")
     aria = f'role="img" aria-label="{esc(label)}"' if label else 'aria-hidden="true"'
     return f'<svg class="{cls}" viewBox="0 0 656.46 231.7" {aria}>{LOGO_PATHS}</svg>'
@@ -208,7 +226,7 @@ def header(c):
         f'      <a href="{c.link(k)}"{" aria-current=\"page\"" if k == c.key else ""}>{t(es, en)}</a>' for k, es, en in nav
     )
     menu_items = [
-        ("maite", "Cañitas Maite", "Cañitas Maite"),
+        ("maite", "Cañitas Málaga", "Cañitas Málaga"),
         ("fresco", "Cañitas al Fresco", "Cañitas al Fresco"),
         ("carta", "La carta", "The menu"),
         ("reservas", "Reservar mesa", "Book a table"),
@@ -226,7 +244,7 @@ def header(c):
     switch_title = t("Read this page in English", "Ver esta página en español")
     return f"""<header class="site-header" id="site-header">
   <div class="header-pill">
-    <a href="{c.link('home')}" class="logo" aria-label="{t('Cañitas Maite Málaga — Inicio', 'Cañitas Maite Málaga — Home')}">
+    <a href="{c.link('home')}" class="logo" aria-label="{t('Cañitas Málaga — Inicio', 'Cañitas Málaga — Home')}">
       {logo_svg("logo-mark")}
     </a>
 
@@ -275,6 +293,11 @@ def contact_section(c, heading_level=2, with_id=True):
           <p>Hotel ME Málaga by Meliá<br>Calle Victoria, 6 · 29012 Málaga<br>{t('Distrito Centro, junto a la Plaza de la Merced', 'City centre, next to Plaza de la Merced')}</p>
         </address>
 
+        <dl class="contact-hours">
+          <div><dt>Cañitas Málaga</dt><dd>{hours_text(c.lang, "maite")}</dd></div>
+          <div><dt>Cañitas al Fresco</dt><dd>{hours_text(c.lang, "fresco")}</dd></div>
+        </dl>
+
         <ul class="contact-lines">
           <li><a href="tel:{PHONE_TEL}">{PHONE}</a></li>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
@@ -289,9 +312,9 @@ def contact_section(c, heading_level=2, with_id=True):
 
       <div class="contact-map-wrap">
         <figure class="map-card">
-          <a class="map-card-link" href="{MAPS}" target="_blank" rel="noopener" aria-label="{t('Abrir la ubicación de Cañitas Maite en Google Maps', 'Open Cañitas Maite location in Google Maps')}">
-            {c.img("mapa-canitas-maite-malaga-calle-victoria", sizes="(max-width: 860px) 90vw, 460px")}
-            <span class="map-card-pin" aria-hidden="true">Cañitas Maite · ME Málaga</span>
+          <a class="map-card-link" href="{MAPS}" target="_blank" rel="noopener" aria-label="{t('Abrir la ubicación de Cañitas Málaga en Google Maps', 'Open Cañitas Málaga location in Google Maps')}">
+            {c.img("mapa-canitas-malaga-calle-victoria", sizes="(max-width: 860px) 90vw, 460px")}
+            <span class="map-card-pin" aria-hidden="true">Cañitas Málaga · ME Málaga</span>
             <span class="map-card-cta" aria-hidden="true">{t('Abrir en Google Maps', 'Open in Google Maps')} ↗</span>
           </a>
           <figcaption>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</figcaption>
@@ -318,7 +341,7 @@ def footer(c):
     return f"""<footer class="site-footer">
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="{c.link('home')}" class="logo logo-footer" aria-label="{t('Cañitas Maite Málaga — Inicio', 'Cañitas Maite Málaga — Home')}">
+      <a href="{c.link('home')}" class="logo logo-footer" aria-label="{t('Cañitas Málaga — Inicio', 'Cañitas Málaga — Home')}">
         {logo_svg("logo-mark logo-mark-footer")}
       </a>
       <p class="footer-tagline">{t('Un lugar donde el arte, la cultura, la gastronomía y la música se funden con el espíritu del sur.', 'A place where art, culture, food and music blend with the spirit of the south.')}</p>
@@ -327,7 +350,7 @@ def footer(c):
 
     <div class="footer-col">
       <h2 class="footer-col-title">{t('Espacios', 'Venues')}</h2>
-      <a href="{c.link('maite')}">Cañitas Maite</a>
+      <a href="{c.link('maite')}">Cañitas Málaga</a>
       <a href="{c.link('fresco')}">Cañitas al Fresco</a>
       <a href="{c.link('carta')}">{t('La carta', 'The menu')}</a>
       <a href="{c.link('grupos')}">{t('Grupos y eventos', 'Groups & events')}</a>
@@ -356,7 +379,7 @@ def footer(c):
 
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
-      <p class="footer-legal">© 2026 Cañitas Maite Málaga · ME Málaga by Meliá</p>
+      <p class="footer-legal">© 2026 Cañitas Málaga · ME Málaga by Meliá</p>
       <nav class="footer-legal-links" aria-label="{t('Información legal', 'Legal information')}">
 {legal_links}
       </nav>
@@ -418,13 +441,14 @@ def restaurant_ld(c):
         "@context": "https://schema.org",
         "@type": "Restaurant",
         "@id": c.abs_url("maite", "es") + "#restaurant",
-        "name": "Cañitas Maite Málaga",
+        "name": "Cañitas Málaga",
+        "alternateName": ["Cañitas Maite Málaga", "Cañitas Maite Restaurante - Málaga"],
         "description": c.t(
             "Restaurante de los chefs Javier Sanz y Juan Sahuquillo en la última planta del hotel ME Málaga by Meliá: cocina de producto, parrilla y brasa con vistas a la Alcazaba.",
             "Restaurant by chefs Javier Sanz and Juan Sahuquillo on the top floor of ME Málaga by Meliá: produce-led cooking, grill and embers with views of the Alcazaba.",
         ),
         "url": c.abs_url("maite"),
-        "image": [c.abs_asset("img/canitas-maite-malaga-sala-restaurante.jpg"), c.abs_asset("img/canitas-maite-malaga-comedor-privado.jpg"), c.abs_asset("img/txuleta-vasca-parrilla-canitas-maite-malaga.jpg")],
+        "image": [c.abs_asset("img/canitas-malaga-sala-restaurante.jpg"), c.abs_asset("img/canitas-malaga-comedor-privado.jpg"), c.abs_asset("img/txuleta-vasca-parrilla-canitas-malaga.jpg")],
         "telephone": PHONE,
         "email": EMAIL,
         "address": address_ld(),
@@ -432,6 +456,7 @@ def restaurant_ld(c):
         "hasMap": MAPS,
         "servesCuisine": c.t(["Española", "Manchega", "Mediterránea", "Parrilla"], ["Spanish", "Manchego", "Mediterranean", "Grill"]),
         "priceRange": "€€€",
+        "openingHoursSpecification": hours_ld("maite"),
         "acceptsReservations": c.abs_url("reservas"),
         "hasMenu": c.abs_url("carta"),
         "sameAs": [INSTAGRAM],
@@ -447,8 +472,8 @@ def fresco_ld(c):
         "@id": c.abs_url("fresco", "es") + "#bar",
         "name": "Cañitas al Fresco",
         "description": c.t(
-            "Rooftop bar y piscina en la azotea del hotel ME Málaga by Meliá, con vistas a la Alcazaba. Coctelería y picoteo de Cañitas Maite. Sin reserva.",
-            "Rooftop bar and pool on top of ME Málaga by Meliá, with views of the Alcazaba. Cocktails and sharing plates by Cañitas Maite. No reservations.",
+            "Rooftop bar abierto al público en la azotea del hotel ME Málaga by Meliá, con vistas a la Alcazaba. Coctelería y picoteo de Cañitas Málaga. Sin reserva.",
+            "Rooftop bar open to the public on top of ME Málaga by Meliá, with views of the Alcazaba. Cocktails and sharing plates by Cañitas Málaga. No reservations.",
         ),
         "url": c.abs_url("fresco"),
         "image": [c.abs_asset("img/canitas-al-fresco-rooftop-piscina-malaga.jpg")],
@@ -458,6 +483,7 @@ def fresco_ld(c):
         "hasMap": MAPS,
         "servesCuisine": c.t(["Tapas", "Mediterránea"], ["Tapas", "Mediterranean"]),
         "priceRange": "€€",
+        "openingHoursSpecification": hours_ld("fresco"),
         "acceptsReservations": False,
         "hasMenu": c.abs_url("carta") + "#canitas-al-fresco",
         "sameAs": [INSTAGRAM],
@@ -474,7 +500,7 @@ def head(c, page):
     canonical = c.abs_url(c.key)
     alt_es = c.abs_url(c.key, "es")
     alt_en = c.abs_url(c.key, "en")
-    og_img = c.abs_asset("img/" + page.get("og", "og-canitas-maite-malaga") + ".jpg")
+    og_img = c.abs_asset("img/" + page.get("og", "og-canitas-malaga") + ".jpg")
     robots = "noindex, nofollow" if c.mode == "static" else ("noindex, follow" if c.key in LEGAL_KEYS else "index, follow")
     adobe = f'\n<link rel="preconnect" href="https://use.typekit.net" crossorigin>\n<link rel="stylesheet" href="https://use.typekit.net/{ADOBE_FONTS_KIT}.css">' if ADOBE_FONTS_KIT else ""
     root = c._root()
@@ -491,7 +517,7 @@ def head(c, page):
 <link rel="alternate" hreflang="en" href="{alt_en}">
 <link rel="alternate" hreflang="x-default" href="{alt_es}">
 <meta property="og:type" content="{'website' if c.key == 'home' else 'article'}">
-<meta property="og:site_name" content="Cañitas Maite Málaga">
+<meta property="og:site_name" content="Cañitas Málaga">
 <meta property="og:locale" content="{t('es_ES', 'en_GB')}">
 <meta property="og:locale:alternate" content="{t('en_GB', 'es_ES')}">
 <meta property="og:title" content="{esc(page.get('og_title', page['title']))}">
@@ -540,7 +566,7 @@ def render_static(c, page):
 
 
 def render_wp(c, page):
-    note = f"<!-- Cañitas Maite Málaga · {page['title']} · Pegar completo en un widget HTML de Elementor (plantilla Elementor Canvas). -->\n"
+    note = f"<!-- Cañitas Málaga · {page['title']} · Pegar completo en un widget HTML de Elementor (plantilla Elementor Canvas). -->\n"
     return note + body(c, page) + "\n"
 
 
@@ -587,7 +613,7 @@ def main():
                 "titulo_pagina_wordpress": wpage["nav_title"],
                 "titulo_seo": wpage["title"],
                 "meta_descripcion": wpage["desc"],
-                "imagen_destacada_og": wpage.get("og", "og-canitas-maite-malaga") + ".jpg",
+                "imagen_destacada_og": wpage.get("og", "og-canitas-malaga") + ".jpg",
                 "traduccion_de": "/" + ROUTES[key][0] if lang == "en" else "",
                 "indexar": "no (legal)" if key in LEGAL_KEYS else "sí",
             })
@@ -596,13 +622,20 @@ def main():
     c = Ctx("es", "static", "home")
     write(os.path.join(BASE, "404.html"), pages.page_404())
     write(os.path.join(BASE, "reservas.html"), pages.redirect_page("reservas/"))
+    # Antiguas URLs de la vista previa (el restaurante se llamaba Cañitas Maite)
+    for old, new in (("canitas-maite/", "canitas-malaga/"), ("en/canitas-maite/", "en/canitas-malaga/")):
+        rel = "../" * old.count("/") + new
+        write(os.path.join(BASE, old, "index.html"),
+              f'<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="robots" content="noindex">'
+              f'<link rel="canonical" href="{PREVIEW_URL}/{new}"><meta http-equiv="refresh" content="0; url={rel}">'
+              f'<title>Cañitas Málaga</title></head><body><a href="{rel}">Cañitas Málaga</a></body></html>\n')
 
     # sitemap, robots, manifest (vista previa)
     write(os.path.join(BASE, "robots.txt"), "# Vista previa en GitHub Pages: no indexar.\nUser-agent: *\nDisallow: /\n")
     write(os.path.join(BASE, "sitemap.xml"), sitemap(PREVIEW_URL))
     write(os.path.join(BASE, "site.webmanifest"), json.dumps({
-        "name": "Cañitas Maite Málaga",
-        "short_name": "Cañitas Maite",
+        "name": "Cañitas Málaga",
+        "short_name": "Cañitas Málaga",
         "start_url": "./",
         "display": "browser",
         "background_color": "#ffffff",
@@ -657,7 +690,7 @@ def export_wordpress(rows):
         w.writerow(["archivo", "titulo", "texto_alternativo_es", "texto_alternativo_en"])
         for name, info in media.PHOTOS.items():
             w.writerow([f"{name}.jpg", name.replace("-", " ").capitalize(), info["es"], info["en"]])
-        w.writerow(["og-canitas-maite-malaga.jpg", "Cañitas Maite Málaga", "Sala del restaurante Cañitas Maite Málaga con el logotipo", "Cañitas Maite Málaga dining room with the logo"])
+        w.writerow(["og-canitas-malaga.jpg", "Cañitas Málaga", "Sala del restaurante Cañitas Málaga con el logotipo", "Cañitas Málaga dining room with the logo"])
         w.writerow(["og-canitas-al-fresco.jpg", "Cañitas al Fresco", "Rooftop Cañitas al Fresco con la Alcazaba y el logotipo", "Cañitas al Fresco rooftop with the Alcazaba and the logo"])
 
     write(os.path.join(wp, "sitemap-referencia.xml"), sitemap(SITE_URL))
@@ -667,17 +700,17 @@ def export_wordpress(rows):
 
 def llms_txt(base):
     u = lambda k, i=0: f"{base}/{ROUTES[k][i]}"
-    return f"""# Cañitas Maite Málaga
+    return f"""# Cañitas Málaga
 
-> Restaurante Cañitas Maite y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop pool bar in Málaga city centre. Web en español e inglés.
+> Restaurante Cañitas Málaga y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop pool bar in Málaga city centre. Web en español e inglés.
 
-- Cañitas Maite: restaurante en la última planta, cocina de producto y parrilla, vistas a la Alcazaba. Reservas online.
-- Cañitas al Fresco: rooftop bar y piscina en la azotea. Sin reserva, por orden de llegada.
+- Cañitas Málaga: restaurante en la última planta, cocina de producto y parrilla, vistas a la Alcazaba. Reservas online.
+- Cañitas al Fresco: rooftop bar en la azotea, abierto al público (la piscina es solo para huéspedes del hotel). Sin reserva, por orden de llegada.
 - Grupos de 8 o más: menú cerrado. Comedor privado.
 - Teléfono {PHONE} · {EMAIL} · Instagram @canitas_malaga
 
 ## Páginas (ES)
-- [Cañitas Maite]({u('maite')}): el restaurante
+- [Cañitas Málaga]({u('maite')}): el restaurante
 - [Cañitas al Fresco]({u('fresco')}): el rooftop
 - [La carta]({u('carta')}): carta completa con precios
 - [Reservar mesa]({u('reservas')})
@@ -686,7 +719,7 @@ def llms_txt(base):
 - [Contacto]({u('contacto')})
 
 ## Pages (EN)
-- [Cañitas Maite]({u('maite', 1)}): the restaurant
+- [Cañitas Málaga]({u('maite', 1)}): the restaurant
 - [Cañitas al Fresco]({u('fresco', 1)}): the rooftop bar
 - [Menu]({u('carta', 1)}): full menus with prices
 - [Book a table]({u('reservas', 1)})

@@ -1,6 +1,6 @@
-# Cañitas Maite Málaga
+# Cañitas Málaga
 
-Web de Cañitas Maite en Málaga (ME Málaga by Meliá): el restaurante Cañitas Maite y el rooftop Cañitas al Fresco, en español e inglés.
+Web de Cañitas Málaga (ME Málaga by Meliá): el restaurante Cañitas Málaga y el rooftop Cañitas al Fresco, en español e inglés.
 
 La web es HTML/CSS/JS estático generado por un script de Python sin dependencias. La versión de GitHub Pages es una **vista previa** (lleva `noindex`); la web definitiva se monta en WordPress + Elementor con la exportación de `wordpress/`.
 

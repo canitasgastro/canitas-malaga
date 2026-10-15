@@ -85,7 +85,7 @@ for name, info in OG.items():
     shade = Image.linear_gradient("L").resize((1200, 630)).point(lambda v: int(v * 0.72))
     photo = Image.composite(Image.new("RGB", photo.size, (20, 19, 46)), photo, shade)
     if info["logo"] == "maite":
-        logo = render_svg(os.path.join(OUT_LOGOS, "logo-canitas-maite-blanco.svg"), 420)
+        logo = render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga-blanco.svg"), 420)
     else:
         logo = Image.open(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-crema.png")).convert("RGBA")
         logo = fit(logo, 400)
@@ -99,13 +99,13 @@ for size, name in ((32, "favicon-32.png"), (180, "apple-touch-icon.png"), (192, 
     icon = render_svg(fav, size).convert("RGB")
     icon.save(os.path.join(OUT_ICONS, name), "PNG", optimize=True)
     print(f"  assets/icons/{name}")
-shutil.copy(os.path.join(OUT_ICONS, "icon-512.png"), os.path.join(OUT_WP, "icono-sitio-canitas-maite-512.png"))
+shutil.copy(os.path.join(OUT_ICONS, "icon-512.png"), os.path.join(OUT_WP, "icono-sitio-canitas-malaga-512.png"))
 
 print("Logos para la mediateca")
-for f in ("logo-canitas-maite.svg", "logo-canitas-maite-blanco.svg"):
+for f in ("logo-canitas-malaga.svg", "logo-canitas-malaga-blanco.svg"):
     shutil.copy(os.path.join(OUT_LOGOS, f), os.path.join(OUT_WP, f))
-render_svg(os.path.join(OUT_LOGOS, "logo-canitas-maite.svg"), 1200).save(os.path.join(OUT_WP, "logo-canitas-maite.png"))
-render_svg(os.path.join(OUT_LOGOS, "logo-canitas-maite-blanco.svg"), 1200).save(os.path.join(OUT_WP, "logo-canitas-maite-blanco.png"))
+render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga.svg"), 1200).save(os.path.join(OUT_WP, "logo-canitas-malaga.png"))
+render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga-blanco.svg"), 1200).save(os.path.join(OUT_WP, "logo-canitas-malaga-blanco.png"))
 shutil.copy(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-crema.png"), OUT_WP)
 shutil.copy(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-color.png"), OUT_WP)
 
