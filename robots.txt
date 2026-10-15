@@ -1,0 +1,3 @@
+# Vista previa en GitHub Pages: no indexar.
+User-agent: *
+Disallow: /

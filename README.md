@@ -1,40 +1,48 @@
 # Cañitas Maite Málaga
 
-Web de Cañitas Maite en Málaga (ME Málaga by Meliá): dos espacios —Cañitas Maite y Cañitas al Fresco— bajo una misma firma culinaria.
+Web de Cañitas Maite en Málaga (ME Málaga by Meliá): el restaurante Cañitas Maite y el rooftop Cañitas al Fresco, en español e inglés.
 
-Sitio estático (HTML/CSS/JS, sin build ni dependencias).
+La web es HTML/CSS/JS estático generado por un script de Python sin dependencias. La versión de GitHub Pages es una **vista previa** (lleva `noindex`); la web definitiva se monta en WordPress + Elementor con la exportación de `wordpress/`.
 
 ## Estructura
 
 ```
-index.html         Contenido de la página
-css/styles.css      Estilos (identidad índigo #28265a + blanco, Federo/Archivo)
-js/main.js          Menú, header al hacer scroll, parallax, acordeón de FAQ
-assets/img/         Fotografías optimizadas para la web (JPEG comprimido)
-assets/logos/       Logos de cada espacio en PNG con transparencia
-assets/favicon.svg  Favicon
-imagenes/           Material fuente sin optimizar (NO se sube al repo, ver .gitignore)
-scripts/process_images.py  Genera assets/img y assets/logos a partir de imagenes/
-.github/workflows/  Despliegue automático a GitHub Pages
+scripts/build.py           Generador: plantilla común, cabecera, pie, SEO, datos estructurados, exportación WordPress
+scripts/pages.py           Textos de las páginas (ES / EN)
+scripts/legal.py           Aviso legal, privacidad, cookies, condiciones de compra (datos de empresa en EMPRESA)
+scripts/menus_data.py      Las cartas en HTML (platos y precios)
+scripts/media.py           Catálogo de fotos: nombre SEO, foto original y texto alternativo ES / EN
+scripts/process_images.py  Genera fotos, imágenes para redes, iconos y copia las cartas en PDF
+css/styles.css             Estilos (índigo #28265a; Cañitas al Fresco en verde #647058 con Custard)
+js/main.js                 Menú, cabecera al hacer scroll, parallax, acordeón y galería
+assets/                    Fotos, fuentes, iconos, logos y cartas en PDF generados
+wordpress/                 Exportación para WordPress (ver wordpress/LEEME.md)
+imagenes/                  Material original sin optimizar (no se versiona)
 ```
 
-### Actualizar fotos o logos
+Las páginas generadas (`index.html`, `en/`, `canitas-maite/`, `carta/`…) no se editan a mano.
 
-1. Añade el material nuevo dentro de `imagenes/<espacio>/` (no se versiona, solo vive en local).
-2. Ajusta las rutas en `scripts/process_images.py` si cambian los nombres de archivo.
-3. Ejecuta `python scripts/process_images.py` para regenerar `assets/img/` y `assets/logos/` ya redimensionados y comprimidos.
-4. Haz commit solo de los archivos dentro de `assets/` (lo de `imagenes/` queda excluido automáticamente).
+## Cambiar algo
+
+1. Edita el texto en `scripts/pages.py`, `scripts/legal.py` o `scripts/menus_data.py`.
+2. Si cambian fotos o cartas: añade el original a `imagenes/`, regístralo en `scripts/media.py` y ejecuta
+   `python3 scripts/process_images.py` (necesita `pip install pillow pymupdf`).
+3. Genera la web y la exportación de WordPress:
+
+```bash
+python3 scripts/build.py
+```
+
+Configuración al principio de `scripts/build.py`: dominio definitivo (`SITE_URL`), ruta de la mediateca de WordPress (`WP_MEDIA`) y el proyecto de Adobe Fonts con Custard (`ADOBE_FONTS_KIT`).
 
 ## Desarrollo local
 
-Al ser HTML/CSS/JS estático, basta con abrir `index.html` en el navegador, o servirlo con cualquier servidor estático, por ejemplo:
-
 ```bash
-python -m http.server 8000
+python3 -m http.server 8080
 ```
 
-y visitar `http://localhost:8000`.
+y abre `http://localhost:8080`.
 
 ## Despliegue
 
-Cada `push` a `main` publica automáticamente el sitio en GitHub Pages mediante el workflow en `.github/workflows/deploy.yml`. Es necesario activar Pages una vez en el repositorio: **Settings → Pages → Source: GitHub Actions**.
+Cada `push` a `main` publica la vista previa en GitHub Pages (`.github/workflows/deploy.yml`): https://canitasgastro.github.io/canitas-malaga/
