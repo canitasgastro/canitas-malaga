@@ -60,6 +60,8 @@ Para cada archivo de `03-paginas/`:
 
 ## 5. SEO al publicar
 
+- Dominio: **https://canitasmalaga.com** (sin www). En *Ajustes → Generales* pon la misma dirección en «Dirección de WordPress» y «Dirección del sitio», y haz que `www.canitasmalaga.com` y `http://` redirijan a ella (lo suele hacer el hosting).
+
 - Comprueba que Yoast / Rank Math genera `sitemap_index.xml` con hreflang (Polylang lo añade) y envíalo a **Google Search Console** y **Bing Webmaster Tools**.
 - Sustituye el `robots.txt` por `robots-referencia.txt` (Yoast → Herramientas → Editor de archivos).
 - Sube `llms.txt` a la raíz del dominio.
@@ -68,6 +70,5 @@ Para cada archivo de `03-paginas/`:
 
 ## Pendiente de datos
 
-- **Dominio definitivo.** Los datos estructurados de las páginas usan `https://TU-DOMINIO.com`. Dímelo y regenero.
 - **Datos de empresa** para los textos legales: razón social, NIF, domicilio, registro mercantil, email de privacidad y validez de los bonos. Están resaltados en amarillo en las páginas legales.
 - **Horario** de cada espacio (para la web, los datos estructurados y Google Business Profile).

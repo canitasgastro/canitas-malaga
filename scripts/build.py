@@ -27,7 +27,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Configuración
 # ---------------------------------------------------------------------------
 # Dominio definitivo de la web (WordPress). Cámbialo aquí y vuelve a generar.
-SITE_URL = os.environ.get("CANITAS_SITE_URL", "https://TU-DOMINIO.com")
+SITE_URL = os.environ.get("CANITAS_SITE_URL", "https://canitasmalaga.com")
 # Vista previa en GitHub Pages: se publica con noindex para no competir con la web real.
 PREVIEW_URL = "https://canitasgastro.github.io/canitas-malaga"
 # Ruta de la mediateca de WordPress donde quedarán las imágenes al subirlas.

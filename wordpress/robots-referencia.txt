@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
 
-Sitemap: https://TU-DOMINIO.com/sitemap_index.xml
+Sitemap: https://canitasmalaga.com/sitemap_index.xml
