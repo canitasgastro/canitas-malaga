@@ -719,105 +719,130 @@ def export_wordpress(rows):
 
 def seo_php(seo_map):
     """Fragmento PHP para WPCode: SEO de cada página (título, descripción, canonical,
-    hreflang, Open Graph, robots), idioma del documento, sitemap, llms.txt y woff2."""
-    data = json.dumps(seo_map, ensure_ascii=False)
-    llms = llms_txt(SITE_URL)
-    return f"""// Cañitas Málaga · SEO de las páginas (generado por scripts/build.py; no editar a mano)
-$GLOBALS['canitas_seo'] = json_decode(<<<'JSON'
-{data}
-JSON, true);
+    hreflang, Open Graph, robots), idioma del documento, sitemap, llms.txt y woff2.
+    Los datos van en base64 para no depender de comillas ni heredocs."""
+    import base64
+    data = base64.b64encode(json.dumps(seo_map, ensure_ascii=False).encode("utf-8")).decode("ascii")
+    llms = base64.b64encode(llms_txt(SITE_URL).encode("utf-8")).decode("ascii")
+    php = r"""// Cañitas Málaga · SEO de las páginas (generado por scripts/build.py; no editar a mano)
+$GLOBALS['canitas_seo'] = json_decode(base64_decode('__DATA__'), true);
 
-function canitas_seo_current() {{
-    $path = wp_parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-    $path = '/' . trim((string) $path, '/') . '/';
-    if ($path === '//') $path = '/';
-    return $GLOBALS['canitas_seo'][$path] ?? null;
-}}
+if (!function_exists('canitas_seo_current')) {
+function canitas_seo_current() {
+    $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/';
+    $path = '/' . trim((string) wp_parse_url($uri, PHP_URL_PATH), '/') . '/';
+    if ($path === '//') {
+        $path = '/';
+    }
+    return isset($GLOBALS['canitas_seo'][$path]) ? $GLOBALS['canitas_seo'][$path] : null;
+}
+}
 
-add_filter('pre_get_document_title', function ($title) {{
+add_filter('pre_get_document_title', function ($title) {
     $s = canitas_seo_current();
     return $s ? $s['title'] : $title;
-}}, 99);
+}, 99);
 
-add_filter('language_attributes', function ($output) {{
+add_filter('language_attributes', function ($output) {
     $s = canitas_seo_current();
     return ($s && $s['lang'] === 'en') ? 'lang="en-GB"' : $output;
-}});
+});
 
-add_filter('wp_robots', function ($robots) {{
+add_filter('wp_robots', function ($robots) {
     $s = canitas_seo_current();
-    if ($s && $s['noindex']) {{
-        return ['noindex' => true, 'follow' => true];
-    }}
+    if ($s && $s['noindex']) {
+        return array('noindex' => true, 'follow' => true);
+    }
     return $robots;
-}});
+});
 
 add_filter('jetpack_enable_open_graph', '__return_false');
 remove_action('wp_head', 'rel_canonical');
 
-add_action('wp_head', function () {{
+add_action('wp_head', function () {
     $s = canitas_seo_current();
-    if (!$s) return;
-    $e = 'esc_attr';
-    $locale = $s['lang'] === 'en' ? 'en_GB' : 'es_ES';
-    $alt = $s['lang'] === 'en' ? 'es_ES' : 'en_GB';
-    echo "\n<meta name=\"description\" content=\"" . $e($s['desc']) . "\">\n";
-    echo "<link rel=\"canonical\" href=\"" . esc_url($s['canonical']) . "\">\n";
-    echo "<link rel=\"alternate\" hreflang=\"es\" href=\"" . esc_url($s['es']) . "\">\n";
-    echo "<link rel=\"alternate\" hreflang=\"en\" href=\"" . esc_url($s['en']) . "\">\n";
-    echo "<link rel=\"alternate\" hreflang=\"x-default\" href=\"" . esc_url($s['es']) . "\">\n";
-    echo "<meta property=\"og:type\" content=\"" . $e($s['type']) . "\">\n";
-    echo "<meta property=\"og:site_name\" content=\"Cañitas Málaga\">\n";
-    echo "<meta property=\"og:locale\" content=\"$locale\">\n<meta property=\"og:locale:alternate\" content=\"$alt\">\n";
-    echo "<meta property=\"og:title\" content=\"" . $e($s['title']) . "\">\n";
-    echo "<meta property=\"og:description\" content=\"" . $e($s['desc']) . "\">\n";
-    echo "<meta property=\"og:url\" content=\"" . esc_url($s['canonical']) . "\">\n";
-    echo "<meta property=\"og:image\" content=\"" . esc_url($s['og']) . "\">\n";
-    echo "<meta property=\"og:image:width\" content=\"1200\">\n<meta property=\"og:image:height\" content=\"630\">\n";
-    echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
-    echo "<meta name=\"theme-color\" content=\"#28265a\">\n";
-}}, 1);
+    if (!$s) {
+        return;
+    }
+    $en = ($s['lang'] === 'en');
+    $tags = array(
+        array('meta', 'name', 'description', $s['desc']),
+        array('link', 'canonical', '', $s['canonical']),
+        array('alt', 'es', '', $s['es']),
+        array('alt', 'en', '', $s['en']),
+        array('alt', 'x-default', '', $s['es']),
+        array('meta', 'property', 'og:type', $s['type']),
+        array('meta', 'property', 'og:site_name', 'Cañitas Málaga'),
+        array('meta', 'property', 'og:locale', $en ? 'en_GB' : 'es_ES'),
+        array('meta', 'property', 'og:locale:alternate', $en ? 'es_ES' : 'en_GB'),
+        array('meta', 'property', 'og:title', $s['title']),
+        array('meta', 'property', 'og:description', $s['desc']),
+        array('meta', 'property', 'og:url', $s['canonical']),
+        array('meta', 'property', 'og:image', $s['og']),
+        array('meta', 'property', 'og:image:width', '1200'),
+        array('meta', 'property', 'og:image:height', '630'),
+        array('meta', 'name', 'twitter:card', 'summary_large_image'),
+        array('meta', 'name', 'theme-color', '#28265a'),
+    );
+    foreach ($tags as $t) {
+        if ($t[0] === 'meta') {
+            echo '<meta ' . $t[1] . '="' . esc_attr($t[2]) . '" content="' . esc_attr($t[3]) . '">' . "
+";
+        } elseif ($t[0] === 'link') {
+            echo '<link rel="canonical" href="' . esc_url($t[3]) . '">' . "
+";
+        } else {
+            echo '<link rel="alternate" hreflang="' . esc_attr($t[1]) . '" href="' . esc_url($t[3]) . '">' . "
+";
+        }
+    }
+}, 1);
 
-// Sitemap de WordPress: solo páginas, sin usuarios ni taxonomías, sin las legales
-add_filter('wp_sitemaps_add_provider', function ($provider, $name) {{
-    return in_array($name, ['users', 'taxonomies'], true) ? false : $provider;
-}}, 10, 2);
-add_filter('wp_sitemaps_post_types', function ($types) {{
-    return array_intersect_key($types, ['page' => true]);
-}});
-add_filter('wp_sitemaps_posts_query_args', function ($args) {{
-    $ids = [];
-    foreach ($GLOBALS['canitas_seo'] as $path => $s) {{
-        if ($s['noindex']) {{
+// Sitemap de WordPress: solo páginas, sin usuarios ni taxonomías y sin las legales
+add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
+    return in_array($name, array('users', 'taxonomies'), true) ? false : $provider;
+}, 10, 2);
+add_filter('wp_sitemaps_post_types', function ($types) {
+    return array_intersect_key($types, array('page' => true));
+});
+add_filter('wp_sitemaps_posts_query_args', function ($args) {
+    $ids = array();
+    foreach ($GLOBALS['canitas_seo'] as $path => $s) {
+        if ($s['noindex']) {
             $p = get_page_by_path(trim($path, '/'));
-            if ($p) $ids[] = $p->ID;
-        }}
-    }}
-    $args['post__not_in'] = array_merge($args['post__not_in'] ?? [], $ids);
+            if ($p) {
+                $ids[] = $p->ID;
+            }
+        }
+    }
+    $args['post__not_in'] = array_merge(isset($args['post__not_in']) ? $args['post__not_in'] : array(), $ids);
     return $args;
-}});
+});
 
 // llms.txt en la raíz del dominio
-add_action('init', function () {{
-    if (isset($_SERVER['REQUEST_URI']) && wp_parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === '/llms.txt') {{
+add_action('init', function () {
+    $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+    if (wp_parse_url($uri, PHP_URL_PATH) === '/llms.txt') {
         header('Content-Type: text/plain; charset=utf-8');
-        echo <<<'LLMS'
-{llms}
-LLMS;
+        echo base64_decode('__LLMS__');
         exit;
-    }}
-}});
+    }
+});
 
 // Permitir subir las fuentes .woff2 a la mediateca
-add_filter('upload_mimes', function ($m) {{ $m['woff2'] = 'font/woff2'; return $m; }});
-add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename) {{
-    if (strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'woff2') {{
+add_filter('upload_mimes', function ($m) {
+    $m['woff2'] = 'font/woff2';
+    return $m;
+});
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename) {
+    if (strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'woff2') {
         $data['ext'] = 'woff2';
         $data['type'] = 'font/woff2';
-    }}
+    }
     return $data;
-}}, 10, 3);
+}, 10, 3);
 """
+    return php.replace("__DATA__", data).replace("__LLMS__", llms)
 
 
 def llms_txt(base):
