@@ -765,6 +765,10 @@ add_filter('wp_robots', function ($robots) {
 });
 
 add_filter('jetpack_enable_open_graph', '__return_false');
+add_filter('wpseo_locale', function ($locale) {
+    $s = canitas_seo_current();
+    return ($s && $s['lang'] === 'en') ? 'en_GB' : $locale;
+});
 add_action('wp', function () {
     if (!canitas_yoast()) {
         remove_action('wp_head', 'rel_canonical');
@@ -864,7 +868,7 @@ def llms_txt(base):
     u = lambda k, i=0: f"{base}/{ROUTES[k][i]}"
     return f"""# Cañitas Málaga
 
-> Restaurante Cañitas Málaga y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop pool bar in Málaga city centre. Web en español e inglés.
+> Restaurante Cañitas Málaga y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop bar in Málaga city centre. Web en español e inglés.
 
 - Cañitas Málaga: restaurante en la última planta, cocina de producto y parrilla, vistas a la Alcazaba. Reservas online.
 - Cañitas al Fresco: rooftop bar en la azotea, abierto al público (la piscina es solo para huéspedes del hotel). Sin reserva, por orden de llegada.
