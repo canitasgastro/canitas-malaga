@@ -1,0 +1,326 @@
+[
+ {
+  "key": "home",
+  "lang": "es",
+  "path": "/",
+  "slug": "inicio",
+  "parent": "",
+  "title": "Inicio",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/inicio.html"
+ },
+ {
+  "key": "home",
+  "lang": "en",
+  "path": "/en/",
+  "slug": "en",
+  "parent": "",
+  "title": "Home",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/home.html"
+ },
+ {
+  "key": "maite",
+  "lang": "es",
+  "path": "/canitas-malaga/",
+  "slug": "canitas-malaga",
+  "parent": "",
+  "title": "Cañitas Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/canitas-malaga.html"
+ },
+ {
+  "key": "maite",
+  "lang": "en",
+  "path": "/en/canitas-malaga/",
+  "slug": "canitas-malaga",
+  "parent": "en",
+  "title": "Cañitas Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/canitas-malaga.html"
+ },
+ {
+  "key": "fresco",
+  "lang": "es",
+  "path": "/canitas-al-fresco/",
+  "slug": "canitas-al-fresco",
+  "parent": "",
+  "title": "Cañitas al Fresco",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/canitas-al-fresco.html"
+ },
+ {
+  "key": "fresco",
+  "lang": "en",
+  "path": "/en/canitas-al-fresco/",
+  "slug": "canitas-al-fresco",
+  "parent": "en",
+  "title": "Cañitas al Fresco (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/canitas-al-fresco.html"
+ },
+ {
+  "key": "carta",
+  "lang": "es",
+  "path": "/carta/",
+  "slug": "carta",
+  "parent": "",
+  "title": "La carta",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/carta.html"
+ },
+ {
+  "key": "carta",
+  "lang": "en",
+  "path": "/en/menu/",
+  "slug": "menu",
+  "parent": "en",
+  "title": "The menu (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/menu.html"
+ },
+ {
+  "key": "reservas",
+  "lang": "es",
+  "path": "/reservas/",
+  "slug": "reservas",
+  "parent": "",
+  "title": "Reservar mesa",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/reservas.html"
+ },
+ {
+  "key": "reservas",
+  "lang": "en",
+  "path": "/en/book-a-table/",
+  "slug": "book-a-table",
+  "parent": "en",
+  "title": "Book a table (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/book-a-table.html"
+ },
+ {
+  "key": "grupos",
+  "lang": "es",
+  "path": "/grupos-y-eventos/",
+  "slug": "grupos-y-eventos",
+  "parent": "",
+  "title": "Grupos y eventos",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/grupos-y-eventos.html"
+ },
+ {
+  "key": "grupos",
+  "lang": "en",
+  "path": "/en/groups-and-events/",
+  "slug": "groups-and-events",
+  "parent": "en",
+  "title": "Groups & events (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/groups-and-events.html"
+ },
+ {
+  "key": "bonos",
+  "lang": "es",
+  "path": "/bonos-regalo/",
+  "slug": "bonos-regalo",
+  "parent": "",
+  "title": "Bonos regalo",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/bonos-regalo.html"
+ },
+ {
+  "key": "bonos",
+  "lang": "en",
+  "path": "/en/gift-vouchers/",
+  "slug": "gift-vouchers",
+  "parent": "en",
+  "title": "Gift vouchers (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/gift-vouchers.html"
+ },
+ {
+  "key": "proyecto",
+  "lang": "es",
+  "path": "/el-proyecto/",
+  "slug": "el-proyecto",
+  "parent": "",
+  "title": "El proyecto",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/el-proyecto.html"
+ },
+ {
+  "key": "proyecto",
+  "lang": "en",
+  "path": "/en/our-story/",
+  "slug": "our-story",
+  "parent": "en",
+  "title": "Our story (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/our-story.html"
+ },
+ {
+  "key": "contacto",
+  "lang": "es",
+  "path": "/contacto/",
+  "slug": "contacto",
+  "parent": "",
+  "title": "Contacto",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/contacto.html"
+ },
+ {
+  "key": "contacto",
+  "lang": "en",
+  "path": "/en/contact/",
+  "slug": "contact",
+  "parent": "en",
+  "title": "Contact (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/contact.html"
+ },
+ {
+  "key": "centro",
+  "lang": "es",
+  "path": "/restaurante-centro-malaga/",
+  "slug": "restaurante-centro-malaga",
+  "parent": "",
+  "title": "Restaurante en el centro de Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/restaurante-centro-malaga.html"
+ },
+ {
+  "key": "centro",
+  "lang": "en",
+  "path": "/en/restaurant-malaga-old-town/",
+  "slug": "restaurant-malaga-old-town",
+  "parent": "en",
+  "title": "Restaurant in Málaga old town (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/restaurant-malaga-old-town.html"
+ },
+ {
+  "key": "donde",
+  "lang": "es",
+  "path": "/donde-comer-en-malaga/",
+  "slug": "donde-comer-en-malaga",
+  "parent": "",
+  "title": "Dónde comer en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/donde-comer-en-malaga.html"
+ },
+ {
+  "key": "donde",
+  "lang": "en",
+  "path": "/en/where-to-eat-in-malaga/",
+  "slug": "where-to-eat-in-malaga",
+  "parent": "en",
+  "title": "Where to eat in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/where-to-eat-in-malaga.html"
+ },
+ {
+  "key": "cenar",
+  "lang": "es",
+  "path": "/donde-cenar-en-malaga/",
+  "slug": "donde-cenar-en-malaga",
+  "parent": "",
+  "title": "Dónde cenar en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/donde-cenar-en-malaga.html"
+ },
+ {
+  "key": "cenar",
+  "lang": "en",
+  "path": "/en/dinner-in-malaga/",
+  "slug": "dinner-in-malaga",
+  "parent": "en",
+  "title": "Dinner in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/dinner-in-malaga.html"
+ },
+ {
+  "key": "vistas",
+  "lang": "es",
+  "path": "/restaurante-con-vistas-malaga/",
+  "slug": "restaurante-con-vistas-malaga",
+  "parent": "",
+  "title": "Restaurante con vistas en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/restaurante-con-vistas-malaga.html"
+ },
+ {
+  "key": "vistas",
+  "lang": "en",
+  "path": "/en/restaurant-with-a-view-malaga/",
+  "slug": "restaurant-with-a-view-malaga",
+  "parent": "en",
+  "title": "Restaurant with a view in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/restaurant-with-a-view-malaga.html"
+ },
+ {
+  "key": "rooftop",
+  "lang": "es",
+  "path": "/rooftop-malaga/",
+  "slug": "rooftop-malaga",
+  "parent": "",
+  "title": "Rooftop en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/rooftop-malaga.html"
+ },
+ {
+  "key": "rooftop",
+  "lang": "en",
+  "path": "/en/rooftop-bar-malaga/",
+  "slug": "rooftop-bar-malaga",
+  "parent": "en",
+  "title": "Rooftop bar in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/rooftop-bar-malaga.html"
+ },
+ {
+  "key": "aviso",
+  "lang": "es",
+  "path": "/aviso-legal/",
+  "slug": "aviso-legal",
+  "parent": "",
+  "title": "Aviso legal",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/aviso-legal.html"
+ },
+ {
+  "key": "aviso",
+  "lang": "en",
+  "path": "/en/legal-notice/",
+  "slug": "legal-notice",
+  "parent": "en",
+  "title": "Legal notice (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/legal-notice.html"
+ },
+ {
+  "key": "privacidad",
+  "lang": "es",
+  "path": "/politica-de-privacidad/",
+  "slug": "politica-de-privacidad",
+  "parent": "",
+  "title": "Política de privacidad",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/politica-de-privacidad.html"
+ },
+ {
+  "key": "privacidad",
+  "lang": "en",
+  "path": "/en/privacy-policy/",
+  "slug": "privacy-policy",
+  "parent": "en",
+  "title": "Privacy policy (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/privacy-policy.html"
+ },
+ {
+  "key": "cookies",
+  "lang": "es",
+  "path": "/politica-de-cookies/",
+  "slug": "politica-de-cookies",
+  "parent": "",
+  "title": "Política de cookies",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/politica-de-cookies.html"
+ },
+ {
+  "key": "cookies",
+  "lang": "en",
+  "path": "/en/cookie-policy/",
+  "slug": "cookie-policy",
+  "parent": "en",
+  "title": "Cookie policy (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/cookie-policy.html"
+ },
+ {
+  "key": "condiciones",
+  "lang": "es",
+  "path": "/condiciones-de-compra/",
+  "slug": "condiciones-de-compra",
+  "parent": "",
+  "title": "Condiciones de compra",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/condiciones-de-compra.html"
+ },
+ {
+  "key": "condiciones",
+  "lang": "en",
+  "path": "/en/terms-of-purchase/",
+  "slug": "terms-of-purchase",
+  "parent": "en",
+  "title": "Terms of purchase (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/terms-of-purchase.html"
+ }
+]

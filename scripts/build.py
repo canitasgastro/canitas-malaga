@@ -590,6 +590,8 @@ def main():
 
     generated = []
     wp_rows = []
+    seo_map = {}
+    manifest = []
     for key in ROUTES:
         for lang in ("es", "en"):
             # Web estática (vista previa)
@@ -604,6 +606,21 @@ def main():
             slug = (c.path.rstrip("/").split("/")[-1] if c.path.strip("/") not in ("", "en") else ("inicio" if lang == "es" else "home"))
             fname = f"{lang}/{slug}.html"
             write(os.path.join(BASE, "wordpress", "03-paginas", fname), render_wp(w, wpage))
+            seo_map["/" + c.path] = {
+                "title": wpage["title"], "desc": wpage["desc"], "lang": lang,
+                "canonical": SITE_URL + "/" + c.path,
+                "es": SITE_URL + "/" + ROUTES[key][0], "en": SITE_URL + "/" + ROUTES[key][1],
+                "og": SITE_URL + WP_MEDIA + wpage.get("og", "og-canitas-malaga") + ".jpg",
+                "type": "website" if key == "home" else "article",
+                "noindex": key in LEGAL_KEYS,
+            }
+            manifest.append({
+                "key": key, "lang": lang, "path": "/" + c.path,
+                "slug": (("inicio" if lang == "es" else "en") if key == "home" else c.path.rstrip("/").split("/")[-1]),
+                "parent": "en" if (lang == "en" and key != "home") else "",
+                "title": wpage["nav_title"] + ("" if lang == "es" or key == "home" else " (EN)"),
+                "file": os.path.join(BASE, "wordpress", "03-paginas", fname),
+            })
             wp_rows.append({
                 "idioma": lang.upper(),
                 "archivo": "03-paginas/" + fname,
@@ -647,6 +664,8 @@ def main():
     }, ensure_ascii=False, indent=2))
 
     export_wordpress(wp_rows)
+    write(os.path.join(BASE, "wordpress", "02-estilos-y-script", "canitas-seo.php"), seo_php(seo_map))
+    write(os.path.join(BASE, "wordpress", "paginas.json"), json.dumps(manifest, ensure_ascii=False, indent=1))
     print(f"{len(generated)} páginas generadas + exportación WordPress ({len(wp_rows)} páginas).")
 
 
@@ -672,7 +691,7 @@ def export_wordpress(rows):
     wp = os.path.join(BASE, "wordpress")
     # Estilos y script globales
     css = open(os.path.join(BASE, "css", "styles.css"), encoding="utf-8").read()
-    css = css.replace("../assets/fonts/", "/wp-content/uploads/canitas-fuentes/")
+    css = css.replace("../assets/fonts/", WP_MEDIA)
     write(os.path.join(wp, "02-estilos-y-script", "canitas.css"), css)
     shutil.copy(os.path.join(BASE, "js", "main.js"), os.path.join(wp, "02-estilos-y-script", "canitas.js"))
     fonts_dst = os.path.join(wp, "02-estilos-y-script", "canitas-fuentes")
@@ -696,6 +715,109 @@ def export_wordpress(rows):
     write(os.path.join(wp, "sitemap-referencia.xml"), sitemap(SITE_URL))
     write(os.path.join(wp, "robots-referencia.txt"), f"User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: {SITE_URL}/sitemap_index.xml\n")
     write(os.path.join(wp, "llms.txt"), llms_txt(SITE_URL))
+
+
+def seo_php(seo_map):
+    """Fragmento PHP para WPCode: SEO de cada página (título, descripción, canonical,
+    hreflang, Open Graph, robots), idioma del documento, sitemap, llms.txt y woff2."""
+    data = json.dumps(seo_map, ensure_ascii=False)
+    llms = llms_txt(SITE_URL)
+    return f"""// Cañitas Málaga · SEO de las páginas (generado por scripts/build.py; no editar a mano)
+$GLOBALS['canitas_seo'] = json_decode(<<<'JSON'
+{data}
+JSON, true);
+
+function canitas_seo_current() {{
+    $path = wp_parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+    $path = '/' . trim((string) $path, '/') . '/';
+    if ($path === '//') $path = '/';
+    return $GLOBALS['canitas_seo'][$path] ?? null;
+}}
+
+add_filter('pre_get_document_title', function ($title) {{
+    $s = canitas_seo_current();
+    return $s ? $s['title'] : $title;
+}}, 99);
+
+add_filter('language_attributes', function ($output) {{
+    $s = canitas_seo_current();
+    return ($s && $s['lang'] === 'en') ? 'lang="en-GB"' : $output;
+}});
+
+add_filter('wp_robots', function ($robots) {{
+    $s = canitas_seo_current();
+    if ($s && $s['noindex']) {{
+        return ['noindex' => true, 'follow' => true];
+    }}
+    return $robots;
+}});
+
+add_filter('jetpack_enable_open_graph', '__return_false');
+remove_action('wp_head', 'rel_canonical');
+
+add_action('wp_head', function () {{
+    $s = canitas_seo_current();
+    if (!$s) return;
+    $e = 'esc_attr';
+    $locale = $s['lang'] === 'en' ? 'en_GB' : 'es_ES';
+    $alt = $s['lang'] === 'en' ? 'es_ES' : 'en_GB';
+    echo "\n<meta name=\"description\" content=\"" . $e($s['desc']) . "\">\n";
+    echo "<link rel=\"canonical\" href=\"" . esc_url($s['canonical']) . "\">\n";
+    echo "<link rel=\"alternate\" hreflang=\"es\" href=\"" . esc_url($s['es']) . "\">\n";
+    echo "<link rel=\"alternate\" hreflang=\"en\" href=\"" . esc_url($s['en']) . "\">\n";
+    echo "<link rel=\"alternate\" hreflang=\"x-default\" href=\"" . esc_url($s['es']) . "\">\n";
+    echo "<meta property=\"og:type\" content=\"" . $e($s['type']) . "\">\n";
+    echo "<meta property=\"og:site_name\" content=\"Cañitas Málaga\">\n";
+    echo "<meta property=\"og:locale\" content=\"$locale\">\n<meta property=\"og:locale:alternate\" content=\"$alt\">\n";
+    echo "<meta property=\"og:title\" content=\"" . $e($s['title']) . "\">\n";
+    echo "<meta property=\"og:description\" content=\"" . $e($s['desc']) . "\">\n";
+    echo "<meta property=\"og:url\" content=\"" . esc_url($s['canonical']) . "\">\n";
+    echo "<meta property=\"og:image\" content=\"" . esc_url($s['og']) . "\">\n";
+    echo "<meta property=\"og:image:width\" content=\"1200\">\n<meta property=\"og:image:height\" content=\"630\">\n";
+    echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
+    echo "<meta name=\"theme-color\" content=\"#28265a\">\n";
+}}, 1);
+
+// Sitemap de WordPress: solo páginas, sin usuarios ni taxonomías, sin las legales
+add_filter('wp_sitemaps_add_provider', function ($provider, $name) {{
+    return in_array($name, ['users', 'taxonomies'], true) ? false : $provider;
+}}, 10, 2);
+add_filter('wp_sitemaps_post_types', function ($types) {{
+    return array_intersect_key($types, ['page' => true]);
+}});
+add_filter('wp_sitemaps_posts_query_args', function ($args) {{
+    $ids = [];
+    foreach ($GLOBALS['canitas_seo'] as $path => $s) {{
+        if ($s['noindex']) {{
+            $p = get_page_by_path(trim($path, '/'));
+            if ($p) $ids[] = $p->ID;
+        }}
+    }}
+    $args['post__not_in'] = array_merge($args['post__not_in'] ?? [], $ids);
+    return $args;
+}});
+
+// llms.txt en la raíz del dominio
+add_action('init', function () {{
+    if (isset($_SERVER['REQUEST_URI']) && wp_parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) === '/llms.txt') {{
+        header('Content-Type: text/plain; charset=utf-8');
+        echo <<<'LLMS'
+{llms}
+LLMS;
+        exit;
+    }}
+}});
+
+// Permitir subir las fuentes .woff2 a la mediateca
+add_filter('upload_mimes', function ($m) {{ $m['woff2'] = 'font/woff2'; return $m; }});
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename) {{
+    if (strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'woff2') {{
+        $data['ext'] = 'woff2';
+        $data['type'] = 'font/woff2';
+    }}
+    return $data;
+}}, 10, 3);
+"""
 
 
 def llms_txt(base):
