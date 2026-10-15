@@ -14,7 +14,7 @@ EMPRESA = {
     "nif": "B24760928",
     "domicilio": "Travesía Molino, nº 2, 02200 Casas-Ibáñez (Albacete)",
     "registro": "",
-    "email_privacidad": "",
+    "email_privacidad": "canitasmalaga@melia.com",
     "dpo": "",
     "validez_bonos": "",
 }
@@ -56,8 +56,7 @@ def titular(c):
           <li><strong>{t('Titular', 'Owner')}:</strong> {d('razon_social', t('RAZÓN SOCIAL', 'COMPANY NAME'))}</li>
           <li><strong>NIF:</strong> {d('nif', 'NIF / CIF')}</li>
           <li><strong>{t('Domicilio social', 'Registered office')}:</strong> {d('domicilio', t('DOMICILIO SOCIAL', 'REGISTERED ADDRESS'))}</li>
-          <li><strong>{t('Datos registrales', 'Registration details')}:</strong> {d('registro', t('REGISTRO MERCANTIL, TOMO, FOLIO, HOJA', 'COMMERCIAL REGISTRY DETAILS'))}</li>
-          <li><strong>{t('Establecimiento', 'Venue')}:</strong> Cañitas Málaga · Hotel ME Málaga by Meliá, Calle Victoria, 6, 29012 Málaga</li>
+{f"          <li><strong>{t('Datos registrales', 'Registration details')}:</strong> {EMPRESA['registro']}</li>\n" if EMPRESA['registro'] else ""}          <li><strong>{t('Establecimiento', 'Venue')}:</strong> Cañitas Málaga · Hotel ME Málaga by Meliá, Calle Victoria, 6, 29012 Málaga</li>
           <li><strong>Email:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></li>
         </ul>"""
 
@@ -121,12 +120,12 @@ def privacidad(c):
     table = "<div class=\"table-wrap\"><table><thead><tr>" + "".join(f"<th>{h}</th>" for h in head) + "</tr></thead><tbody>" + "".join(
         "<tr>" + "".join(f"<td>{x}</td>" for x in r) + "</tr>" for r in rows) + "</tbody></table></div>"
     s = [
-        (t("Responsable del tratamiento", "Data controller"), titular(c) + (f"\n        <p>{t('Delegado de protección de datos (si procede)', 'Data protection officer (if applicable)')}: {d('dpo', t('DATOS DEL DPO', 'DPO DETAILS'))}</p>")),
+        (t("Responsable del tratamiento", "Data controller"), titular(c)),
         (t("Qué datos tratamos", "What data we process"),
          f"<p>{t('Tratamos los datos que nos facilitas al reservar, escribirnos o comprar: nombre y apellidos, teléfono, email, número de comensales, fecha y hora, preferencias o alergias que nos indiques y, en su caso, datos de facturación. Los datos sobre alergias o intolerancias solo se usan para preparar tu servicio con seguridad.', 'We process the data you give us when booking, contacting us or making a purchase: name, phone number, email, number of guests, date and time, any preferences or allergies you tell us about and, where applicable, billing details. Allergy and intolerance information is used only to serve you safely.')}</p>"),
         (t("Finalidades, base legal y conservación", "Purposes, legal basis and retention"), table),
         (t("Destinatarios y encargados del tratamiento", "Recipients and processors"),
-         f"<p>{t('No cedemos tus datos a terceros salvo obligación legal. Para prestar el servicio contamos con proveedores que actúan como encargados del tratamiento con contrato conforme al RGPD:', 'We do not share your data with third parties unless required by law. To provide our service we rely on providers acting as data processors under GDPR-compliant agreements:')}</p>\n        <ul><li>{t('CoverManager: sistema de reservas online.', 'CoverManager: online booking system.')}</li><li>{t('Proveedor de alojamiento web y del correo electrónico.', 'Web hosting and email providers.')}</li><li>{t('Adobe Fonts (Adobe Inc.): servicio de tipografías web.', 'Adobe Fonts (Adobe Inc.): web font service.')}</li><li>{t('Plataforma de pago (cuando se active la tienda de bonos regalo).', 'Payment platform (once the gift voucher shop goes live).')}</li></ul>\n        <p>{t('Comunicación de datos al hotel ME Málaga by Meliá', 'Disclosure of data to ME Málaga by Meliá')}: <mark class=\"todo\">[{t('INDICAR SI SE COMPARTEN DATOS CON EL HOTEL Y CON QUÉ FINALIDAD', 'STATE WHETHER DATA IS SHARED WITH THE HOTEL AND WHY')}]</mark></p>"),
+         f"<p>{t('No cedemos tus datos a terceros salvo obligación legal. Para prestar el servicio contamos con proveedores que actúan como encargados del tratamiento con contrato conforme al RGPD:', 'We do not share your data with third parties unless required by law. To provide our service we rely on providers acting as data processors under GDPR-compliant agreements:')}</p>\n        <ul><li>{t('CoverManager: sistema de reservas online.', 'CoverManager: online booking system.')}</li><li>{t('Proveedor de alojamiento web y del correo electrónico.', 'Web hosting and email providers.')}</li><li>{t('Adobe Fonts (Adobe Inc.): servicio de tipografías web.', 'Adobe Fonts (Adobe Inc.): web font service.')}</li><li>{t('Plataforma de pago (cuando se active la tienda de bonos regalo).', 'Payment platform (once the gift voucher shop goes live).')}</li></ul>\n        <p>{t('No comunicamos tus datos al hotel ME Málaga by Meliá ni a ninguna otra empresa.', 'We do not share your data with ME Málaga by Meliá or any other company.')}</p>"),
         (t("Transferencias internacionales", "International transfers"),
          f"<p>{t('Si algún proveedor tratase datos fuera del Espacio Económico Europeo, lo hará con las garantías previstas en el RGPD, como decisiones de adecuación o cláusulas contractuales tipo de la Comisión Europea.', 'If any provider processes data outside the European Economic Area, it will do so with the safeguards required by the GDPR, such as adequacy decisions or the European Commission’s standard contractual clauses.')}</p>"),
         (t("Tus derechos", "Your rights"),
@@ -177,11 +176,11 @@ def cookies(c):
 # ---------------------------------------------------------------------------
 def condiciones(c):
     t = c.t
-    validez = d("validez_bonos", t("PLAZO DE VALIDEZ, p. ej. 12 MESES", "VALIDITY PERIOD, e.g. 12 MONTHS"))
+    validez = EMPRESA["validez_bonos"] or t("la indicada en cada bono en el momento de la compra,", "as stated on each voucher at the time of purchase,")
     s = [
         (t("Vendedor", "Seller"), titular(c)),
         (t("Objeto", "Scope"),
-         f"<p>{t('Estas condiciones regulan la compra online de bonos regalo y experiencias gastronómicas de Cañitas Málaga a través de esta web. La tienda online estará disponible próximamente.', 'These terms govern the online purchase of Cañitas Málaga gift vouchers and food experiences through this website. The online shop will be available soon.')}</p>"),
+         f"<p>{t('Estas condiciones regularán la compra online de bonos regalo y experiencias gastronómicas de Cañitas Málaga a través de esta web. La tienda online todavía no está disponible: estas condiciones se aplicarán cuando se active.', 'These terms will govern the online purchase of Cañitas Málaga gift vouchers and food experiences through this website. The online shop is not yet available: these terms will apply once it opens.')}</p>"),
         (t("Precios y pago", "Prices and payment"),
          f"<p>{t('Los precios se indican en euros e incluyen el IVA aplicable. El pago se realiza en el momento de la compra mediante los medios de pago seguros que se muestren en el proceso de compra.', 'Prices are shown in euros and include applicable VAT. Payment is made at the time of purchase using the secure payment methods shown at checkout.')}</p>"),
         (t("Entrega", "Delivery"),
