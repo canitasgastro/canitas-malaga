@@ -1822,3 +1822,29 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 .contact-hours div{ display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .contact-hours dt{ font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); min-width: 140px; }
 .contact-hours dd{ margin: 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.88); }
+
+/* ---------- WordPress: barra de administración y banner de cookies (Complianz) ---------- */
+.admin-bar .site-header{ top: 32px; }
+@media (max-width: 782px){ .admin-bar .site-header{ top: 46px; } }
+.cmplz-cookiebanner{
+  --cmplz_banner_background_color: #ffffff;
+  --cmplz_banner_border_color: #dcdaeb;
+  --cmplz_text_color: #28265a;
+  --cmplz_hyperlink_color: #28265a;
+  --cmplz_button_accept_background_color: #28265a;
+  --cmplz_button_accept_border_color: #28265a;
+  --cmplz_button_accept_text_color: #ffffff;
+  --cmplz_button_deny_background_color: #ffffff;
+  --cmplz_button_deny_border_color: #28265a;
+  --cmplz_button_deny_text_color: #28265a;
+  --cmplz_button_settings_background_color: #ffffff;
+  --cmplz_button_settings_border_color: #dcdaeb;
+  --cmplz_button_settings_text_color: #28265a;
+  --cmplz_button_border_radius: 999px;
+  --cmplz_banner_border_radius: 18px;
+  --cmplz_slider_active_color: #28265a;
+  font-family: "Archivo", sans-serif !important;
+  box-shadow: 0 18px 48px rgba(40,38,90,0.18) !important;
+}
+.cmplz-cookiebanner .cmplz-title{ font-family: "Federo", "Archivo", sans-serif !important; letter-spacing: 0.02em; }
+.cmplz-cookiebanner .cmplz-btn{ font-family: "Archivo", sans-serif !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: 0.06em; text-transform: uppercase; }
