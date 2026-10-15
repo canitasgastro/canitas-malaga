@@ -12,9 +12,17 @@ function canitas_seo_current() {
 }
 }
 
+// Con Yoast SEO activo, Yoast gestiona título, descripción, canonical, Open Graph,
+// robots y sitemap; este fragmento añade solo hreflang, idioma, llms.txt y fuentes.
+if (!function_exists('canitas_yoast')) {
+    function canitas_yoast() {
+        return defined('WPSEO_VERSION');
+    }
+}
+
 add_filter('pre_get_document_title', function ($title) {
     $s = canitas_seo_current();
-    return $s ? $s['title'] : $title;
+    return ($s && !canitas_yoast()) ? $s['title'] : $title;
 }, 99);
 
 add_filter('language_attributes', function ($output) {
@@ -24,14 +32,18 @@ add_filter('language_attributes', function ($output) {
 
 add_filter('wp_robots', function ($robots) {
     $s = canitas_seo_current();
-    if ($s && $s['noindex']) {
+    if ($s && $s['noindex'] && !canitas_yoast()) {
         return array('noindex' => true, 'follow' => true);
     }
     return $robots;
 });
 
 add_filter('jetpack_enable_open_graph', '__return_false');
-remove_action('wp_head', 'rel_canonical');
+add_action('wp', function () {
+    if (!canitas_yoast()) {
+        remove_action('wp_head', 'rel_canonical');
+    }
+});
 
 add_action('wp_head', function () {
     $s = canitas_seo_current();
@@ -59,6 +71,9 @@ add_action('wp_head', function () {
         array('meta', 'name', 'theme-color', '#28265a'),
     );
     foreach ($tags as $t) {
+        if (canitas_yoast() && $t[0] !== 'alt') {
+            continue;
+        }
         if ($t[0] === 'meta') {
             echo '<meta ' . $t[1] . '="' . esc_attr($t[2]) . '" content="' . esc_attr($t[3]) . '">' . "
 ";
