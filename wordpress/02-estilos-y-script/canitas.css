@@ -1848,3 +1848,18 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 }
 .cmplz-cookiebanner .cmplz-title{ font-family: "Federo", "Archivo", sans-serif !important; letter-spacing: 0.02em; }
 .cmplz-cookiebanner .cmplz-btn{ font-family: "Archivo", sans-serif !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ---------- WordPress/Elementor: Elementor aplica `.elementor img{max-width:100%;height:auto;border:none}`;
+   estas reglas, más específicas, recuperan el diseño de las imágenes. ---------- */
+.site .chooser-photo{ max-width: none; width: 120%; height: 120%; }
+.site .chooser-logo{ max-width: 240px; height: auto; }
+.site .chooser-logo-svg{ max-width: 250px; }
+.site .detail-media img,
+.site .split-photo img,
+.site .reserve-photo img,
+.site .map-card-link img,
+.site .page-hero-photo,
+.site .hotel-gallery-slide,
+.site .chefs-photo img{ height: 100%; max-width: none; }
+.site .gallery-item img,
+.site .space-card img{ border: 1px solid var(--line); }
