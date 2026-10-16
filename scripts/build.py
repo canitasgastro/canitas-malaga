@@ -458,7 +458,11 @@ def restaurant_ld(c):
         "openingHoursSpecification": hours_ld("maite"),
         "acceptsReservations": c.abs_url("reservas"),
         "hasMenu": c.abs_url("carta"),
-        "sameAs": [INSTAGRAM, "https://www.melia.com/es/hoteles/espana/malaga/me-malaga/restaurantes/canitas-maite"],
+        "sameAs": [
+            INSTAGRAM,
+            "https://www.melia.com/es/hoteles/espana/malaga/me-malaga/restaurantes/canitas-maite",
+            "https://www.tripadvisor.es/Restaurant_Review-g187438-d34364926-Reviews-Canitas_Maite-Malaga_Costa_del_Sol_Province_of_Malaga_Andalucia.html",
+        ],
         "inLanguage": c.lang,
         "containedInPlace": {"@type": "Hotel", "name": "ME Málaga by Meliá", "url": HOTEL_URL[c.lang], "address": address_ld()},
     }
