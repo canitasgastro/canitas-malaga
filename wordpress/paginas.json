@@ -162,6 +162,24 @@
   "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/contact.html"
  },
  {
+  "key": "faq",
+  "lang": "es",
+  "path": "/preguntas-frecuentes/",
+  "slug": "preguntas-frecuentes",
+  "parent": "",
+  "title": "Preguntas frecuentes",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/preguntas-frecuentes.html"
+ },
+ {
+  "key": "faq",
+  "lang": "en",
+  "path": "/en/faq/",
+  "slug": "faq",
+  "parent": "en",
+  "title": "FAQ (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/faq.html"
+ },
+ {
   "key": "centro",
   "lang": "es",
   "path": "/restaurante-centro-malaga/",

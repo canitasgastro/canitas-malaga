@@ -1,25 +1,59 @@
 # Cañitas Málaga
 
-> Restaurante Cañitas Málaga y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop bar in Málaga city centre. Web en español e inglés.
+> Cañitas Málaga es el restaurante de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin) en la última planta del hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco, abierto al público. Cocina española de producto, parrilla y brasa con vistas a la Alcazaba.
+>
+> Cañitas Málaga is the restaurant of chefs Javier Sanz and Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, one Michelin star) on the top floor of ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga, Spain. Its rooftop bar, Cañitas al Fresco, is open to the public. Spanish produce-led cooking over the grill, with views of the Alcazaba.
 
-- Cañitas Málaga: restaurante en la última planta, cocina de producto y parrilla, vistas a la Alcazaba. Reservas online.
-- Cañitas al Fresco: rooftop bar en la azotea, abierto al público (la piscina es solo para huéspedes del hotel). Sin reserva, por orden de llegada.
-- Grupos de 8 o más: menú cerrado. Comedor privado.
-- Teléfono +34 682 10 89 03 · canitasmalaga@melia.com · Instagram @canitas_malaga
+Nombre oficial: Cañitas Málaga (también «Cañitas Maite Málaga»). No confundir con Cañitas Maite, el restaurante de los mismos chefs en Casas-Ibáñez (Albacete), ni con Cañitas al Fresco de Casas-Ibáñez (cenas de verano, cerrado en invierno). La información completa, con carta y precios, está en [llms-full.txt](https://canitasmalaga.com/llms-full.txt).
+
+## Datos clave (ES)
+- **Dirección:** Hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga
+- **Cañitas Málaga:** restaurante en la última planta. Todos los días, de 13:00 a 15:30 y de 20:00 a 22:30. Reserva online recomendada.
+- **Cañitas al Fresco:** rooftop bar en la azotea, abierto al público. Todos los días, de 11:00 a 24:00. Sin reserva.
+- **Chefs:** Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin)
+- **Cocina:** española de producto, parrilla y brasa
+- **Precios:** menús para compartir: Menú Hits 69 €, Menú Classics 39 € por persona; a la carta, platos de 8 € a 65 €. Al Fresco: de 8 € a 34 €.
+- **Contacto:** +34 682 10 89 03 · canitasmalaga@melia.com
+
+## Key facts (EN)
+- **Address:** Hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga
+- **Cañitas Málaga:** restaurant on the top floor. Every day, 1–3:30 pm and 8–10:30 pm. Booking recommended.
+- **Cañitas al Fresco:** rooftop bar, open to the public. Every day, 11 am to midnight. No reservations.
+- **Chefs:** Javier Sanz and Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, one Michelin star)
+- **Cuisine:** Spanish, produce-led, grill and embers
+- **Prices:** sharing menus: Hits Menu €69, Classics Menu €39 per person; à la carte dishes €8–€65. Al Fresco: €8–€34.
+- **Contact:** +34 682 10 89 03 · canitasmalaga@melia.com
 
 ## Páginas (ES)
-- [Cañitas Málaga](https://canitasmalaga.com/canitas-malaga/): el restaurante
-- [Cañitas al Fresco](https://canitasmalaga.com/canitas-al-fresco/): el rooftop
-- [La carta](https://canitasmalaga.com/carta/): carta completa con precios
-- [Reservar mesa](https://canitasmalaga.com/reservas/)
-- [Grupos y eventos](https://canitasmalaga.com/grupos-y-eventos/)
-- [El proyecto](https://canitasmalaga.com/el-proyecto/)
-- [Contacto](https://canitasmalaga.com/contacto/)
+- [Cañitas Málaga](https://canitasmalaga.com/canitas-malaga/): el restaurante: cocina, sala, terraza y comedor privado
+- [Cañitas al Fresco](https://canitasmalaga.com/canitas-al-fresco/): el rooftop bar de la azotea, abierto al público y sin reserva
+- [La carta](https://canitasmalaga.com/carta/): carta completa con precios de los dos espacios
+- [Preguntas frecuentes](https://canitasmalaga.com/preguntas-frecuentes/): preguntas frecuentes: horario, reservas, precios, cómo llegar
+- [Reservar mesa](https://canitasmalaga.com/reservas/): reservar mesa online
+- [Grupos y eventos](https://canitasmalaga.com/grupos-y-eventos/): grupos de 8 o más, comedor privado y eventos
+- [El proyecto](https://canitasmalaga.com/el-proyecto/): la historia de los chefs y de Cañitas Maite
+- [Contacto](https://canitasmalaga.com/contacto/): contacto y cómo llegar
+- [Restaurante en el centro de Málaga](https://canitasmalaga.com/restaurante-centro-malaga/): restaurante en el centro de Málaga
+- [Dónde comer en Málaga](https://canitasmalaga.com/donde-comer-en-malaga/): dónde comer en Málaga
+- [Dónde cenar en Málaga](https://canitasmalaga.com/donde-cenar-en-malaga/): dónde cenar en Málaga
+- [Restaurante con vistas en Málaga](https://canitasmalaga.com/restaurante-con-vistas-malaga/): restaurante con vistas a la Alcazaba
+- [Rooftop en Málaga](https://canitasmalaga.com/rooftop-malaga/): rooftop en Málaga
 
 ## Pages (EN)
-- [Cañitas Málaga](https://canitasmalaga.com/en/canitas-malaga/): the restaurant
-- [Cañitas al Fresco](https://canitasmalaga.com/en/canitas-al-fresco/): the rooftop bar
-- [Menu](https://canitasmalaga.com/en/menu/): full menus with prices
-- [Book a table](https://canitasmalaga.com/en/book-a-table/)
-- [Groups & events](https://canitasmalaga.com/en/groups-and-events/)
-- [Contact](https://canitasmalaga.com/en/contact/)
+- [Cañitas Málaga](https://canitasmalaga.com/en/canitas-malaga/): the restaurant: food, dining room, terrace and private room
+- [Cañitas al Fresco](https://canitasmalaga.com/en/canitas-al-fresco/): the rooftop bar, open to the public, no reservations
+- [The menu](https://canitasmalaga.com/en/menu/): full menus with prices for both venues
+- [FAQ](https://canitasmalaga.com/en/faq/): FAQ: opening hours, bookings, prices, directions
+- [Book a table](https://canitasmalaga.com/en/book-a-table/): book a table online
+- [Groups & events](https://canitasmalaga.com/en/groups-and-events/): groups of 8+, private dining room and events
+- [Our story](https://canitasmalaga.com/en/our-story/): the chefs and the Cañitas Maite story
+- [Contact](https://canitasmalaga.com/en/contact/): contact and directions
+- [Restaurant in Málaga old town](https://canitasmalaga.com/en/restaurant-malaga-old-town/): restaurant in Málaga old town
+- [Where to eat in Málaga](https://canitasmalaga.com/en/where-to-eat-in-malaga/): where to eat in Málaga
+- [Dinner in Málaga](https://canitasmalaga.com/en/dinner-in-malaga/): dinner in Málaga
+- [Restaurant with a view in Málaga](https://canitasmalaga.com/en/restaurant-with-a-view-malaga/): restaurant with Alcazaba views
+- [Rooftop bar in Málaga](https://canitasmalaga.com/en/rooftop-bar-malaga/): rooftop bar in Málaga
+
+## Otros perfiles
+- Instagram: https://www.instagram.com/canitas_malaga/
+- Meliá: https://www.melia.com/es/hoteles/espana/malaga/me-malaga/restaurantes/canitas-maite

@@ -68,6 +68,31 @@ def menu_sections(c, sections, level=3):
     return "\n".join(out)
 
 
+def menu_ld(c, name, anchor, sections, set_menus=()):
+    """Carta en schema.org/Menu: secciones, platos y precios en euros."""
+    offer = lambda p: {"@type": "Offer", "price": str(p), "priceCurrency": "EUR"}
+    secs = [{
+        "@type": "MenuSection",
+        "name": c.t(m["es_name"], m["en_name"]),
+        "description": c.t(m["es_when"], m["en_when"]) + " · " + "; ".join(c.t(es, en) for g in m["groups"] for es, en in g["items"]),
+        "offers": offer(m["price"]),
+    } for m in set_menus]
+    secs += [{
+        "@type": "MenuSection",
+        "name": c.t(s["es"], s["en"]),
+        "hasMenuItem": [{"@type": "MenuItem", "name": c.t(es, en), "offers": offer(p)} for es, en, _, _, p in s["items"]],
+    } for s in sections]
+    return {
+        "@context": "https://schema.org",
+        "@type": "Menu",
+        "@id": c.abs_url("carta", "es") + "#" + anchor,
+        "name": name,
+        "url": c.abs_url("carta") + "#" + anchor,
+        "inLanguage": c.lang,
+        "hasMenuSection": secs,
+    }
+
+
 def faq_items(c):
     t = c.t
     return [
@@ -593,7 +618,9 @@ def carta(c):
         desc=t("Carta de Cañitas Málaga (parrilla, Menú Hits y Menú Classics) y de Cañitas al Fresco, el rooftop de ME Málaga. En español e inglés.",
                "Cañitas Málaga menu (grill, Hits and Classics sharing menus) and the Cañitas al Fresco rooftop menu at ME Málaga. In English and Spanish."),
         main=main,
-        schema=[breadcrumb_ld(c, t("La carta", "The menu"))],
+        schema=[breadcrumb_ld(c, t("La carta", "The menu")),
+                menu_ld(c, t("Carta de Cañitas Málaga", "Cañitas Málaga menu"), "canitas-malaga", MAITE_CARTA, MAITE_SET_MENUS),
+                menu_ld(c, t("Carta de Cañitas al Fresco", "Cañitas al Fresco menu"), "canitas-al-fresco", FRESCO_CARTA)],
     )
 
 

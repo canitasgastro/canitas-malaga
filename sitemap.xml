@@ -127,6 +127,20 @@
     <lastmod>2026-10-15</lastmod>
   </url>
   <url>
+    <loc>https://canitasgastro.github.io/canitas-malaga/preguntas-frecuentes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canitasgastro.github.io/canitas-malaga/preguntas-frecuentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canitasgastro.github.io/canitas-malaga/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canitasgastro.github.io/canitas-malaga/preguntas-frecuentes/"/>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://canitasgastro.github.io/canitas-malaga/en/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://canitasgastro.github.io/canitas-malaga/preguntas-frecuentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://canitasgastro.github.io/canitas-malaga/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://canitasgastro.github.io/canitas-malaga/preguntas-frecuentes/"/>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
     <loc>https://canitasgastro.github.io/canitas-malaga/restaurante-centro-malaga/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://canitasgastro.github.io/canitas-malaga/restaurante-centro-malaga/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://canitasgastro.github.io/canitas-malaga/en/restaurant-malaga-old-town/"/>

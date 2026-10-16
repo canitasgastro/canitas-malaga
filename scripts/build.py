@@ -80,6 +80,7 @@ ROUTES = {
     "bonos": ("bonos-regalo/", "en/gift-vouchers/"),
     "proyecto": ("el-proyecto/", "en/our-story/"),
     "contacto": ("contacto/", "en/contact/"),
+    "faq": ("preguntas-frecuentes/", "en/faq/"),
     # Páginas de búsqueda local (fuera del menú, enlazadas desde el pie)
     "centro": ("restaurante-centro-malaga/", "en/restaurant-malaga-old-town/"),
     "donde": ("donde-comer-en-malaga/", "en/where-to-eat-in-malaga/"),
@@ -359,7 +360,7 @@ def footer(c):
       <h2 class="footer-col-title">{t('Información', 'Information')}</h2>
       <a href="{c.link('proyecto')}">{t('El proyecto', 'Our story')}</a>
       <a href="{c.link('bonos')}">{t('Bonos regalo', 'Gift vouchers')}</a>
-      <a href="{c.link('home', anchor='faq')}">{t('Preguntas frecuentes', 'FAQ')}</a>
+      <a href="{c.link('faq')}">{t('Preguntas frecuentes', 'FAQ')}</a>
       <a href="{c.link('contacto')}">{t('Contacto y cómo llegar', 'Contact & directions')}</a>
     </div>
 
@@ -583,6 +584,7 @@ def write(path, content):
 
 
 def main():
+    import faq
     import landings
     import legal
     import pages
@@ -590,6 +592,7 @@ def main():
     builders = dict(pages.PAGES)
     builders.update(legal.PAGES)
     builders.update(landings.PAGES)
+    builders.update(faq.PAGES)
 
     generated = []
     wp_rows = []
@@ -721,13 +724,15 @@ def export_wordpress(rows):
         w.writerow(["og-canitas-al-fresco.jpg", "Cañitas al Fresco", "Rooftop Cañitas al Fresco con la Alcazaba y el logotipo", "Cañitas al Fresco rooftop with the Alcazaba and the logo"])
 
     write(os.path.join(wp, "sitemap-referencia.xml"), sitemap(SITE_URL))
-    write(os.path.join(wp, "robots-referencia.txt"), f"User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: {SITE_URL}/sitemap_index.xml\n")
+    write(os.path.join(wp, "robots-referencia.txt"), robots_txt(SITE_URL))
     write(os.path.join(wp, "llms.txt"), llms_txt(SITE_URL))
+    write(os.path.join(wp, "llms-full.txt"), llms_full_txt(SITE_URL))
 
 
 def seo_php(seo_map):
     """Fragmento PHP para WPCode: SEO de cada página (título, descripción, canonical,
-    hreflang, Open Graph, robots), idioma del documento, sitemap, llms.txt y woff2.
+    hreflang, Open Graph, robots), idioma del documento, sitemap, llms.txt, llms-full.txt,
+    robots.txt para buscadores con IA, IndexNow y woff2.
     Los datos van en base64 para no depender de comillas ni heredocs."""
     import base64
     data = base64.b64encode(json.dumps(seo_map, ensure_ascii=False).encode("utf-8")).decode("ascii")
@@ -846,15 +851,48 @@ add_filter('wp_sitemaps_posts_query_args', function ($args) {
     return $args;
 });
 
-// llms.txt en la raíz del dominio
+// llms.txt, llms-full.txt (buscadores con IA) y clave de IndexNow en la raíz del dominio
 add_action('init', function () {
     $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-    if (wp_parse_url($uri, PHP_URL_PATH) === '/llms.txt') {
+    $files = array(
+        '/llms.txt' => '__LLMS__',
+        '/llms-full.txt' => '__LLMSFULL__',
+        '/__INDEXNOW__.txt' => '__INDEXNOW_B64__',
+    );
+    $path = wp_parse_url($uri, PHP_URL_PATH);
+    if (isset($files[$path])) {
         header('Content-Type: text/plain; charset=utf-8');
-        echo base64_decode('__LLMS__');
+        header('X-Robots-Tag: noindex');
+        echo base64_decode($files[$path]);
         exit;
     }
 });
+
+// robots.txt: paso explícito a los rastreadores de buscadores con IA
+add_filter('robots_txt', function ($output, $public) {
+    if (!$public) {
+        return $output;
+    }
+    return base64_decode('__ROBOTS__');
+}, 99, 2);
+
+// IndexNow: avisa a Bing (y con él a Copilot y ChatGPT search) cada vez que se publica o actualiza una página
+add_action('transition_post_status', function ($new, $old, $post) {
+    if ($new !== 'publish' || $post->post_type !== 'page' || wp_is_post_revision($post)) {
+        return;
+    }
+    wp_remote_post('https://api.indexnow.org/indexnow', array(
+        'blocking' => false,
+        'timeout' => 3,
+        'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+        'body' => wp_json_encode(array(
+            'host' => wp_parse_url(home_url(), PHP_URL_HOST),
+            'key' => '__INDEXNOW__',
+            'keyLocation' => home_url('/__INDEXNOW__.txt'),
+            'urlList' => array(get_permalink($post)),
+        )),
+    ));
+}, 10, 3);
 
 // Permitir subir las fuentes .woff2 a la mediateca
 add_filter('upload_mimes', function ($m) {
@@ -869,36 +907,138 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename) {
     return $data;
 }, 10, 3);
 """
-    return php.replace("__DATA__", data).replace("__LLMS__", llms)
+    b64 = lambda txt: base64.b64encode(txt.encode("utf-8")).decode("ascii")
+    return (php.replace("__DATA__", data).replace("__LLMSFULL__", b64(llms_full_txt(SITE_URL))).replace("__LLMS__", llms)
+            .replace("__ROBOTS__", b64(robots_txt(SITE_URL))).replace("__INDEXNOW_B64__", b64(INDEXNOW_KEY))
+            .replace("__INDEXNOW__", INDEXNOW_KEY))
+
+
+# Rastreadores de buscadores con IA a los que se da paso explícito en robots.txt
+AI_BOTS = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User",
+           "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "Bingbot",
+           "DuckAssistBot", "MistralAI-User", "Meta-ExternalAgent", "Amazonbot", "CCBot"]
+# Clave de IndexNow (Bing, Copilot, ChatGPT search, Yandex…): avisa al instante de cada página publicada.
+INDEXNOW_KEY = "c4n1745m4l4g4a7f3e9d2b18c6054e1f"
+
+
+def robots_txt(base):
+    bots = "\n".join(f"User-agent: {b}" for b in AI_BOTS)
+    return (f"User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\n"
+            f"# Buscadores con IA: bienvenidos (resumen para ellos en /llms.txt)\n{bots}\nAllow: /\nDisallow: /wp-admin/\n\n"
+            f"Sitemap: {base}/sitemap_index.xml\n")
+
+
+def _md_links(html_text, base):
+    """<a href="/x/">texto</a> → [texto](https://dominio/x/) y fuera el resto de etiquetas."""
+    import re
+    out = re.sub(r'<a href="([^"]+)"[^>]*>(.*?)</a>',
+                 lambda m: f"[{m.group(2)}]({base + m.group(1) if m.group(1).startswith('/') else m.group(1)})", html_text)
+    return re.sub(r"<[^>]+>", "", out)
+
+
+def _facts_md(lang, base):
+    import faq
+    c = Ctx(lang, "wp", "faq")
+    return "\n".join(f"- **{k.rstrip(':')}:** {_md_links(v, base)}" for k, v in faq.key_facts(c))
+
+
+def _pages_md(lang, base):
+    t = (lambda es, en: es if lang == "es" else en)
+    i = 0 if lang == "es" else 1
+    pages = [
+        ("maite", t("el restaurante: cocina, sala, terraza y comedor privado", "the restaurant: food, dining room, terrace and private room")),
+        ("fresco", t("el rooftop bar de la azotea, abierto al público y sin reserva", "the rooftop bar, open to the public, no reservations")),
+        ("carta", t("carta completa con precios de los dos espacios", "full menus with prices for both venues")),
+        ("faq", t("preguntas frecuentes: horario, reservas, precios, cómo llegar", "FAQ: opening hours, bookings, prices, directions")),
+        ("reservas", t("reservar mesa online", "book a table online")),
+        ("grupos", t("grupos de 8 o más, comedor privado y eventos", "groups of 8+, private dining room and events")),
+        ("proyecto", t("la historia de los chefs y de Cañitas Maite", "the chefs and the Cañitas Maite story")),
+        ("contacto", t("contacto y cómo llegar", "contact and directions")),
+        ("centro", t("restaurante en el centro de Málaga", "restaurant in Málaga old town")),
+        ("donde", t("dónde comer en Málaga", "where to eat in Málaga")),
+        ("cenar", t("dónde cenar en Málaga", "dinner in Málaga")),
+        ("vistas", t("restaurante con vistas a la Alcazaba", "restaurant with Alcazaba views")),
+        ("rooftop", t("rooftop en Málaga", "rooftop bar in Málaga")),
+    ]
+    import faq, landings, pages as pg
+    builders = dict(pg.PAGES, **landings.PAGES, **faq.PAGES)
+    return "\n".join(f"- [{builders[k](Ctx(lang, 'wp', k))['nav_title']}]({base}/{ROUTES[k][i]}): {d}" for k, d in pages)
 
 
 def llms_txt(base):
-    u = lambda k, i=0: f"{base}/{ROUTES[k][i]}"
     return f"""# Cañitas Málaga
 
-> Restaurante Cañitas Málaga y rooftop bar Cañitas al Fresco, de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin), en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). Restaurant and rooftop bar in Málaga city centre. Web en español e inglés.
+> Cañitas Málaga es el restaurante de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin) en la última planta del hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco, abierto al público. Cocina española de producto, parrilla y brasa con vistas a la Alcazaba.
+>
+> Cañitas Málaga is the restaurant of chefs Javier Sanz and Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, one Michelin star) on the top floor of ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga, Spain. Its rooftop bar, Cañitas al Fresco, is open to the public. Spanish produce-led cooking over the grill, with views of the Alcazaba.
 
-- Cañitas Málaga: restaurante en la última planta, cocina de producto y parrilla, vistas a la Alcazaba. Reservas online.
-- Cañitas al Fresco: rooftop bar en la azotea, abierto al público (la piscina es solo para huéspedes del hotel). Sin reserva, por orden de llegada.
-- Grupos de 8 o más: menú cerrado. Comedor privado.
-- Teléfono {PHONE} · {EMAIL} · Instagram @canitas_malaga
+Nombre oficial: Cañitas Málaga (también «Cañitas Maite Málaga»). No confundir con Cañitas Maite, el restaurante de los mismos chefs en Casas-Ibáñez (Albacete), ni con Cañitas al Fresco de Casas-Ibáñez (cenas de verano, cerrado en invierno). La información completa, con carta y precios, está en [llms-full.txt]({base}/llms-full.txt).
+
+## Datos clave (ES)
+{_facts_md("es", base)}
+
+## Key facts (EN)
+{_facts_md("en", base)}
 
 ## Páginas (ES)
-- [Cañitas Málaga]({u('maite')}): el restaurante
-- [Cañitas al Fresco]({u('fresco')}): el rooftop
-- [La carta]({u('carta')}): carta completa con precios
-- [Reservar mesa]({u('reservas')})
-- [Grupos y eventos]({u('grupos')})
-- [El proyecto]({u('proyecto')})
-- [Contacto]({u('contacto')})
+{_pages_md("es", base)}
 
 ## Pages (EN)
-- [Cañitas Málaga]({u('maite', 1)}): the restaurant
-- [Cañitas al Fresco]({u('fresco', 1)}): the rooftop bar
-- [Menu]({u('carta', 1)}): full menus with prices
-- [Book a table]({u('reservas', 1)})
-- [Groups & events]({u('grupos', 1)})
-- [Contact]({u('contacto', 1)})
+{_pages_md("en", base)}
+
+## Otros perfiles
+- Instagram: {INSTAGRAM}
+- Meliá: https://www.melia.com/es/hoteles/espana/malaga/me-malaga/restaurantes/canitas-maite
+"""
+
+
+def llms_full_txt(base):
+    """Todo lo que una IA necesita para responder sobre Cañitas Málaga: datos, preguntas
+    frecuentes y cartas con precios, en español y en inglés."""
+    import faq
+    from menus_data import FRESCO_CARTA, MAITE_CARTA, MAITE_SET_MENUS
+
+    def block(lang):
+        c = Ctx(lang, "wp", "faq")
+        t = c.t
+        eur = (lambda n: f"{n} €") if lang == "es" else (lambda n: f"€{n}")
+        out = [f"## {t('Datos clave', 'Key facts')}", _facts_md(lang, base), ""]
+        for title, items in faq.faq_groups(c):
+            out.append(f"## {t('Preguntas frecuentes', 'FAQ')}: {title}")
+            for q, a in items:
+                out += [f"### {q}", _md_links(a, base), ""]
+        out.append(f"## {t('Carta de Cañitas Málaga', 'Cañitas Málaga menu')} ({base}/{ROUTES['carta'][0 if lang == 'es' else 1]})")
+        for m in MAITE_SET_MENUS:
+            out.append(f"### {t(m['es_name'], m['en_name'])}: {eur(m['price'])} {t('por persona', 'per person')} ({t(m['es_when'], m['en_when'])})")
+            for g in m["groups"]:
+                out.append(f"- {t(g['es'], g['en'])}: " + "; ".join(t(es, en) for es, en in g["items"]))
+            out.append("")
+        for title, sections in ((None, MAITE_CARTA), (t("Carta de Cañitas al Fresco (rooftop)", "Cañitas al Fresco menu (rooftop)"), FRESCO_CARTA)):
+            if title:
+                out.append(f"## {title}")
+            for sec in sections:
+                out.append(f"### {t(sec['es'], sec['en'])}")
+                for es, en, qes, qen, p in sec["items"]:
+                    q = t(qes, qen)
+                    out.append(f"- {t(es, en)}{f' ({q})' if q else ''}: {eur(p)}")
+                out.append("")
+        out.append(t("Información sobre alérgenos a disposición del cliente. Precios con IVA incluido.",
+                     "Allergen information available on request. Prices include VAT."))
+        return "\n".join(out)
+
+    return f"""# Cañitas Málaga · llms-full.txt
+
+> Información completa de Cañitas Málaga (restaurante) y Cañitas al Fresco (rooftop bar) en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Primero en español, después en inglés. Resumen: {base}/llms.txt
+>
+> Complete information about Cañitas Málaga (restaurant) and Cañitas al Fresco (rooftop bar) at ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Spanish first, then English.
+
+# Español
+
+{block("es")}
+
+# English
+
+{block("en")}
 """
 
 
