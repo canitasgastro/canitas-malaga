@@ -1867,3 +1867,62 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 /* Selector de idioma de la carta: idioma actual marcado */
 .menu-lang a[aria-current="true"]{ background: var(--ink); color: var(--paper); }
 .menu-lang-light a[aria-current="true"]{ background: var(--paper); color: var(--ink); }
+
+/* ---------- Página del QR de bebidas (Cañitas al Fresco) ---------- */
+.qr-page{
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(80% 60% at 50% 0%, rgba(244,240,232,0.12), transparent 70%),
+    var(--fresco-deep);
+  color: var(--fresco-cream);
+  text-align: center;
+  padding: 48px 20px;
+}
+.qr-inner{ width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.site .qr-logo{ width: 200px; max-width: 70%; height: auto; margin-bottom: 8px; }
+.qr-title{ font-family: var(--font-fresco); font-weight: 400; font-size: clamp(28px, 8vw, 38px); text-transform: uppercase; line-height: 1.05; color: var(--fresco-cream); }
+.qr-title span{ display: block; font-size: 0.62em; opacity: 0.75; margin-top: 6px; }
+.qr-lead{ font-size: 14px; letter-spacing: 0.06em; color: rgba(244,240,232,0.75); }
+.qr-buttons{ width: 100%; display: flex; flex-direction: column; gap: 12px; margin: 6px 0 10px; }
+.qr-btn{
+  display: block;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 999px;
+  background: var(--fresco-cream);
+  color: var(--fresco-deep);
+  font-family: var(--font-fresco);
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: transform .15s var(--ease), background-color .2s var(--ease);
+}
+.qr-btn:hover{ background: #ffffff; }
+.qr-btn:active{ transform: scale(0.98); }
+.qr-more{ font-size: 13px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 10px; color: rgba(244,240,232,0.5); }
+.qr-more a{ color: var(--fresco-cream); text-decoration: underline; text-underline-offset: 3px; }
+.qr-foot{ margin-top: 18px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,240,232,0.5); }
+
+/* Versión Elementor de la página de bebidas: contenedor con clase «qr-el» y widgets nativos */
+.qr-el.e-con{ min-height: 100svh; min-height: 100dvh; background: radial-gradient(80% 60% at 50% 0%, rgba(244,240,232,0.12), transparent 70%), var(--fresco-deep) !important; padding: 48px 20px !important; justify-content: center; align-items: center; text-align: center; gap: 16px; }
+.qr-el > .e-con-inner{ align-items: center; justify-content: center; max-width: 420px; gap: 16px; }
+.qr-el .elementor-widget{ width: 100%; max-width: 420px; }
+.qr-el .elementor-widget-image img{ width: 200px; max-width: 70%; height: auto; margin: 0 auto 8px; }
+.qr-el .elementor-heading-title{ font-family: var(--font-fresco) !important; font-weight: 400 !important; font-size: clamp(28px, 8vw, 38px) !important; text-transform: uppercase; line-height: 1.05 !important; color: var(--fresco-cream) !important; }
+.qr-el .elementor-widget-text-editor{ font-family: "Archivo", sans-serif; font-size: 14px; letter-spacing: 0.04em; color: rgba(244,240,232,0.75); }
+.qr-el .elementor-widget-text-editor p{ margin: 0; }
+.qr-el .elementor-widget-text-editor a{ color: var(--fresco-cream); text-decoration: underline; text-underline-offset: 3px; }
+.qr-el .qr-small{ font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(244,240,232,0.5); margin-top: 18px; }
+.qr-el .elementor-widget-button .elementor-button{
+  display: block; width: 100%; padding: 18px 24px; border-radius: 999px;
+  background: var(--fresco-cream) !important; color: var(--fresco-deep) !important;
+  font-family: var(--font-fresco) !important; font-weight: 400 !important; font-size: 22px !important;
+  text-transform: uppercase; letter-spacing: 0.02em; border: none;
+  transition: transform .15s var(--ease), background-color .2s var(--ease);
+}
+.qr-el .elementor-widget-button .elementor-button:hover{ background: #ffffff !important; }
+.qr-el .elementor-widget-button .elementor-button:active{ transform: scale(0.98); }

@@ -637,6 +637,11 @@ def main():
     # 404 y redirección de la antigua reservas.html
     c = Ctx("es", "static", "home")
     write(os.path.join(BASE, "404.html"), pages.page_404())
+    # Página del QR de bebidas de Al Fresco
+    write(os.path.join(BASE, "bebidas-al-fresco", "index.html"), pages.drinks_static())
+    write(os.path.join(BASE, "wordpress", "03-paginas", "es", "bebidas-al-fresco.html"),
+          "<!-- Cañitas al Fresco · Carta de bebidas (QR). Widget HTML de Elementor, plantilla Elementor Canvas. Sin indexar. -->\n"
+          + pages.drinks_body(lambda rel: WP_MEDIA + os.path.basename(rel), lambda p: "/" + p) + "\n")
     write(os.path.join(BASE, "reservas.html"), pages.redirect_page("reservas/"))
     # Antiguas URLs de la vista previa (el restaurante se llamaba Cañitas Maite)
     for old, new in (("canitas-maite/", "canitas-malaga/"), ("en/canitas-maite/", "en/canitas-malaga/")):

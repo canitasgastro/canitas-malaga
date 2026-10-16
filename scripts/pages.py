@@ -957,3 +957,55 @@ def redirect_page(target):
 </body>
 </html>
 """
+
+
+# ---------------------------------------------------------------------------
+# Página del QR de bebidas de Cañitas al Fresco (impreso en las mesas).
+# hotelcanitasmaite.com/qr-malaga-alfresco/ redirige aquí. Bilingüe, sin indexar.
+# ---------------------------------------------------------------------------
+DRINKS_PDF = {"es": "bebidas-canitas-al-fresco-malaga-es.pdf", "en": "drinks-canitas-al-fresco-malaga-en.pdf"}
+
+
+def drinks_body(asset, link):
+    """asset(rel) -> URL de un fichero; link(path) -> URL de una página."""
+    return f"""<div class="site brand-fresco fonts-custard">
+<main class="qr-page" id="contenido">
+  <div class="qr-inner">
+    <img class="qr-logo" src="{asset('logos/logo-canitas-al-fresco-crema.png')}" alt="Cañitas al Fresco" width="260" height="135">
+    <h1 class="qr-title">Carta de bebidas <span lang="en">· Drinks menu</span></h1>
+    <p class="qr-lead">Elige tu idioma <span lang="en">· Choose your language</span></p>
+    <div class="qr-buttons">
+      <a class="qr-btn" href="{asset('menus/' + DRINKS_PDF['es'])}" hreflang="es" lang="es">Español</a>
+      <a class="qr-btn" href="{asset('menus/' + DRINKS_PDF['en'])}" hreflang="en" lang="en">English</a>
+    </div>
+    <p class="qr-more">
+      <a href="{link('carta/')}#canitas-al-fresco">Ver la carta de comida</a>
+      <span aria-hidden="true">·</span>
+      <a href="{link('en/menu/')}#canitas-al-fresco" lang="en">See the food menu</a>
+    </p>
+    <p class="qr-foot">Cañitas al Fresco · Rooftop ME Málaga by Meliá · Calle Victoria, 6</p>
+  </div>
+</main>
+</div>"""
+
+
+def drinks_static():
+    root = "../"
+    body = drinks_body(lambda rel: root + "assets/" + rel, lambda p: root + p)
+    return f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carta de bebidas · Drinks menu | Cañitas al Fresco Málaga</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#3a4133">
+<link rel="icon" href="{root}assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://use.typekit.net/uuw0ivw.css">
+<link rel="stylesheet" href="{root}css/styles.css">
+</head>
+<body>
+{body}
+</body>
+</html>
+"""
