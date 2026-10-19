@@ -2088,3 +2088,6 @@ mark.todo{ background: #fff2a8; color: #5a4a00; padding: 1px 4px; border-radius:
 /* WordPress/Elementor: sin el relleno ni el hueco por defecto del contenedor (dejaba una franja blanca arriba) */
 .e-con:has(> .elementor-widget .site){ padding: 0 !important; gap: 0 !important; margin: 0 !important; min-height: 0 !important; }
 .elementor-widget:has(> .site), .elementor-widget:has(> .elementor-widget-container > .site){ margin: 0 !important; }
+
+/* WordPress (tema Hello Elementor): el tema limita .site-footer a 1140 px; el pie va a todo el ancho */
+.site .site-footer{ max-width: none; width: 100%; margin-left: 0; margin-right: 0; }
