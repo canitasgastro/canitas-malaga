@@ -81,7 +81,7 @@ for name, info in OG.items():
     shade = Image.linear_gradient("L").resize((1200, 630)).point(lambda v: int(v * 0.72))
     photo = Image.composite(Image.new("RGB", photo.size, (20, 19, 46)), photo, shade)
     if info["logo"] == "maite":
-        logo = render_svg(os.path.join(OUT_LOGOS, "logo-canitas-malaga-blanco.svg"), 420)
+        logo = render_svg(os.path.join(OUT_LOGOS, "logo-canitas-maite-blanco.svg"), 420)
     else:
         logo = Image.open(os.path.join(OUT_LOGOS, "logo-canitas-al-fresco-crema.png")).convert("RGBA")
         logo = fit(logo, 400)

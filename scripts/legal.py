@@ -56,7 +56,7 @@ def titular(c):
           <li><strong>{t('Titular', 'Owner')}:</strong> {d('razon_social', t('RAZÓN SOCIAL', 'COMPANY NAME'))}</li>
           <li><strong>NIF:</strong> {d('nif', 'NIF / CIF')}</li>
           <li><strong>{t('Domicilio social', 'Registered office')}:</strong> {d('domicilio', t('DOMICILIO SOCIAL', 'REGISTERED ADDRESS'))}</li>
-{f"          <li><strong>{t('Datos registrales', 'Registration details')}:</strong> {EMPRESA['registro']}</li>\n" if EMPRESA['registro'] else ""}          <li><strong>{t('Establecimiento', 'Venue')}:</strong> Cañitas Málaga · Hotel ME Málaga by Meliá, Calle Victoria, 6, 29012 Málaga</li>
+{f"          <li><strong>{t('Datos registrales', 'Registration details')}:</strong> {EMPRESA['registro']}</li>\n" if EMPRESA['registro'] else ""}          <li><strong>{t('Establecimiento', 'Venue')}:</strong> Cañitas Maite Restaurante · Hotel ME Málaga by Meliá, Calle Victoria, 6, 29012 Málaga</li>
           <li><strong>Email:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></li>
         </ul>"""
 
@@ -68,11 +68,11 @@ def aviso(c):
         (t("Datos identificativos", "Identification details"),
          f"<p>{t('En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de este sitio web:', 'In accordance with Article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the owner of this website is:')}</p>\n        {titular(c)}"),
         (t("Objeto", "Purpose"),
-         f"<p>{t('Este sitio web informa sobre los espacios gastronómicos Cañitas Málaga y Cañitas al Fresco, situados en el hotel ME Málaga by Meliá, y permite consultar sus cartas, reservar mesa a través de un sistema de un proveedor externo y contactar con el establecimiento.', 'This website provides information about the Cañitas Málaga and Cañitas al Fresco venues at ME Málaga by Meliá, and allows users to view their menus, book a table through a third-party booking system and contact the venue.')}</p>"),
+         f"<p>{t('Este sitio web informa sobre los espacios gastronómicos Cañitas Maite Restaurante y Cañitas al Fresco, situados en el hotel ME Málaga by Meliá, y permite consultar sus cartas, reservar mesa a través de un sistema de un proveedor externo y contactar con el establecimiento.', 'This website provides information about the Cañitas Maite Restaurante and Cañitas al Fresco venues at ME Málaga by Meliá, and allows users to view their menus, book a table through a third-party booking system and contact the venue.')}</p>"),
         (t("Condiciones de uso", "Terms of use"),
          f"<p>{t('El acceso a este sitio web es gratuito y atribuye la condición de usuario, que acepta este aviso legal. El usuario se compromete a hacer un uso adecuado de los contenidos y a no emplearlos para actividades ilícitas o contrarias a la buena fe.', 'Access to this website is free of charge and makes you a user, who accepts this legal notice. Users undertake to make appropriate use of the content and not to use it for unlawful purposes or in bad faith.')}</p>\n        <p>{t('Los precios y platos publicados son orientativos y pueden variar según temporada y disponibilidad de producto. La carta vigente es la disponible en el establecimiento.', 'Prices and dishes shown are for guidance and may change with the season and the availability of produce. The menu in force is the one available at the venue.')}</p>"),
         (t("Propiedad intelectual e industrial", "Intellectual and industrial property"),
-         f"<p>{t('Todos los contenidos de este sitio web —textos, fotografías, logotipos, marcas, diseño gráfico y código— son propiedad del titular o de terceros que han autorizado su uso, y están protegidos por la normativa de propiedad intelectual e industrial. Las marcas «Cañitas Maite», «Cañitas Málaga» y «Cañitas al Fresco», así como «ME Málaga by Meliá», pertenecen a sus respectivos titulares. Queda prohibida su reproducción, distribución o transformación sin autorización expresa.', 'All content on this website (texts, photographs, logos, trademarks, graphic design and code) belongs to the owner or to third parties who have authorised its use, and is protected by intellectual and industrial property law. The trademarks “Cañitas Maite”, “Cañitas Málaga” and “Cañitas al Fresco”, as well as “ME Málaga by Meliá”, belong to their respective owners. Reproduction, distribution or modification without express permission is prohibited.')}</p>\n        <p>{t('La cartografía del mapa de contacto procede de OpenStreetMap (© colaboradores de OpenStreetMap, licencia ODbL).', 'The contact map uses OpenStreetMap data (© OpenStreetMap contributors, ODbL licence).')}</p>"),
+         f"<p>{t('Todos los contenidos de este sitio web —textos, fotografías, logotipos, marcas, diseño gráfico y código— son propiedad del titular o de terceros que han autorizado su uso, y están protegidos por la normativa de propiedad intelectual e industrial. Las marcas «Cañitas Maite», «Cañitas Maite Restaurante» y «Cañitas al Fresco», así como «ME Málaga by Meliá», pertenecen a sus respectivos titulares. Queda prohibida su reproducción, distribución o transformación sin autorización expresa.', 'All content on this website (texts, photographs, logos, trademarks, graphic design and code) belongs to the owner or to third parties who have authorised its use, and is protected by intellectual and industrial property law. The trademarks “Cañitas Maite”, “Cañitas Maite Restaurante” and “Cañitas al Fresco”, as well as “ME Málaga by Meliá”, belong to their respective owners. Reproduction, distribution or modification without express permission is prohibited.')}</p>\n        <p>{t('La cartografía del mapa de contacto procede de OpenStreetMap (© colaboradores de OpenStreetMap, licencia ODbL).', 'The contact map uses OpenStreetMap data (© OpenStreetMap contributors, ODbL licence).')}</p>"),
         (t("Responsabilidad", "Liability"),
          f"<p>{t('El titular no se hace responsable de los daños derivados de interrupciones del servicio, errores técnicos o del uso indebido de la web. El sistema de reservas es prestado por un proveedor externo (CoverManager), que se rige por sus propias condiciones.', 'The owner is not liable for damage arising from service interruptions, technical errors or misuse of the website. The booking system is provided by a third party (CoverManager) under its own terms.')}</p>"),
         (t("Enlaces externos", "External links"),
@@ -82,8 +82,8 @@ def aviso(c):
     ]
     title = t("Aviso legal", "Legal notice")
     return legal_page(c, "aviso", title, t("Información sobre el titular de esta web y las condiciones de uso.", "Information about the owner of this website and the terms of use."),
-                      s, title, t("Aviso legal | Cañitas Málaga", "Legal notice | Cañitas Málaga"),
-                      t("Aviso legal del sitio web de Cañitas Málaga: datos del titular, condiciones de uso y propiedad intelectual.", "Legal notice for the Cañitas Málaga website: owner details, terms of use and intellectual property."))
+                      s, title, t("Aviso legal | Cañitas Maite Restaurante", "Legal notice | Cañitas Maite Restaurante"),
+                      t("Aviso legal del sitio web de Cañitas Maite Restaurante: datos del titular, condiciones de uso y propiedad intelectual.", "Legal notice for the Cañitas Maite Restaurante website: owner details, terms of use and intellectual property."))
 
 
 # ---------------------------------------------------------------------------
@@ -137,8 +137,8 @@ def privacidad(c):
     ]
     title = t("Política de privacidad", "Privacy policy")
     return legal_page(c, "privacidad", title, t("Cómo tratamos tus datos personales cuando reservas, nos escribes o compras.", "How we handle your personal data when you book, contact us or buy from us."),
-                      s, title, t("Política de privacidad | Cañitas Málaga", "Privacy policy | Cañitas Málaga"),
-                      t("Política de privacidad de Cañitas Málaga: qué datos tratamos, para qué, durante cuánto tiempo y cómo ejercer tus derechos.", "Cañitas Málaga privacy policy: what data we process, why, for how long and how to exercise your rights."))
+                      s, title, t("Política de privacidad | Cañitas Maite Restaurante", "Privacy policy | Cañitas Maite Restaurante"),
+                      t("Política de privacidad de Cañitas Maite Restaurante: qué datos tratamos, para qué, durante cuánto tiempo y cómo ejercer tus derechos.", "Cañitas Maite Restaurante privacy policy: what data we process, why, for how long and how to exercise your rights."))
 
 
 # ---------------------------------------------------------------------------
@@ -169,8 +169,8 @@ def cookies(c):
     ]
     title = t("Política de cookies", "Cookie policy")
     return legal_page(c, "cookies", title, t("Qué cookies usa esta web y cómo puedes gestionarlas.", "Which cookies this website uses and how you can manage them."),
-                      s, title, t("Política de cookies | Cañitas Málaga", "Cookie policy | Cañitas Málaga"),
-                      t("Política de cookies de la web de Cañitas Málaga: qué cookies usamos y cómo aceptarlas, rechazarlas o configurarlas.", "Cañitas Málaga cookie policy: which cookies we use and how to accept, reject or configure them."))
+                      s, title, t("Política de cookies | Cañitas Maite Restaurante", "Cookie policy | Cañitas Maite Restaurante"),
+                      t("Política de cookies de la web de Cañitas Maite Restaurante: qué cookies usamos y cómo aceptarlas, rechazarlas o configurarlas.", "Cañitas Maite Restaurante cookie policy: which cookies we use and how to accept, reject or configure them."))
 
 
 # ---------------------------------------------------------------------------
@@ -180,7 +180,7 @@ def condiciones(c):
     s = [
         (t("Vendedor", "Seller"), titular(c)),
         (t("Objeto", "Scope"),
-         f"<p>{t('Estas condiciones regularán la compra online de bonos regalo y experiencias gastronómicas de Cañitas Málaga a través de esta web. La tienda online todavía no está disponible: estas condiciones se aplicarán cuando se active.', 'These terms will govern the online purchase of Cañitas Málaga gift vouchers and food experiences through this website. The online shop is not yet available: these terms will apply once it opens.')}</p>"),
+         f"<p>{t('Estas condiciones regularán la compra online de bonos regalo y experiencias gastronómicas de Cañitas Maite Restaurante a través de esta web. La tienda online todavía no está disponible: estas condiciones se aplicarán cuando se active.', 'These terms will govern the online purchase of Cañitas Maite Restaurante gift vouchers and food experiences through this website. The online shop is not yet available: these terms will apply once it opens.')}</p>"),
         (t("Precios y pago", "Prices and payment"),
          f"<p>{t('Los precios se indican en euros e incluyen el IVA aplicable. El pago se realiza en el momento de la compra mediante los medios de pago seguros que se muestren en el proceso de compra.', 'Prices are shown in euros and include applicable VAT. Payment is made at the time of purchase using the secure payment methods shown at checkout.')}</p>"),
         (t("Entrega", "Delivery"),
@@ -196,8 +196,8 @@ def condiciones(c):
     ]
     title = t("Condiciones de compra", "Terms of purchase")
     return legal_page(c, "condiciones", title, t("Condiciones de la compra online de bonos regalo y experiencias.", "Terms for buying gift vouchers and experiences online."),
-                      s, title, t("Condiciones de compra | Cañitas Málaga", "Terms of purchase | Cañitas Málaga"),
-                      t("Condiciones de compra de los bonos regalo y experiencias de Cañitas Málaga: precio, entrega, validez y desistimiento.", "Terms of purchase for Cañitas Málaga gift vouchers and experiences: price, delivery, validity and withdrawal."))
+                      s, title, t("Condiciones de compra | Cañitas Maite Restaurante", "Terms of purchase | Cañitas Maite Restaurante"),
+                      t("Condiciones de compra de los bonos regalo y experiencias de Cañitas Maite Restaurante: precio, entrega, validez y desistimiento.", "Terms of purchase for Cañitas Maite Restaurante gift vouchers and experiences: price, delivery, validity and withdrawal."))
 
 
 PAGES = {"aviso": aviso, "privacidad": privacidad, "cookies": cookies, "condiciones": condiciones}

@@ -23,7 +23,7 @@
   "path": "/canitas-malaga/",
   "slug": "canitas-malaga",
   "parent": "",
-  "title": "Cañitas Málaga",
+  "title": "Cañitas Maite Restaurante",
   "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/canitas-malaga.html"
  },
  {
@@ -32,7 +32,7 @@
   "path": "/en/canitas-malaga/",
   "slug": "canitas-malaga",
   "parent": "en",
-  "title": "Cañitas Málaga (EN)",
+  "title": "Cañitas Maite Restaurante (EN)",
   "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/canitas-malaga.html"
  },
  {
@@ -178,6 +178,42 @@
   "parent": "en",
   "title": "FAQ (EN)",
   "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/faq.html"
+ },
+ {
+  "key": "desayunos",
+  "lang": "es",
+  "path": "/desayunos-brunch-malaga/",
+  "slug": "desayunos-brunch-malaga",
+  "parent": "",
+  "title": "Desayunos y brunch",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/desayunos-brunch-malaga.html"
+ },
+ {
+  "key": "desayunos",
+  "lang": "en",
+  "path": "/en/breakfast-brunch-malaga/",
+  "slug": "breakfast-brunch-malaga",
+  "parent": "en",
+  "title": "Breakfast & brunch (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/breakfast-brunch-malaga.html"
+ },
+ {
+  "key": "eventos",
+  "lang": "es",
+  "path": "/eventos-empresa-malaga/",
+  "slug": "eventos-empresa-malaga",
+  "parent": "",
+  "title": "Eventos de empresa",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/eventos-empresa-malaga.html"
+ },
+ {
+  "key": "eventos",
+  "lang": "en",
+  "path": "/en/corporate-events-malaga/",
+  "slug": "corporate-events-malaga",
+  "parent": "en",
+  "title": "Corporate events (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/corporate-events-malaga.html"
  },
  {
   "key": "centro",

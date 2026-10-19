@@ -1,4 +1,4 @@
-"""Generador de la web de Cañitas Málaga (ES / EN).
+"""Generador de la web de Cañitas Maite Restaurante (ES / EN).
 
   python3 scripts/build.py
 
@@ -81,6 +81,8 @@ ROUTES = {
     "proyecto": ("el-proyecto/", "en/our-story/"),
     "contacto": ("contacto/", "en/contact/"),
     "faq": ("preguntas-frecuentes/", "en/faq/"),
+    "desayunos": ("desayunos-brunch-malaga/", "en/breakfast-brunch-malaga/"),
+    "eventos": ("eventos-empresa-malaga/", "en/corporate-events-malaga/"),
     # Páginas de búsqueda local (fuera del menú, enlazadas desde el pie)
     "centro": ("restaurante-centro-malaga/", "en/restaurant-malaga-old-town/"),
     "donde": ("donde-comer-en-malaga/", "en/where-to-eat-in-malaga/"),
@@ -186,16 +188,27 @@ class Ctx:
 # ---------------------------------------------------------------------------
 # Componentes compartidos
 # ---------------------------------------------------------------------------
-LOGO_PATHS = None
+LOGO_PATHS = {}
+
+
+def _logo(file, cls, label, viewbox):
+    if file not in LOGO_PATHS:
+        import re
+        svg = open(os.path.join(BASE, "assets", "logos", file), encoding="utf-8").read()
+        g = svg[svg.index("<g"):svg.rindex("</g>") + 4].replace("#28265a", "currentColor")
+        LOGO_PATHS[file] = re.sub(r"\s*\n\s*", " ", g)
+    aria = f'role="img" aria-label="{esc(label)}"' if label else 'aria-hidden="true"'
+    return f'<svg class="{cls}" viewBox="{viewbox}" fill="currentColor" {aria}>{LOGO_PATHS[file]}</svg>'
 
 
 def logo_svg(cls, label=None):
-    global LOGO_PATHS
-    if LOGO_PATHS is None:
-        svg = open(os.path.join(BASE, "assets", "logos", "logo-canitas-malaga.svg"), encoding="utf-8").read()
-        LOGO_PATHS = svg[svg.index("<g"):svg.rindex("</g>") + 4].replace("#28265a", "currentColor")
-    aria = f'role="img" aria-label="{esc(label)}"' if label else 'aria-hidden="true"'
-    return f'<svg class="{cls}" viewBox="0 0 656.46 231.7" {aria}>{LOGO_PATHS}</svg>'
+    """Logo de Cañitas Málaga (el de la cabecera y el pie)."""
+    return _logo("logo-canitas-malaga.svg", cls, label, "0 0 656.46 231.7")
+
+
+def maite_logo_svg(cls, label=None):
+    """Logo de Cañitas Maite («desde 1958»): el del restaurante."""
+    return _logo("logo-canitas-maite.svg", cls, label, "0 0 3370.38 1280.46")
 
 
 MENU_ANCHOR = {"maite": "canitas-malaga", "fresco": "canitas-al-fresco"}
@@ -219,25 +232,38 @@ def menu_lang(c, space, light=False):
 def header(c):
     t = c.t
     nav = [
-        ("maite", "Cañitas Málaga", "Cañitas Málaga"),
-        ("fresco", "Al Fresco", "Al Fresco"),
+        ("maite", "Cañitas Maite Restaurante", "Cañitas Maite Restaurante"),
+        ("fresco", "Al Fresco Rooftop", "Al Fresco Rooftop"),
+        ("desayunos", "Desayunos", "Breakfast"),
+        ("eventos", "Eventos", "Events"),
     ]
     pill = "\n".join(
         f'      <a href="{c.link(k)}"{" aria-current=\"page\"" if k == c.key else ""}>{t(es, en)}</a>' for k, es, en in nav
     )
-    menu_items = [
-        ("maite", "Cañitas Málaga", "Cañitas Málaga"),
-        ("fresco", "Cañitas al Fresco", "Cañitas al Fresco"),
-        ("carta", "La carta", "The menu"),
-        ("reservas", "Reservar mesa", "Book a table"),
-        ("grupos", "Grupos y eventos", "Groups & events"),
-        ("bonos", "Bonos regalo", "Gift vouchers"),
-        ("proyecto", "El proyecto", "Our story"),
-        ("contacto", "Contacto y cómo llegar", "Contact & directions"),
+    groups = [
+        (t("Espacios", "Venues"), [
+            ("maite", "Cañitas Maite Restaurante", "Cañitas Maite Restaurante"),
+            ("fresco", "Cañitas al Fresco Rooftop", "Cañitas al Fresco Rooftop"),
+            ("desayunos", "Desayunos y brunch", "Breakfast & brunch"),
+            ("eventos", "Eventos de empresa", "Corporate events"),
+        ]),
+        (t("Reservas y cartas", "Bookings & menus"), [
+            ("reservas", "Reservar mesa", "Book a table"),
+            ("carta", "La carta y los menús", "Menus"),
+            ("grupos", "Grupos de 8 o más", "Groups of 8 or more"),
+        ]),
+        (t("La casa", "About us"), [
+            ("proyecto", "El proyecto", "Our story"),
+            ("bonos", "Bonos regalo", "Gift vouchers"),
+            ("faq", "Preguntas frecuentes", "FAQ"),
+            ("contacto", "Contacto y cómo llegar", "Contact & directions"),
+        ]),
     ]
     menu = "\n".join(
-        f'        <li><a href="{c.link(k)}"{" aria-current=\"page\"" if k == c.key else ""}>{t(es, en)}</a></li>'
-        for k, es, en in menu_items
+        f'        <div class="site-menu-group">\n          <p class="site-menu-title">{title}</p>\n          <ul>\n'
+        + "\n".join(f'            <li><a href="{c.link(k)}"{" aria-current=\"page\"" if k == c.key else ""}>{t(es, en)}</a></li>' for k, es, en in items)
+        + "\n          </ul>\n        </div>"
+        for title, items in groups
     )
     other_label = "English" if c.lang == "es" else "Español"
     other_short = "EN" if c.lang == "es" else "ES"
@@ -255,18 +281,20 @@ def header(c):
     <div class="header-actions">
       <a class="lang-switch" href="{c.link(c.key, c.other)}" hreflang="{c.other}" lang="{c.other}" title="{switch_title}">{other_short}</a>
       <a class="btn btn-primary-light btn-small btn-pill" href="{c.link('reservas')}">{t('Reservar mesa', 'Book a table')}</a>
-      <a class="btn btn-ghost-light btn-small btn-pill header-gift-btn" href="{c.link('bonos')}">{t('Bonos regalo', 'Gift vouchers')}</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="{t('Abrir menú', 'Open menu')}">
         <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
     </div>
 
     <nav class="site-menu" id="site-menu" aria-label="{t('Menú principal', 'Main menu')}" data-open="false">
-      <ul>
+      <div class="site-menu-groups">
 {menu}
-        <li><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="{c.link(c.key, c.other)}" hreflang="{c.other}" lang="{c.other}">{other_label}</a></li>
-      </ul>
+      </div>
+      <div class="site-menu-foot">
+        <a class="btn btn-primary-light btn-small btn-pill" href="{c.link('reservas')}">{t('Reservar mesa', 'Book a table')}</a>
+        <a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="{c.link(c.key, c.other)}" hreflang="{c.other}" lang="{c.other}">{other_label}</a>
+      </div>
     </nav>
   </div>
 </header>"""
@@ -294,7 +322,7 @@ def contact_section(c, heading_level=2, with_id=True):
         </address>
 
         <dl class="contact-hours">
-          <div><dt>Cañitas Málaga</dt><dd>{hours_text(c.lang, "maite")}</dd></div>
+          <div><dt>Cañitas Maite Restaurante</dt><dd>{hours_text(c.lang, "maite")}</dd></div>
           <div><dt>Cañitas al Fresco</dt><dd>{hours_text(c.lang, "fresco")}</dd></div>
         </dl>
 
@@ -312,9 +340,9 @@ def contact_section(c, heading_level=2, with_id=True):
 
       <div class="contact-map-wrap">
         <figure class="map-card">
-          <a class="map-card-link" href="{MAPS}" target="_blank" rel="noopener" aria-label="{t('Abrir la ubicación de Cañitas Málaga en Google Maps', 'Open Cañitas Málaga location in Google Maps')}">
+          <a class="map-card-link" href="{MAPS}" target="_blank" rel="noopener" aria-label="{t('Abrir la ubicación de Cañitas Maite Restaurante en Google Maps', 'Open Cañitas Maite Restaurante location in Google Maps')}">
             {c.img("mapa-canitas-malaga-calle-victoria", sizes="(max-width: 860px) 90vw, 460px")}
-            <span class="map-card-pin" aria-hidden="true">Cañitas Málaga · ME Málaga</span>
+            <span class="map-card-pin" aria-hidden="true">Cañitas Maite Restaurante · ME Málaga</span>
             <span class="map-card-cta" aria-hidden="true">{t('Abrir en Google Maps', 'Open in Google Maps')} ↗</span>
           </a>
           <figcaption>© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</figcaption>
@@ -350,15 +378,17 @@ def footer(c):
 
     <div class="footer-col">
       <h2 class="footer-col-title">{t('Espacios', 'Venues')}</h2>
-      <a href="{c.link('maite')}">Cañitas Málaga</a>
-      <a href="{c.link('fresco')}">Cañitas al Fresco</a>
+      <a href="{c.link('maite')}">Cañitas Maite Restaurante</a>
+      <a href="{c.link('fresco')}">Cañitas al Fresco Rooftop</a>
+      <a href="{c.link('desayunos')}">{t('Desayunos y brunch', 'Breakfast & brunch')}</a>
+      <a href="{c.link('eventos')}">{t('Eventos de empresa', 'Corporate events')}</a>
       <a href="{c.link('carta')}">{t('La carta', 'The menu')}</a>
-      <a href="{c.link('grupos')}">{t('Grupos y eventos', 'Groups & events')}</a>
     </div>
 
     <div class="footer-col">
       <h2 class="footer-col-title">{t('Información', 'Information')}</h2>
       <a href="{c.link('proyecto')}">{t('El proyecto', 'Our story')}</a>
+      <a href="{c.link('grupos')}">{t('Grupos de 8 o más', 'Groups of 8 or more')}</a>
       <a href="{c.link('bonos')}">{t('Bonos regalo', 'Gift vouchers')}</a>
       <a href="{c.link('faq')}">{t('Preguntas frecuentes', 'FAQ')}</a>
       <a href="{c.link('contacto')}">{t('Contacto y cómo llegar', 'Contact & directions')}</a>
@@ -379,7 +409,7 @@ def footer(c):
 
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
-      <p class="footer-legal">© 2026 Cañitas Málaga · ME Málaga by Meliá</p>
+      <p class="footer-legal">© 2026 Cañitas Maite Restaurante · ME Málaga by Meliá</p>
       <nav class="footer-legal-links" aria-label="{t('Información legal', 'Legal information')}">
 {legal_links}
       </nav>
@@ -441,11 +471,11 @@ def restaurant_ld(c):
         "@context": "https://schema.org",
         "@type": "Restaurant",
         "@id": c.abs_url("maite", "es") + "#restaurant",
-        "name": "Cañitas Málaga",
-        "alternateName": ["Cañitas Maite Málaga", "Cañitas Maite Restaurante - Málaga"],
+        "name": "Cañitas Maite Restaurante",
+        "alternateName": ["Cañitas Maite Málaga", "Cañitas Maite Restaurante - Málaga", "Cañitas Málaga"],
         "description": c.t(
-            "Restaurante de los chefs Javier Sanz y Juan Sahuquillo en la última planta del hotel ME Málaga by Meliá: cocina de producto, parrilla y brasa con vistas a la Alcazaba.",
-            "Restaurant by chefs Javier Sanz and Juan Sahuquillo on the top floor of ME Málaga by Meliá: produce-led cooking, grill and embers with views of the Alcazaba.",
+            "Restaurante de los chefs Javier Sanz y Juan Sahuquillo en la última planta del hotel ME Málaga by Meliá, en el centro de Málaga: cocina de producto, parrilla y brasa, terraza acristalada y comedor privado.",
+            "Restaurant by chefs Javier Sanz and Juan Sahuquillo on the top floor of ME Málaga by Meliá, in Málaga city centre: produce-led cooking, grill and embers, a glass-roofed terrace and a private dining room.",
         ),
         "url": c.abs_url("maite"),
         "image": [c.abs_asset("img/canitas-malaga-sala-restaurante.jpg"), c.abs_asset("img/canitas-malaga-comedor-privado.jpg"), c.abs_asset("img/txuleta-vasca-parrilla-canitas-malaga.jpg")],
@@ -476,8 +506,8 @@ def fresco_ld(c):
         "@id": c.abs_url("fresco", "es") + "#bar",
         "name": "Cañitas al Fresco",
         "description": c.t(
-            "Rooftop bar abierto al público en la azotea del hotel ME Málaga by Meliá, con vistas a la Alcazaba. Coctelería y picoteo de Cañitas Málaga. Sin reserva.",
-            "Rooftop bar open to the public on top of ME Málaga by Meliá, with views of the Alcazaba. Cocktails and sharing plates by Cañitas Málaga. No reservations.",
+            "Rooftop bar abierto al público en la azotea del hotel ME Málaga by Meliá, con vistas a la Alcazaba. Coctelería y picoteo de Cañitas Maite Restaurante. Sin reserva.",
+            "Rooftop bar open to the public on top of ME Málaga by Meliá, with views of the Alcazaba. Cocktails and sharing plates by Cañitas Maite Restaurante. No reservations.",
         ),
         "url": c.abs_url("fresco"),
         "image": [c.abs_asset("img/canitas-al-fresco-rooftop-piscina-malaga.jpg")],
@@ -521,7 +551,7 @@ def head(c, page):
 <link rel="alternate" hreflang="en" href="{alt_en}">
 <link rel="alternate" hreflang="x-default" href="{alt_es}">
 <meta property="og:type" content="{'website' if c.key == 'home' else 'article'}">
-<meta property="og:site_name" content="Cañitas Málaga">
+<meta property="og:site_name" content="Cañitas Maite Restaurante">
 <meta property="og:locale" content="{t('es_ES', 'en_GB')}">
 <meta property="og:locale:alternate" content="{t('en_GB', 'es_ES')}">
 <meta property="og:title" content="{esc(page.get('og_title', page['title']))}">
@@ -570,7 +600,7 @@ def render_static(c, page):
 
 
 def render_wp(c, page):
-    note = f"<!-- Cañitas Málaga · {page['title']} · Pegar completo en un widget HTML de Elementor (plantilla Elementor Canvas). -->\n"
+    note = f"<!-- Cañitas Maite Restaurante · {page['title']} · Pegar completo en un widget HTML de Elementor (plantilla Elementor Canvas). -->\n"
     return note + body(c, page) + "\n"
 
 
@@ -584,6 +614,7 @@ def write(path, content):
 
 
 def main():
+    import experiences
     import faq
     import landings
     import legal
@@ -593,6 +624,7 @@ def main():
     builders.update(legal.PAGES)
     builders.update(landings.PAGES)
     builders.update(faq.PAGES)
+    builders.update(experiences.PAGES)
 
     generated = []
     wp_rows = []
@@ -656,14 +688,14 @@ def main():
         write(os.path.join(BASE, old, "index.html"),
               f'<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="robots" content="noindex">'
               f'<link rel="canonical" href="{PREVIEW_URL}/{new}"><meta http-equiv="refresh" content="0; url={rel}">'
-              f'<title>Cañitas Málaga</title></head><body><a href="{rel}">Cañitas Málaga</a></body></html>\n')
+              f'<title>Cañitas Maite Restaurante</title></head><body><a href="{rel}">Cañitas Maite Restaurante</a></body></html>\n')
 
     # sitemap, robots, manifest (vista previa)
     write(os.path.join(BASE, "robots.txt"), "# Vista previa en GitHub Pages: no indexar.\nUser-agent: *\nDisallow: /\n")
     write(os.path.join(BASE, "sitemap.xml"), sitemap(PREVIEW_URL))
     write(os.path.join(BASE, "site.webmanifest"), json.dumps({
-        "name": "Cañitas Málaga",
-        "short_name": "Cañitas Málaga",
+        "name": "Cañitas Maite Restaurante",
+        "short_name": "Cañitas Maite Restaurante",
         "start_url": "./",
         "display": "browser",
         "background_color": "#ffffff",
@@ -720,7 +752,7 @@ def export_wordpress(rows):
         w.writerow(["archivo", "titulo", "texto_alternativo_es", "texto_alternativo_en"])
         for name, info in media.PHOTOS.items():
             w.writerow([f"{name}.jpg", name.replace("-", " ").capitalize(), info["es"], info["en"]])
-        w.writerow(["og-canitas-malaga.jpg", "Cañitas Málaga", "Sala del restaurante Cañitas Málaga con el logotipo", "Cañitas Málaga dining room with the logo"])
+        w.writerow(["og-canitas-malaga.jpg", "Cañitas Maite Restaurante", "Sala del restaurante Cañitas Maite con el logotipo", "Cañitas Maite Restaurante dining room with the logo"])
         w.writerow(["og-canitas-al-fresco.jpg", "Cañitas al Fresco", "Rooftop Cañitas al Fresco con la Alcazaba y el logotipo", "Cañitas al Fresco rooftop with the Alcazaba and the logo"])
 
     write(os.path.join(wp, "sitemap-referencia.xml"), sitemap(SITE_URL))
@@ -737,7 +769,7 @@ def seo_php(seo_map):
     import base64
     data = base64.b64encode(json.dumps(seo_map, ensure_ascii=False).encode("utf-8")).decode("ascii")
     llms = base64.b64encode(llms_txt(SITE_URL).encode("utf-8")).decode("ascii")
-    php = r"""// Cañitas Málaga · SEO de las páginas (generado por scripts/build.py; no editar a mano)
+    php = r"""// Cañitas Maite Restaurante · SEO de las páginas (generado por scripts/build.py; no editar a mano)
 $GLOBALS['canitas_seo'] = json_decode(base64_decode('__DATA__'), true);
 
 if (!function_exists('canitas_seo_current')) {
@@ -801,7 +833,7 @@ add_action('wp_head', function () {
         array('alt', 'en', '', $s['en']),
         array('alt', 'x-default', '', $s['es']),
         array('meta', 'property', 'og:type', $s['type']),
-        array('meta', 'property', 'og:site_name', 'Cañitas Málaga'),
+        array('meta', 'property', 'og:site_name', 'Cañitas Maite Restaurante'),
         array('meta', 'property', 'og:locale', $en ? 'en_GB' : 'es_ES'),
         array('meta', 'property', 'og:locale:alternate', $en ? 'es_ES' : 'en_GB'),
         array('meta', 'property', 'og:title', $s['title']),
@@ -953,26 +985,28 @@ def _pages_md(lang, base):
         ("reservas", t("reservar mesa online", "book a table online")),
         ("grupos", t("grupos de 8 o más, comedor privado y eventos", "groups of 8+, private dining room and events")),
         ("proyecto", t("la historia de los chefs y de Cañitas Maite", "the chefs and the Cañitas Maite story")),
+        ("desayunos", t("desayuno y brunch de productores locales, abierto a quien no se aloja en el hotel", "local-producer breakfast and brunch, open to non-guests")),
+        ("eventos", t("eventos de empresa: rooftop, salas interiores, cócteles, coffee breaks y cenas de gala", "corporate events: rooftop, indoor rooms, cocktails, coffee breaks and gala dinners")),
         ("contacto", t("contacto y cómo llegar", "contact and directions")),
         ("centro", t("restaurante en el centro de Málaga", "restaurant in Málaga old town")),
         ("donde", t("dónde comer en Málaga", "where to eat in Málaga")),
         ("cenar", t("dónde cenar en Málaga", "dinner in Málaga")),
-        ("vistas", t("restaurante con vistas a la Alcazaba", "restaurant with Alcazaba views")),
+        ("vistas", t("restaurante con vistas en Málaga", "restaurant with a view in Málaga")),
         ("rooftop", t("rooftop en Málaga", "rooftop bar in Málaga")),
     ]
-    import faq, landings, pages as pg
-    builders = dict(pg.PAGES, **landings.PAGES, **faq.PAGES)
+    import experiences, faq, landings, pages as pg
+    builders = dict(pg.PAGES, **landings.PAGES, **faq.PAGES, **experiences.PAGES)
     return "\n".join(f"- [{builders[k](Ctx(lang, 'wp', k))['nav_title']}]({base}/{ROUTES[k][i]}): {d}" for k, d in pages)
 
 
 def llms_txt(base):
-    return f"""# Cañitas Málaga
+    return f"""# Cañitas Maite Restaurante
 
-> Cañitas Málaga es el restaurante de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin) en la última planta del hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España). En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco, abierto al público. Cocina española de producto, parrilla y brasa con vistas a la Alcazaba.
+> Cañitas Maite Restaurante es el restaurante de los chefs Javier Sanz y Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, una estrella Michelin) en la última planta del hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga (España): cocina española de producto, parrilla y brasa. En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco, abierto al público y con vistas a la Alcazaba. También sirven el desayuno/brunch de productores locales del hotel, abierto a quien venga de fuera, y organizan eventos de empresa.
 >
-> Cañitas Málaga is the restaurant of chefs Javier Sanz and Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, one Michelin star) on the top floor of ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga, Spain. Its rooftop bar, Cañitas al Fresco, is open to the public. Spanish produce-led cooking over the grill, with views of the Alcazaba.
+> Cañitas Maite Restaurante is the restaurant of chefs Javier Sanz and Juan Sahuquillo (Cañitas Maite, Casas-Ibáñez, one Michelin star) on the top floor of ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga, Spain: Spanish produce-led cooking over the grill. Its rooftop bar, Cañitas al Fresco, is open to the public and faces the Alcazaba. They also run the hotel's local-producer breakfast/brunch, open to non-guests, and corporate events.
 
-Nombre oficial: Cañitas Málaga (también «Cañitas Maite Málaga»). No confundir con Cañitas Maite, el restaurante de los mismos chefs en Casas-Ibáñez (Albacete), ni con Cañitas al Fresco de Casas-Ibáñez (cenas de verano, cerrado en invierno). La información completa, con carta y precios, está en [llms-full.txt]({base}/llms-full.txt).
+Nombre oficial: Cañitas Maite Restaurante (también «Cañitas Maite Málaga»; antes «Cañitas Málaga»). Es la casa de Málaga: no confundir con Cañitas Maite de Casas-Ibáñez (Albacete), el restaurante de origen de los mismos chefs, ni con Cañitas al Fresco de Casas-Ibáñez (cenas de verano, cerrado en invierno). La información completa, con carta y precios, está en [llms-full.txt]({base}/llms-full.txt).
 
 ## Datos clave (ES)
 {_facts_md("es", base)}
@@ -993,7 +1027,7 @@ Nombre oficial: Cañitas Málaga (también «Cañitas Maite Málaga»). No confu
 
 
 def llms_full_txt(base):
-    """Todo lo que una IA necesita para responder sobre Cañitas Málaga: datos, preguntas
+    """Todo lo que una IA necesita para responder sobre Cañitas Maite Restaurante: datos, preguntas
     frecuentes y cartas con precios, en español y en inglés."""
     import faq
     from menus_data import FRESCO_CARTA, MAITE_CARTA, MAITE_SET_MENUS
@@ -1007,7 +1041,7 @@ def llms_full_txt(base):
             out.append(f"## {t('Preguntas frecuentes', 'FAQ')}: {title}")
             for q, a in items:
                 out += [f"### {q}", _md_links(a, base), ""]
-        out.append(f"## {t('Carta de Cañitas Málaga', 'Cañitas Málaga menu')} ({base}/{ROUTES['carta'][0 if lang == 'es' else 1]})")
+        out.append(f"## {t('Carta de Cañitas Maite Restaurante', 'Cañitas Maite Restaurante menu')} ({base}/{ROUTES['carta'][0 if lang == 'es' else 1]})")
         for m in MAITE_SET_MENUS:
             out.append(f"### {t(m['es_name'], m['en_name'])}: {eur(m['price'])} {t('por persona', 'per person')} ({t(m['es_when'], m['en_when'])})")
             for g in m["groups"]:
@@ -1026,11 +1060,11 @@ def llms_full_txt(base):
                      "Allergen information available on request. Prices include VAT."))
         return "\n".join(out)
 
-    return f"""# Cañitas Málaga · llms-full.txt
+    return f"""# Cañitas Maite Restaurante · llms-full.txt
 
-> Información completa de Cañitas Málaga (restaurante) y Cañitas al Fresco (rooftop bar) en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Primero en español, después en inglés. Resumen: {base}/llms.txt
+> Información completa de Cañitas Maite Restaurante y Cañitas al Fresco (rooftop bar) en el hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Primero en español, después en inglés. Resumen: {base}/llms.txt
 >
-> Complete information about Cañitas Málaga (restaurant) and Cañitas al Fresco (rooftop bar) at ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Spanish first, then English.
+> Complete information about Cañitas Maite Restaurante and Cañitas al Fresco (rooftop bar) at ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga. Spanish first, then English.
 
 # Español
 

@@ -10,6 +10,24 @@ python3 scripts/build.py
 
 MAITE_SET_MENUS = [
     dict(
+        es_name="Menú Classics", en_name="Classics Menu",
+        es_when="Todo a compartir · de lunes a jueves", en_when="Everything to share · Monday to Thursday",
+        price=39,
+        groups=[
+            dict(es="A compartir", en="To share", items=[
+                ("Torta de aceite y alioli", "Olive oil flatbread and aioli"),
+                ("El mejor tomate del momento", "The best tomato of the moment"),
+                ("Ensaladilla de gamba blanca al ajillo", "White prawn Russian salad al ajillo"),
+                ("Berenjena asada con burrata aliñada", "Roasted aubergine with dressed burrata"),
+                ("Langostinos a la parrilla y jugo de pollo al ast", "Grilled king prawns with rotisserie chicken jus"),
+                ("Muslo de pollito campero a la parrilla y limón quemao'", "Grilled free-range chicken thigh with charred lemon"),
+            ]),
+            dict(es="Postre para terminar", en="Dessert to finish", items=[
+                ("Tarta de queso cremosa y suave (2 personas)", "Smooth, creamy cheesecake (for 2)"),
+            ], note=("Añade la mejor croqueta del mundo por +4 €", "Add the best croquette in the world for +€4")),
+        ],
+    ),
+    dict(
         es_name="Menú Hits", en_name="Hits Menu",
         es_when="Todos los días", en_when="Every day",
         price=69,
@@ -30,24 +48,6 @@ MAITE_SET_MENUS = [
             dict(es="Postre para terminar", en="Dessert to finish", items=[
                 ("El flan de nata fresca de oveja", "Fresh sheep's cream flan"),
             ]),
-        ],
-    ),
-    dict(
-        es_name="Menú Classics", en_name="Classics Menu",
-        es_when="Todo a compartir · de lunes a jueves", en_when="Everything to share · Monday to Thursday",
-        price=39,
-        groups=[
-            dict(es="A compartir", en="To share", items=[
-                ("Torta de aceite y alioli", "Olive oil flatbread and aioli"),
-                ("El mejor tomate del momento", "The best tomato of the moment"),
-                ("Ensaladilla de gamba blanca al ajillo", "White prawn Russian salad al ajillo"),
-                ("Berenjena asada con burrata aliñada", "Roasted aubergine with dressed burrata"),
-                ("Langostinos a la parrilla y jugo de pollo al ast", "Grilled king prawns with rotisserie chicken jus"),
-                ("Muslo de pollito campero a la parrilla y limón quemao'", "Grilled free-range chicken thigh with charred lemon"),
-            ]),
-            dict(es="Postre para terminar", en="Dessert to finish", items=[
-                ("Tarta de queso cremosa y suave (2 personas)", "Smooth, creamy cheesecake (for 2)"),
-            ], note=("Añade la mejor croqueta del mundo por +4 €", "Add the best croquette in the world for +€4")),
         ],
     ),
 ]

@@ -23,7 +23,7 @@ def key_facts(c):
     menus = ", ".join(f"{t(m['es_name'], m['en_name'])} {eur(m['price'])}" for m in MAITE_SET_MENUS)
     return [
         (t("Dirección:", "Address:"), "Hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga"),
-        ("Cañitas Málaga:", t(f"restaurante en la última planta. {hours_text('es', 'maite')}. Reserva online recomendada.",
+        ("Cañitas Maite Restaurante:", t(f"restaurante en la última planta. {hours_text('es', 'maite')}. Reserva online recomendada.",
                               f"restaurant on the top floor. {hours_text('en', 'maite')}. Booking recommended.")),
         ("Cañitas al Fresco:", t(f"rooftop bar en la azotea, abierto al público. {hours_text('es', 'fresco')}. Sin reserva.",
                                  f"rooftop bar, open to the public. {hours_text('en', 'fresco')}. No reservations.")),
@@ -41,27 +41,27 @@ def faq_groups(c):
     t = c.t
     lo, hi = price_range(MAITE_CARTA)
     eur = (lambda n: f"{n} €") if c.lang == "es" else (lambda n: f"€{n}")
-    hits, classics = MAITE_SET_MENUS
+    classics, hits = MAITE_SET_MENUS
     return [
         (t("Lo básico", "The basics"), [
-            (t("¿Qué es Cañitas Málaga?", "What is Cañitas Málaga?"),
-             t("Cañitas Málaga es el restaurante de los chefs Javier Sanz y Juan Sahuquillo en la última planta del hotel ME Málaga by Meliá, en el centro de Málaga. Cocina española de producto, parrilla y brasa, con vistas a la Alcazaba. En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco.",
-               "Cañitas Málaga is the restaurant of chefs Javier Sanz and Juan Sahuquillo on the top floor of ME Málaga by Meliá, in Málaga city centre. Spanish produce-led cooking over the grill and embers, with views of the Alcazaba. Its rooftop bar, Cañitas al Fresco, is on the roof of the same hotel.")),
-            (t("¿Es lo mismo Cañitas Málaga que Cañitas Maite?", "Is Cañitas Málaga the same as Cañitas Maite?"),
-             t("Son los mismos chefs. Cañitas Maite es su restaurante de origen en Casas-Ibáñez (Albacete), con una estrella Michelin. Cañitas Málaga es su casa en Málaga, en el hotel ME Málaga by Meliá, y también se conoce como Cañitas Maite Málaga.",
-               "Same chefs. Cañitas Maite is their original restaurant in Casas-Ibáñez (Albacete), which holds one Michelin star. Cañitas Málaga is their Málaga venue at ME Málaga by Meliá, also known as Cañitas Maite Málaga.")),
-            (t("¿Dónde está Cañitas Málaga?", "Where is Cañitas Málaga?"),
+            (t("¿Qué es Cañitas Maite Restaurante?", "What is Cañitas Maite Restaurante?"),
+             t("Cañitas Maite Restaurante es el restaurante de los chefs Javier Sanz y Juan Sahuquillo en la última planta del hotel ME Málaga by Meliá, en el centro de Málaga. Cocina española de producto, parrilla y brasa, con terraza acristalada sobre los tejados del centro histórico. En la azotea del mismo hotel está su rooftop bar, Cañitas al Fresco.",
+               "Cañitas Maite Restaurante is the restaurant of chefs Javier Sanz and Juan Sahuquillo on the top floor of ME Málaga by Meliá, in Málaga city centre. Spanish produce-led cooking over the grill and embers, with a glass-roofed terrace over the old-town rooftops. Its rooftop bar, Cañitas al Fresco, is on the roof of the same hotel.")),
+            (t("¿Es el mismo Cañitas Maite de Casas-Ibáñez?", "Is it the same Cañitas Maite as in Casas-Ibáñez?"),
+             t("Son los mismos chefs, pero son dos restaurantes distintos. Cañitas Maite de Casas-Ibáñez (Albacete) es la casa de origen, con una estrella Michelin. Cañitas Maite Restaurante es su casa en Málaga, en el hotel ME Málaga by Meliá; también se le conoce como Cañitas Maite Málaga o Cañitas Málaga.",
+               "Same chefs, two different restaurants. Cañitas Maite in Casas-Ibáñez (Albacete) is the original, with one Michelin star. Cañitas Maite Restaurante is their Málaga home at ME Málaga by Meliá, also known as Cañitas Maite Málaga or Cañitas Málaga.")),
+            (t("¿Dónde está Cañitas Maite Restaurante?", "Where is Cañitas Maite Restaurante?"),
              t(f'En el Hotel ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga: en el centro histórico, a 1 minuto a pie de la Plaza de la Merced y a 3 minutos de la Alcazaba y del Museo Picasso. <a href="{MAPS}" target="_blank" rel="noopener">Ver en Google Maps</a>.',
                f'At ME Málaga by Meliá, Calle Victoria 6, 29012 Málaga: in the historic centre, a 1-minute walk from Plaza de la Merced and 3 minutes from the Alcazaba and the Picasso Museum. <a href="{MAPS}" target="_blank" rel="noopener">View on Google Maps</a>.')),
             (t("¿Qué horario tiene?", "What are the opening hours?"),
-             t(f"El restaurante Cañitas Málaga abre {hours_text('es', 'maite').lower()}. El rooftop Cañitas al Fresco abre {hours_text('es', 'fresco').lower()}.",
-               f"Cañitas Málaga restaurant is open {hours_text('en', 'maite').lower()}. The Cañitas al Fresco rooftop is open {hours_text('en', 'fresco').lower()}.")),
+             t(f"El restaurante Cañitas Maite abre {hours_text('es', 'maite').lower()}. El rooftop Cañitas al Fresco abre {hours_text('es', 'fresco').lower()}.",
+               f"Cañitas Maite restaurant is open {hours_text('en', 'maite').lower()}. The Cañitas al Fresco rooftop is open {hours_text('en', 'fresco').lower()}.")),
             (t("¿Abre todos los días?", "Is it open every day?"),
              t("Sí. Tanto el restaurante como el rooftop abren los siete días de la semana.",
                "Yes. Both the restaurant and the rooftop are open seven days a week.")),
         ]),
         (t("Reservas", "Bookings"), [
-            (t("¿Cómo reservo mesa en Cañitas Málaga?", "How do I book a table at Cañitas Málaga?"),
+            (t("¿Cómo reservo mesa en Cañitas Maite Restaurante?", "How do I book a table at Cañitas Maite Restaurante?"),
              t(f'Online, en la página <a href="{c.link("reservas")}">Reservar mesa</a>: eliges día, hora y número de personas y recibes la confirmación al momento. También por teléfono en el {PHONE}.',
                f'Online, on the <a href="{c.link("reservas")}">Book a table</a> page: choose the day, time and party size and get instant confirmation. You can also call {PHONE}.')),
             (t("¿Se puede reservar en Cañitas al Fresco?", "Can I book at Cañitas al Fresco?"),
@@ -75,7 +75,7 @@ def faq_groups(c):
                f'Tables of 8 or more have a set menu, and there is a private dining room with a single table on the top floor. Email {EMAIL} or see <a href="{c.link("grupos")}">Groups & events</a>.')),
         ]),
         (t("Carta y precios", "Menu and prices"), [
-            (t("¿Cuánto cuesta comer en Cañitas Málaga?", "How much does it cost to eat at Cañitas Málaga?"),
+            (t("¿Cuánto cuesta comer en Cañitas Maite Restaurante?", "How much does it cost to eat at Cañitas Maite Restaurante?"),
              t(f"Hay dos menús para compartir: {classics['es_name']} a {eur(classics['price'])} por persona (de lunes a jueves) y {hits['es_name']} a {eur(hits['price'])} por persona (todos los días). A la carta, los platos van de {eur(lo)} a {eur(hi)}.",
                f"There are two sharing menus: the {classics['en_name']} at {eur(classics['price'])} per person (Monday to Thursday) and the {hits['en_name']} at {eur(hits['price'])} per person (every day). À la carte dishes range from {eur(lo)} to {eur(hi)}.")),
             (t("¿Qué platos son los más conocidos?", "What are the signature dishes?"),
@@ -92,7 +92,7 @@ def faq_groups(c):
                "Yes. Ask our team for the allergen information and we will tell you the allergens in each dish.")),
             (t("¿Qué se puede pagar con tarjeta?", "Can I pay by card?"),
              t("Sí, se aceptan tarjetas de crédito y débito y pago con el móvil.",
-               "Yes, credit and debit cards and mobile payments are accepted.")),
+               "Yes. Both the restaurant and the rooftop are open seven days a week.")),
         ]),
         (t("El rooftop: Cañitas al Fresco", "The rooftop: Cañitas al Fresco"), [
             (t("¿Puede subir cualquiera al rooftop del ME Málaga?", "Can anyone go up to the ME Málaga rooftop?"),
@@ -110,8 +110,8 @@ def faq_groups(c):
         ]),
         (t("Visitas y planes", "Visiting"), [
             (t("¿Es un buen restaurante para una cena especial?", "Is it a good place for a special dinner?"),
-             t("Sí: la sala, la terraza acristalada de la última planta y las vistas a la Alcazaba iluminada lo hacen ideal para cenas en pareja y celebraciones.",
-               "Yes: the dining room, the glass-roofed terrace on the top floor and the views of the floodlit Alcazaba make it ideal for dinners for two and celebrations.")),
+             t("Sí: la sala, la terraza acristalada de la última planta sobre los tejados del centro y la cocina de brasa lo hacen ideal para cenas en pareja y celebraciones. Para la copa de después, la Alcazaba iluminada se ve desde el rooftop, Cañitas al Fresco.",
+               "Yes: the dining room, the glass-roofed top-floor terrace over the old-town rooftops and the grill cooking make it ideal for dinners for two and celebrations. For a drink afterwards, the floodlit Alcazaba is right in front of the rooftop bar, Cañitas al Fresco.")),
             (t("¿Tenéis la carta y la web en inglés?", "Is the menu available in English?"),
              t("Sí. La carta, la web y el sistema de reservas están en español y en inglés.",
                "Yes. The menu, the website and the booking system are in English and Spanish.")),
@@ -131,7 +131,7 @@ def all_faqs(c):
 
 def faq_page(c):
     t = c.t
-    hero = page_hero(c, "Cañitas Málaga · Cañitas al Fresco", t("Preguntas frecuentes", "Frequently asked questions"),
+    hero = page_hero(c, "Cañitas Maite Restaurante · Cañitas al Fresco", t("Preguntas frecuentes", "Frequently asked questions"),
                      t("Horarios, reservas, precios, la azotea y cómo llegar: todo lo que nos preguntan, con respuestas cortas.",
                        "Opening hours, bookings, prices, the rooftop and how to get here: everything people ask us, answered briefly."),
                      photo="canitas-malaga-sala-restaurante", crumbs=[t("Preguntas frecuentes", "FAQ")])
@@ -160,7 +160,7 @@ def faq_page(c):
   <section class="section section-tint">
     <div class="section-inner">
       <p class="eyebrow eyebrow-dark">{t('En resumen', 'At a glance')}</p>
-      <h2 class="section-title">{t('Cañitas Málaga en 7 datos', 'Cañitas Málaga in 7 facts')}</h2>
+      <h2 class="section-title">{t('Cañitas Maite Restaurante en 7 datos', 'Cañitas Maite Restaurante in 7 facts')}</h2>
       {facts(key_facts(c))}
     </div>
   </section>
@@ -180,10 +180,10 @@ def faq_page(c):
     }
     return dict(
         nav_title=t("Preguntas frecuentes", "FAQ"),
-        title=t("Preguntas frecuentes | Cañitas Málaga y Cañitas al Fresco",
-                "FAQ | Cañitas Málaga & Cañitas al Fresco rooftop"),
-        desc=t("Horario, reservas, precios, carta, rooftop abierto al público y cómo llegar a Cañitas Málaga, en el hotel ME Málaga by Meliá (Calle Victoria 6).",
-               "Opening hours, bookings, prices, menu, the public rooftop bar and directions to Cañitas Málaga at ME Málaga by Meliá (Calle Victoria 6)."),
+        title=t("Preguntas frecuentes | Cañitas Maite Restaurante y Cañitas al Fresco",
+                "FAQ | Cañitas Maite Restaurante & Cañitas al Fresco rooftop"),
+        desc=t("Horario, reservas, precios, carta, rooftop abierto al público y cómo llegar a Cañitas Maite Restaurante, en el hotel ME Málaga by Meliá (Calle Victoria 6).",
+               "Opening hours, bookings, prices, menu, the public rooftop bar and directions to Cañitas Maite Restaurante at ME Málaga by Meliá (Calle Victoria 6)."),
         main=main,
         schema=[faq_ld, restaurant_ld(c), fresco_ld(c), breadcrumb_ld(c, t("Preguntas frecuentes", "FAQ"))],
     )

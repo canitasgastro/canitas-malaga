@@ -10,17 +10,21 @@
   function closeMenu() {
     menuToggle.setAttribute("aria-expanded", "false");
     siteMenu.setAttribute("data-open", "false");
+    header.setAttribute("data-menu-open", "false");
+    document.body.classList.remove("menu-open");
   }
   function openMenu() {
     menuToggle.setAttribute("aria-expanded", "true");
     siteMenu.setAttribute("data-open", "true");
+    header.setAttribute("data-menu-open", "true");
+    document.body.classList.add("menu-open");
   }
   if (menuToggle && siteMenu) {
     menuToggle.addEventListener("click", function () {
       var isOpen = siteMenu.getAttribute("data-open") === "true";
       if (isOpen) { closeMenu(); } else { openMenu(); }
     });
-    siteMenu.querySelectorAll("[data-close-menu]").forEach(function (link) {
+    siteMenu.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
     document.addEventListener("click", function (e) {
