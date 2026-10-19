@@ -240,8 +240,8 @@ def menu_lang(c, space, light=False):
 def header(c):
     t = c.t
     nav = [
-        ("maite", "Cañitas Maite Restaurante", "Cañitas Maite Restaurante"),
-        ("fresco", "Al Fresco Rooftop", "Al Fresco Rooftop"),
+        ("maite", "Cañitas Maite<br>Restaurante", "Cañitas Maite<br>Restaurante"),
+        ("fresco", "Al Fresco<br>Rooftop", "Al Fresco<br>Rooftop"),
         ("desayunos", "Desayunos", "Breakfast"),
         ("eventos", "Eventos", "Events"),
     ]
