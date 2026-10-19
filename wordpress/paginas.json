@@ -216,6 +216,132 @@
   "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/corporate-events-malaga.html"
  },
  {
+  "key": "brunch",
+  "lang": "es",
+  "path": "/brunch-malaga/",
+  "slug": "brunch-malaga",
+  "parent": "",
+  "title": "Brunch en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/brunch-malaga.html"
+ },
+ {
+  "key": "brunch",
+  "lang": "en",
+  "path": "/en/brunch-malaga/",
+  "slug": "brunch-malaga",
+  "parent": "en",
+  "title": "Brunch in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/brunch-malaga.html"
+ },
+ {
+  "key": "desayunar",
+  "lang": "es",
+  "path": "/donde-desayunar-malaga-centro/",
+  "slug": "donde-desayunar-malaga-centro",
+  "parent": "",
+  "title": "Dónde desayunar en Málaga centro",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/donde-desayunar-malaga-centro.html"
+ },
+ {
+  "key": "desayunar",
+  "lang": "en",
+  "path": "/en/breakfast-malaga-old-town/",
+  "slug": "breakfast-malaga-old-town",
+  "parent": "en",
+  "title": "Breakfast in Málaga old town (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/breakfast-malaga-old-town.html"
+ },
+ {
+  "key": "hotelbreakfast",
+  "lang": "es",
+  "path": "/desayuno-hotel-malaga-sin-alojarse/",
+  "slug": "desayuno-hotel-malaga-sin-alojarse",
+  "parent": "",
+  "title": "Desayuno de hotel sin alojarse",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/desayuno-hotel-malaga-sin-alojarse.html"
+ },
+ {
+  "key": "hotelbreakfast",
+  "lang": "en",
+  "path": "/en/hotel-breakfast-malaga-non-guests/",
+  "slug": "hotel-breakfast-malaga-non-guests",
+  "parent": "en",
+  "title": "Hotel breakfast for non-guests (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/hotel-breakfast-malaga-non-guests.html"
+ },
+ {
+  "key": "cenaempresa",
+  "lang": "es",
+  "path": "/cena-de-empresa-malaga/",
+  "slug": "cena-de-empresa-malaga",
+  "parent": "",
+  "title": "Cena de empresa en Málaga",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/cena-de-empresa-malaga.html"
+ },
+ {
+  "key": "cenaempresa",
+  "lang": "en",
+  "path": "/en/company-dinner-malaga/",
+  "slug": "company-dinner-malaga",
+  "parent": "en",
+  "title": "Company dinner in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/company-dinner-malaga.html"
+ },
+ {
+  "key": "navidad",
+  "lang": "es",
+  "path": "/cena-navidad-empresa-malaga/",
+  "slug": "cena-navidad-empresa-malaga",
+  "parent": "",
+  "title": "Cena de Navidad de empresa",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/cena-navidad-empresa-malaga.html"
+ },
+ {
+  "key": "navidad",
+  "lang": "en",
+  "path": "/en/christmas-party-malaga/",
+  "slug": "christmas-party-malaga",
+  "parent": "en",
+  "title": "Christmas party in Málaga (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/christmas-party-malaga.html"
+ },
+ {
+  "key": "rooftopeventos",
+  "lang": "es",
+  "path": "/rooftop-para-eventos-malaga/",
+  "slug": "rooftop-para-eventos-malaga",
+  "parent": "",
+  "title": "Rooftop para eventos",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/rooftop-para-eventos-malaga.html"
+ },
+ {
+  "key": "rooftopeventos",
+  "lang": "en",
+  "path": "/en/rooftop-event-venue-malaga/",
+  "slug": "rooftop-event-venue-malaga",
+  "parent": "en",
+  "title": "Rooftop event venue (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/rooftop-event-venue-malaga.html"
+ },
+ {
+  "key": "reuniones",
+  "lang": "es",
+  "path": "/reuniones-coffee-break-malaga/",
+  "slug": "reuniones-coffee-break-malaga",
+  "parent": "",
+  "title": "Reuniones y coffee break",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/es/reuniones-coffee-break-malaga.html"
+ },
+ {
+  "key": "reuniones",
+  "lang": "en",
+  "path": "/en/meeting-venue-malaga/",
+  "slug": "meeting-venue-malaga",
+  "parent": "en",
+  "title": "Meetings & coffee breaks (EN)",
+  "file": "/Users/pablogarrido/Documents/MIGRACION-MAC/1-Proyectos/canitas-malaga/wordpress/03-paginas/en/meeting-venue-malaga.html"
+ },
+ {
   "key": "centro",
   "lang": "es",
   "path": "/restaurante-centro-malaga/",

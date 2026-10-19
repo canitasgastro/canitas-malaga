@@ -83,6 +83,14 @@ ROUTES = {
     "faq": ("preguntas-frecuentes/", "en/faq/"),
     "desayunos": ("desayunos-brunch-malaga/", "en/breakfast-brunch-malaga/"),
     "eventos": ("eventos-empresa-malaga/", "en/corporate-events-malaga/"),
+    # Subpáginas SEO de desayunos y eventos (fuera de la cabecera; enlazadas desde su página madre)
+    "brunch": ("brunch-malaga/", "en/brunch-malaga/"),
+    "desayunar": ("donde-desayunar-malaga-centro/", "en/breakfast-malaga-old-town/"),
+    "hotelbreakfast": ("desayuno-hotel-malaga-sin-alojarse/", "en/hotel-breakfast-malaga-non-guests/"),
+    "cenaempresa": ("cena-de-empresa-malaga/", "en/company-dinner-malaga/"),
+    "navidad": ("cena-navidad-empresa-malaga/", "en/christmas-party-malaga/"),
+    "rooftopeventos": ("rooftop-para-eventos-malaga/", "en/rooftop-event-venue-malaga/"),
+    "reuniones": ("reuniones-coffee-break-malaga/", "en/meeting-venue-malaga/"),
     # Páginas de búsqueda local (fuera del menú, enlazadas desde el pie)
     "centro": ("restaurante-centro-malaga/", "en/restaurant-malaga-old-town/"),
     "donde": ("donde-comer-en-malaga/", "en/where-to-eat-in-malaga/"),
@@ -625,6 +633,8 @@ def main():
     builders.update(landings.PAGES)
     builders.update(faq.PAGES)
     builders.update(experiences.PAGES)
+    import seo_pages
+    builders.update(seo_pages.PAGES)
 
     generated = []
     wp_rows = []
@@ -987,6 +997,13 @@ def _pages_md(lang, base):
         ("proyecto", t("la historia de los chefs y de Cañitas Maite", "the chefs and the Cañitas Maite story")),
         ("desayunos", t("desayuno y brunch de productores locales, abierto a quien no se aloja en el hotel", "local-producer breakfast and brunch, open to non-guests")),
         ("eventos", t("eventos de empresa: rooftop, salas interiores, cócteles, coffee breaks y cenas de gala", "corporate events: rooftop, indoor rooms, cocktails, coffee breaks and gala dinners")),
+        ("brunch", t("brunch en el centro de Málaga", "brunch in Málaga old town")),
+        ("desayunar", t("dónde desayunar en Málaga centro", "breakfast in Málaga old town")),
+        ("hotelbreakfast", t("desayuno de hotel sin alojarse", "hotel breakfast for non-guests")),
+        ("cenaempresa", t("cenas de empresa", "company dinners")),
+        ("navidad", t("cenas de Navidad de empresa", "company Christmas parties")),
+        ("rooftopeventos", t("rooftop para eventos frente a la Alcazaba", "rooftop event venue facing the Alcazaba")),
+        ("reuniones", t("reuniones y coffee breaks", "meetings and coffee breaks")),
         ("contacto", t("contacto y cómo llegar", "contact and directions")),
         ("centro", t("restaurante en el centro de Málaga", "restaurant in Málaga old town")),
         ("donde", t("dónde comer en Málaga", "where to eat in Málaga")),
@@ -994,8 +1011,8 @@ def _pages_md(lang, base):
         ("vistas", t("restaurante con vistas en Málaga", "restaurant with a view in Málaga")),
         ("rooftop", t("rooftop en Málaga", "rooftop bar in Málaga")),
     ]
-    import experiences, faq, landings, pages as pg
-    builders = dict(pg.PAGES, **landings.PAGES, **faq.PAGES, **experiences.PAGES)
+    import experiences, faq, landings, pages as pg, seo_pages
+    builders = dict(pg.PAGES, **landings.PAGES, **faq.PAGES, **experiences.PAGES, **seo_pages.PAGES)
     return "\n".join(f"- [{builders[k](Ctx(lang, 'wp', k))['nav_title']}]({base}/{ROUTES[k][i]}): {d}" for k, d in pages)
 
 

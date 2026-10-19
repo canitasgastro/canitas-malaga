@@ -1,4 +1,4 @@
-"""Desayunos/brunch y eventos de empresa (ES / EN). Están en la cabecera junto al
+"""Desayunos/brunch y eventos de empresa (ES / EN); sus subpáginas SEO están en seo_pages.py. Están en la cabecera junto al
 restaurante y el rooftop. No llevan la carta ni los precios: cuentan el plan y
 llevan al contacto.
 
@@ -12,9 +12,24 @@ from build import EMAIL, MAPS, PHONE, PHONE_TEL, breadcrumb_ld, page_hero, resta
 from landings import cards, facts, faq_block, faq_ld, split
 from pages import cta_band, gallery, mailto
 
-PRODUCERS = ["Obrador Máximo", "Sueño Bakery", "Fermento", "Al-Pan", "La Cremita", "El Rullo",
-             "Castillo de Canena", "Laguna de Fuentepiedra", "Frutas Eladio", "Cerdito Andaluz",
-             "Icarben", "Pinsapo Quesos", "Formaje", "Caraveruela", "Milo Sur"]
+
+
+DESAYUNOS_SUB = ("brunch", "desayunar", "hotelbreakfast")
+EVENTOS_SUB = ("cenaempresa", "navidad", "rooftopeventos", "reuniones")
+
+
+def related_block(c, keys, title):
+    """Enlaces a las subpáginas (fuera del menú) de desayunos o eventos."""
+    import seo_pages
+    lis = "".join(f'<li><a href="{c.link(k)}">{seo_pages.LABEL[k](c)}</a></li>' for k in keys)
+    return f"""  <section class="section">
+    <div class="section-inner">
+      <nav class="related" aria-label="{title}">
+        <p class="eyebrow eyebrow-dark">{title}</p>
+        <ul>{lis}</ul>
+      </nav>
+    </div>
+  </section>"""
 
 
 def section(inner, tint=False, extra_cls=""):
@@ -79,7 +94,6 @@ def desayunos(c):
          t(f'Escríbenos a <a href="{mailto(subject)}">{EMAIL}</a> o llámanos al {PHONE} y te lo preparamos. Para desayunos de trabajo y coffee breaks, mira <a href="{c.link("eventos")}">Eventos de empresa</a>.',
            f'Email us at <a href="{mailto(subject)}">{EMAIL}</a> or call {PHONE} and we will get it ready. For working breakfasts and coffee breaks, see <a href="{c.link("eventos")}">Corporate events</a>.')),
     ]
-    producers = "".join(f"<li>{p}</li>" for p in PRODUCERS)
     main = "\n\n".join([
         hero,
         split(c, t("Un plan único en la ciudad", "One of a kind in the city"), t("No hace falta dormir aquí para desayunar aquí", "You don't need to sleep here to have breakfast here"), [
@@ -103,9 +117,7 @@ def desayunos(c):
             ("desayuno-platos-calientes-cazuelas", t("La zona de calientes", "The hot station")),
             ("desayuno-omelette-cremosa", t("Omelette hecha al momento", "Omelette cooked to order")),
         ])),
-        section(head(t("Nuestros productores", "Our producers"), t("Nombres propios en cada mesa", "Real names on every table"),
-                     t("Obradores, granjas, almazaras y fruterías con las que trabajamos cada mañana.", "The bakeries, farms, olive mills and greengrocers we work with every morning."))
-                + f'\n      <ul class="producers">{producers}</ul>', tint=True),
+        related_block(c, DESAYUNOS_SUB, t("Más sobre el desayuno en Málaga", "More about breakfast in Málaga")),
         faq_block(c, faqs),
         cta_band(c, t("Mañana, desayuno en el centro", "Tomorrow, breakfast in the centre"),
                  t("Te esperamos en el hotel ME Málaga by Meliá, Calle Victoria 6, junto a la Plaza de la Merced.", "See you at ME Málaga by Meliá, Calle Victoria 6, next to Plaza de la Merced."),
@@ -214,6 +226,7 @@ def eventos(c):
       </ol>
     </div>
   </section>""",
+        related_block(c, EVENTOS_SUB, t("Más sobre eventos en Málaga", "More about events in Málaga")),
         faq_block(c, faqs),
         cta_band(c, t("¿Tienes una fecha?", "Got a date?"),
                  t(f'Escríbenos a <a href="{mailto(subject)}">{EMAIL}</a> o llámanos al <a href="tel:{PHONE_TEL}">{PHONE}</a>.',
